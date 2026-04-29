@@ -24,33 +24,40 @@
     --ring: 115 53% 35%;
     --radius: 0.625rem;
   }
-
-  * { @apply border-border; }
-
+  * { @apply border-border; box-sizing: border-box; }
   body {
     @apply bg-background text-foreground;
     font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
-
-  h1, h2, h3, h4, h5, h6 {
-    letter-spacing: -0.025em;
-  }
+  h1,h2,h3,h4,h5,h6 { letter-spacing: -0.025em; }
 }
 
 @layer utilities {
-  .font-serif-italic {
-    font-family: 'Instrument Serif', Georgia, serif;
-    font-style: italic;
-  }
-  .tracking-tight-2 {
-    letter-spacing: -0.02em;
-  }
+  .font-serif-italic { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; }
+  .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
 }
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #d4d4d0; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #b8b8b2; }
+
+/* Print styles for invoice */
+@media print {
+  .no-print { display: none !important; }
+  .print-only { display: block !important; }
+  body { background: white; }
+}
+.print-only { display: none; }
+
+/* Smooth page transitions */
+.page-enter { opacity: 0; transform: translateY(6px); }
+.page-enter-active { opacity: 1; transform: none; transition: all 0.2s ease; }
+
+/* Mobile tap highlight */
+* { -webkit-tap-highlight-color: transparent; }
+
+/* Touch scrolling */
+.scroll-smooth { -webkit-overflow-scrolling: touch; }
