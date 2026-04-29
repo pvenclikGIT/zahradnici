@@ -1,9 +1,11 @@
-import { createContext, useContext, useState, useCallback } from 'react'
+import { createContext, useContext, useState, useCallback, useMemo } from 'react'
 import { defaultClients, defaultOrders, defaultInvoices, defaultServices } from '../data'
+import { useAutoNotifications } from './useNotifications'
+import { useRecurring } from './useRecurring'
 
 const KEY = 'zp3_'
-const load = (k, fb) => { try { const d = localStorage.getItem(KEY+k); return d ? JSON.parse(d) : fb } catch { return fb } }
-const save = (k, v)  => { try { localStorage.setItem(KEY+k, JSON.stringify(v)) } catch {} }
+const load = (k, fb) => { try { const d=localStorage.getItem(KEY+k); return d?JSON.parse(d):fb } catch { return fb } }
+const save = (k, v) => { try { localStorage.setItem(KEY+k,JSON.stringify(v)) } catch {} }
 
 const AppContext = createContext(null)
 
@@ -12,60 +14,69 @@ export function AppProvider({ children }) {
   const [orders,   setOrdersRaw]   = useState(() => load('orders',   defaultOrders))
   const [invoices, setInvoicesRaw] = useState(() => load('invoices', defaultInvoices))
   const [services, setServicesRaw] = useState(() => load('services', defaultServices))
+  // Manual read state overlay
+  const [readIds, setReadIds] = useState(() => load('readNotifIds', []))
 
-  const set = (fn, key) => v => { fn(v); save(key, v) }
-  const setClients  = useCallback(set(setClientsRaw,  'clients'),  [])
-  const setOrders   = useCallback(set(setOrdersRaw,   'orders'),   [])
-  const setInvoices = useCallback(set(setInvoicesRaw, 'invoices'), [])
-  const setServices = useCallback(set(setServicesRaw, 'services'), [])
+  const mk = (raw, key) => useCallback(v => { raw(v); save(key, v) }, [])
+  const setClients  = mk(setClientsRaw,  'clients')
+  const setOrders   = mk(setOrdersRaw,   'orders')
+  const setInvoices = mk(setInvoicesRaw, 'invoices')
+  const setServices = mk(setServicesRaw, 'services')
 
-  const getClient = useCallback(id => clients.find(c => c.id === id),  [clients])
-  const getOrder  = useCallback(id => orders.find(o => o.id === id),   [orders])
+  // Live generated notifications
+  const rawNotifications = useAutoNotifications(clients, orders, invoices)
+  const notifications = useMemo(() =>
+    rawNotifications.map(n => ({ ...n, read: readIds.includes(n.id) || n.read }))
+  , [rawNotifications, readIds])
+  const unreadCount = notifications.filter(n => !n.read).length
 
-  // Clients
-  const addClient    = useCallback(c => setClients([{ ...c, id: Date.now() }, ...clients]), [clients, setClients])
-  const updateClient = useCallback(c => setClients(clients.map(x => x.id === c.id ? c : x)), [clients, setClients])
-  const deleteClient = useCallback(id => setClients(clients.filter(c => c.id !== id)), [clients, setClients])
+  const markNotifRead    = useCallback(id => { const next=[...readIds,id]; setReadIds(next); save('readNotifIds',next) }, [readIds])
+  const markAllNotifsRead = useCallback(() => { const next=notifications.map(n=>n.id); setReadIds(next); save('readNotifIds',next) }, [notifications])
 
-  // Orders
-  const addOrder    = useCallback(o => setOrders([{ ...o, id: Date.now() }, ...orders]), [orders, setOrders])
-  const updateOrder = useCallback(o => setOrders(orders.map(x => x.id === o.id ? o : x)), [orders, setOrders])
-  const deleteOrder = useCallback(id => setOrders(orders.filter(o => o.id !== id)), [orders, setOrders])
+  const getClient = useCallback(id => clients.find(c=>c.id===id), [clients])
+  const getOrder  = useCallback(id => orders.find(o=>o.id===id),  [orders])
 
-  // Invoices
-  const addInvoice      = useCallback(i => setInvoices([i, ...invoices]), [invoices, setInvoices])
-  const markInvoicePaid = useCallback(id => setInvoices(invoices.map(i =>
-    i.id === id ? { ...i, paid: true, paidDate: new Date().toISOString().split('T')[0] } : i
-  )), [invoices, setInvoices])
-  const deleteInvoice   = useCallback(id => setInvoices(invoices.filter(i => i.id !== id)), [invoices, setInvoices])
+  const addClient    = useCallback(c => setClients([{...c,id:Date.now()},...clients]), [clients,setClients])
+  const updateClient = useCallback(c => setClients(clients.map(x=>x.id===c.id?c:x)), [clients,setClients])
+  const deleteClient = useCallback(id => setClients(clients.filter(c=>c.id!==id)), [clients,setClients])
 
-  // Services
-  const addService    = useCallback(s => setServices([...services, { ...s, id: 'svc-'+Date.now() }]), [services, setServices])
-  const updateService = useCallback(s => setServices(services.map(x => x.id === s.id ? s : x)), [services, setServices])
-  const deleteService = useCallback(id => setServices(services.filter(s => s.id !== id)), [services, setServices])
+  const addOrder    = useCallback(o => setOrders([{...o,id:Date.now()},...orders]), [orders,setOrders])
+  const updateOrder = useCallback(o => setOrders(orders.map(x=>x.id===o.id?o:x)), [orders,setOrders])
+  const deleteOrder = useCallback(id => setOrders(orders.filter(o=>o.id!==id)), [orders,setOrders])
+
+  const addInvoice      = useCallback(i => setInvoices([i,...invoices]), [invoices,setInvoices])
+  const markInvoicePaid = useCallback(id => setInvoices(invoices.map(i=>i.id===id?{...i,paid:true,paidDate:new Date().toISOString().split('T')[0]}:i)), [invoices,setInvoices])
+  const deleteInvoice   = useCallback(id => setInvoices(invoices.filter(i=>i.id!==id)), [invoices,setInvoices])
+
+  const addService    = useCallback(s => setServices([...services,{...s,id:'svc-'+Date.now()}]), [services,setServices])
+  const updateService = useCallback(s => setServices(services.map(x=>x.id===s.id?s:x)), [services,setServices])
+  const deleteService = useCallback(id => setServices(services.filter(s=>s.id!==id)), [services,setServices])
+
+  // Auto-create recurring orders
+  useRecurring(orders, addOrder)
 
   const nextInvoiceNum = useCallback(() => {
     const y = new Date().getFullYear()
-    const n = invoices.filter(i => i.id.startsWith(String(y))).length + 1
+    const n = invoices.filter(i=>i.id.startsWith(String(y))).length+1
     return `${y}${String(n).padStart(3,'0')}`
   }, [invoices])
 
-  // Reset to demo data
   const resetDemo = useCallback(() => {
-    setClients(defaultClients)
-    setOrders(defaultOrders)
-    setInvoices(defaultInvoices)
-    setServices(defaultServices)
+    setClients(defaultClients); setOrders(defaultOrders)
+    setInvoices(defaultInvoices); setServices(defaultServices)
+    setReadIds([]); save('readNotifIds',[])
   }, [])
 
   return (
     <AppContext.Provider value={{
       clients, orders, invoices, services,
+      notifications, unreadCount,
       getClient, getOrder,
       addClient, updateClient, deleteClient,
       addOrder, updateOrder, deleteOrder,
       addInvoice, markInvoicePaid, deleteInvoice,
       addService, updateService, deleteService,
+      markNotifRead, markAllNotifsRead,
       nextInvoiceNum, resetDemo,
     }}>
       {children}

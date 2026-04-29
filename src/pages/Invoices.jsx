@@ -3,7 +3,8 @@ import { useSearchParams } from 'react-router-dom'
 import { useApp } from '../hooks/useApp'
 import { formatCurrency, formatDate, business } from '../data'
 import { Card, CardContent, CardHeader, CardTitle, StatCard, Button, Input, Select, PillTabs, EmptyState, Dialog, FormField, Textarea, ConfirmDialog, toast } from '../components/ui'
-import { Plus, Receipt, CheckCircle, Clock, AlertCircle, Printer, Mail, X, Download, Eye } from 'lucide-react'
+import { Plus, Receipt, CheckCircle, Clock, AlertCircle, Printer, Mail, X, Download, Eye, FileText } from 'lucide-react'
+import { generateInvoicePdf } from '../lib/generatePdf'
 import { cn } from '../lib/utils'
 
 export function Invoices() {
@@ -13,6 +14,7 @@ export function Invoices() {
   const [previewId, setPreviewId] = useState(null)
   const [newOpen, setNewOpen] = useState(false)
   const [deleteId, setDeleteId] = useState(null)
+  const [smsOffer, setSmsOffer] = useState(null) // { clientId, amount }
   const [form, setForm] = useState({ clientId:'', date:new Date().toISOString().split('T')[0], dueDate:'', amount:'', notes:'' })
   const printRef = useRef()
   const today = new Date()
@@ -53,6 +55,12 @@ export function Invoices() {
     setTimeout(() => setPreviewId(inv.id), 400)
   }
 
+  function handlePdf() {
+    if (!previewInv) return
+    const c = getClient(previewInv.clientId)
+    generateInvoicePdf(previewInv, c, business)
+    toast('PDF faktura stažena')
+  }
   function handlePrint() {
     window.print()
   }
@@ -108,7 +116,7 @@ export function Invoices() {
                             <span className={cn('inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold border', isOverdue?'bg-red-50 text-red-700 border-red-200':'bg-amber-50 text-amber-700 border-amber-200')}>
                               <span className={cn('w-1.5 h-1.5 rounded-full',isOverdue?'bg-destructive':'bg-amber-500')}/>{isOverdue?'Po splatnosti':'Čeká'}
                             </span>
-                            <Button variant="primary" size="sm" onClick={()=>{markInvoicePaid(inv.id);toast('Faktura zaplacena')}}>Zaplaceno</Button>
+                            <Button variant="primary" size="sm" onClick={()=>{markInvoicePaid(inv.id);const cl=getClient(inv.clientId);setSmsOffer({clientId:inv.clientId,name:cl?.name,phone:cl?.phone,amount:inv.amount});toast('Faktura zaplacena')}}>Zaplaceno</Button>
                           </div>
                         )}
                       </td>
@@ -176,6 +184,7 @@ export function Invoices() {
               <h2 className="font-bold tracking-tight mt-1 sm:mt-0">Faktura #{previewInv.id}</h2>
               <div className="flex gap-2">
                 <Button size="sm" onClick={()=>{toast('Faktura odeslána emailem');setPreviewId(null)}} className="hidden sm:flex gap-1"><Mail size={12}/>Odeslat</Button>
+                <Button size="sm" onClick={handlePdf} className="gap-1"><Download size={12}/>PDF</Button>
                 <Button size="sm" onClick={handlePrint} className="gap-1"><Printer size={12}/>Tisknout</Button>
                 <button onClick={()=>setPreviewId(null)} className="w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-accent"><X size={14}/></button>
               </div>
@@ -265,6 +274,25 @@ export function Invoices() {
                 <p className="text-xs text-muted-foreground">Variabilní symbol: {previewInv.id}</p>
                 <p className={cn('text-xs font-semibold mt-1', previewInv.paid?'text-green-600':'text-amber-600')}>{previewInv.paid?'✓ ZAPLACENO':'⏳ ČEKÁ NA PLATBU'}</p>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+
+      {/* SMS offer after payment */}
+      {smsOffer && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={() => setSmsOffer(null)}/>
+          <div className="relative bg-white rounded-2xl border border-border shadow-2xl p-6 max-w-sm w-full">
+            <h3 className="font-bold text-base mb-1">Odeslat poděkování?</h3>
+            <p className="text-sm text-muted-foreground mb-4">{smsOffer.name} zaplatil. Chcete odeslat SMS s poděkováním?</p>
+            <div className="bg-muted/50 rounded-xl p-3 mb-5 text-sm text-muted-foreground italic">
+              "Dobrý den, děkujeme za platbu {new Intl.NumberFormat('cs-CZ',{style:'currency',currency:'CZK',maximumFractionDigits:0}).format(smsOffer?.amount||0)}. Těšíme se na příští spolupráci! — ZahradaPro"
+            </div>
+            <div className="flex gap-3">
+              <Button className="flex-1" onClick={() => setSmsOffer(null)}>Přeskočit</Button>
+              <Button variant="primary" className="flex-1" onClick={() => { toast('SMS poděkování odesláno'); setSmsOffer(null) }}>Odeslat SMS</Button>
             </div>
           </div>
         </div>

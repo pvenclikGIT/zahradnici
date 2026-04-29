@@ -1,7 +1,7 @@
 import { cn } from '../../lib/utils'
 import { getInitials, TAG_STYLES, STATUS_STYLES } from '../../data'
 import { useState, useEffect, forwardRef, useRef } from 'react'
-import { X, Check, AlertTriangle, Info, ChevronDown } from 'lucide-react'
+import { X, Check, AlertTriangle, Info, ChevronDown, Leaf } from 'lucide-react'
 
 // ── Button ────────────────────────────────────
 const bv = {
@@ -232,12 +232,12 @@ export function ConfirmDialog({ open, onClose, onConfirm, title, description, co
 
 // ── Onboarding Tour ───────────────────────────
 const tourSteps = [
-  { title:'Vítejte v ZahradaPro! 🌿', desc:'Toto je demo verze aplikace pro správu zahradnické firmy. Pojďme si ukázat co vše umí.', icon:'🌿' },
-  { title:'Dashboard', desc:'Přehled příjmů, dnešní zakázky, top klienti a aktivity. Vše na jednom místě.', icon:'📊' },
-  { title:'Klienti', desc:'Kompletní CRM — přidávejte klienty, sledujte historii zakázek, ukládejte poznámky (pes, kód branky…).', icon:'👥' },
-  { title:'Checklist prací', desc:'Terénní formulář pro zahradníka — výběr prací s množstvím, automatický výpočet ceny a timer.', icon:'✅' },
-  { title:'Faktury', desc:'Automatické vystavení faktury po dokončení zakázky. Náhled, tisk, nebo odeslání emailem.', icon:'🧾' },
-  { title:'Jste připraveni!', desc:'Vyzkoušejte si přidat klienta, vytvořit zakázku a projít celý flow. Data se dají kdykoliv resetovat.', icon:'🚀' },
+  { title:'Vítejte v ZahradaPro', desc:'Toto je demo verze aplikace pro správu zahradnické firmy. Pojďme si ukázat co vše umí.', icon:'' },
+  { title:'Dashboard', desc:'Přehled příjmů, dnešní zakázky, top klienti a aktivity. Vše na jednom místě.', icon:'' },
+  { title:'Klienti', desc:'Kompletní CRM — přidávejte klienty, sledujte historii zakázek, ukládejte poznámky (pes, kód branky…).', icon:'' },
+  { title:'Checklist prací', desc:'Terénní formulář pro zahradníka — výběr prací s množstvím, automatický výpočet ceny a timer.', icon:'' },
+  { title:'Faktury', desc:'Automatické vystavení faktury po dokončení zakázky. Náhled, tisk, nebo odeslání emailem.', icon:'' },
+  { title:'Jste připraveni!', desc:'Vyzkoušejte si přidat klienta, vytvořit zakázku a projít celý flow. Data se dají kdykoliv resetovat.', icon:'' },
 ]
 
 export function OnboardingTour({ onComplete }) {
@@ -250,7 +250,7 @@ export function OnboardingTour({ onComplete }) {
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"/>
       <div className="relative bg-white rounded-2xl border border-border shadow-2xl p-6 max-w-sm w-full">
         <div className="text-center mb-5">
-          <div className="text-4xl mb-3">{current.icon}</div>
+          <div className="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center mx-auto mb-4"><Leaf size={20} className="text-green-600"/></div>
           <h3 className="font-bold text-lg mb-2">{current.title}</h3>
           <p className="text-sm text-muted-foreground leading-relaxed">{current.desc}</p>
         </div>
@@ -263,11 +263,51 @@ export function OnboardingTour({ onComplete }) {
         <div className="flex gap-3">
           {step > 0 && <Button className="flex-1" onClick={() => setStep(s=>s-1)}>← Zpět</Button>}
           <Button variant="primary" className="flex-1" onClick={() => isLast ? onComplete() : setStep(s=>s+1)}>
-            {isLast ? 'Začít používat 🚀' : 'Další →'}
+            {isLast ? 'Začít používat' : 'Další →'}
           </Button>
         </div>
         <button onClick={onComplete} className="mt-3 w-full text-xs text-muted-foreground hover:text-foreground text-center py-1">Přeskočit průvodce</button>
       </div>
     </div>
+  )
+}
+
+// ── Skeleton ──────────────────────────────────
+export function Skeleton({ className }) {
+  return <div className={cn('animate-pulse bg-gray-100 rounded-lg', className)}/>
+}
+export function SkeletonCard() {
+  return (
+    <Card>
+      <CardContent className="p-4 space-y-3">
+        <div className="flex items-center gap-3">
+          <Skeleton className="w-10 h-10 rounded-full flex-shrink-0"/>
+          <div className="flex-1 space-y-2">
+            <Skeleton className="h-4 w-2/3"/>
+            <Skeleton className="h-3 w-1/2"/>
+          </div>
+        </div>
+        <div className="space-y-2">
+          <Skeleton className="h-3 w-full"/>
+          <Skeleton className="h-3 w-4/5"/>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
+// ── Dark mode toggle ──────────────────────────
+export function DarkModeToggle() {
+  const [dark, setDark] = useState(() => localStorage.getItem('zp3_dark')==='1')
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', dark)
+    localStorage.setItem('zp3_dark', dark ? '1' : '0')
+  }, [dark])
+  return (
+    <label className="relative w-10 h-[22px] flex-shrink-0 cursor-pointer touch-manipulation">
+      <input type="checkbox" checked={dark} onChange={e=>setDark(e.target.checked)} className="sr-only peer"/>
+      <div className="absolute inset-0 rounded-full bg-gray-200 peer-checked:bg-primary transition-colors"/>
+      <div className="absolute w-4 h-4 bg-white rounded-full top-[3px] left-[3px] shadow-sm transition-transform peer-checked:translate-x-[18px]"/>
+    </label>
   )
 }

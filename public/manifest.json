@@ -1,0 +1,23 @@
+{
+  "name": "ZahradaPro — Správa zakázek",
+  "short_name": "ZahradaPro",
+  "description": "Správa zahradnické firmy — zakázky, klienti, faktury",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f6f6f4",
+  "theme_color": "#348529",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "business",
+    "productivity"
+  ],
+  "lang": "cs"
+}

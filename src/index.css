@@ -61,3 +61,22 @@
 
 /* Touch scrolling */
 .scroll-smooth { -webkit-overflow-scrolling: touch; }
+
+/* Dark mode */
+.dark {
+  --background: 222 20% 10%;
+  --foreground: 60 5% 92%;
+  --card: 222 20% 13%;
+  --card-foreground: 60 5% 92%;
+  --border: 222 15% 20%;
+  --input: 222 15% 20%;
+  --primary: 115 45% 45%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 222 15% 18%;
+  --secondary-foreground: 60 5% 85%;
+  --muted: 222 15% 18%;
+  --muted-foreground: 60 3% 55%;
+  --accent: 222 15% 18%;
+  --accent-foreground: 60 5% 92%;
+}
+.dark body { color-scheme: dark; }
