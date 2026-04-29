@@ -14,7 +14,7 @@ import {
   Plus, Menu, X, Leaf, Search, LogOut, UserCircle
 } from 'lucide-react'
 
-const VERSION = 'v1.9.0'
+const VERSION = 'v2.0.0'
 
 const pageTitles = {
   '/':'Dashboard', '/calendar':'Kalendář', '/orders':'Zakázky',
