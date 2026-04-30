@@ -248,7 +248,7 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 xl:grid-cols-[1fr_360px] gap-5">
         <Card>
           <CardHeader>
-            <CardTitle>Příjmy 2024</CardTitle>
+            <CardTitle>Příjmy 2025–2026</CardTitle>
             <span className="text-xs text-muted-foreground">{formatCurrency(monthRevenue)} celkem</span>
           </CardHeader>
           <CardContent className="pt-2 px-4 pb-5">
