@@ -336,8 +336,8 @@ export function Calendar() {
       {/* ── DAY MODAL ── */}
       {dayModal && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4">
-          <div className="absolute inset-0 bg-black/35 backdrop-blur-sm" onClick={() => setDayModal(null)}/>
-          <div className="relative bg-white w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl shadow-2xl flex flex-col max-h-[88vh]">
+          <div className="absolute inset-0 bg-black/50 " onClick={() => setDayModal(null)}/>
+          <div className="relative bg-white w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl shadow-2xl flex flex-col max-h-[88svh]">
             <div className="px-5 py-4 border-b border-border flex-shrink-0">
               <div className="w-8 h-1 rounded-full bg-gray-200 mx-auto mb-3 sm:hidden"/>
               <div className="flex items-center justify-between">

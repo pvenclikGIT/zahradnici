@@ -70,9 +70,9 @@ export function GlobalSearch({ onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-start justify-center pt-16 sm:pt-24 px-4">
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose}/>
-      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg border border-border overflow-hidden">
+    <div className="fixed inset-0 z-[80] flex items-end sm:items-start justify-center sm:pt-24 px-0 sm:px-4">
+      <div className="absolute inset-0 bg-black/50 " onClick={onClose}/>
+      <div className="relative bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl w-full sm:max-w-lg border border-border overflow-hidden">
         {/* Input */}
         <div className="flex items-center gap-3 px-4 py-3.5 border-b border-border">
           <Search size={16} className="text-muted-foreground flex-shrink-0"/>
@@ -161,7 +161,7 @@ export function KeyboardShortcutsHelp({ onClose }) {
   ]
   return (
     <div className="fixed inset-0 z-[80] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose}/>
+      <div className="absolute inset-0 bg-black/50 " onClick={onClose}/>
       <div className="relative bg-white rounded-2xl shadow-2xl border border-border p-6 max-w-sm w-full">
         <div className="flex items-center justify-between mb-5">
           <h2 className="font-bold tracking-tight">Klávesové zkratky</h2>

@@ -14,7 +14,7 @@ import {
   Plus, Menu, X, Leaf, Search, LogOut, UserCircle
 } from 'lucide-react'
 
-const VERSION = 'v2.0.0'
+const VERSION = 'v2.0.1'
 
 const pageTitles = {
   '/':'Dashboard', '/calendar':'Kalendář', '/orders':'Zakázky',
@@ -149,7 +149,7 @@ export default function Layout({ children }) {
       {/* Mobile sidebar */}
       {mobileOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
-          <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={() => setMobileOpen(false)}/>
+          <div className="absolute inset-0 bg-black/50 " onClick={() => setMobileOpen(false)}/>
           <div className="absolute left-0 top-0 bottom-0 w-[280px] bg-white shadow-2xl flex flex-col">
             <div className="flex items-center justify-between px-4 pt-4 pb-1">
               <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Menu</span>
@@ -162,7 +162,7 @@ export default function Layout({ children }) {
 
       <div className="flex-1 lg:ml-[260px] flex flex-col min-h-screen">
         {/* Topbar */}
-        <header className="sticky top-0 z-20 h-14 bg-white/95 backdrop-blur-sm border-b border-border flex items-center justify-between px-4 lg:px-6 gap-3">
+        <header className="sticky top-0 z-20 h-14 bg-white/95  border-b border-border flex items-center justify-between px-4 lg:px-6 gap-3">
           <div className="flex items-center gap-3">
             <button onClick={() => setMobileOpen(true)} className="lg:hidden p-2 rounded-xl text-muted-foreground hover:bg-accent touch-manipulation">
               <Menu size={18}/>
@@ -207,7 +207,7 @@ export default function Layout({ children }) {
         </main>
 
         {/* Mobile bottom nav — filtered by permissions */}
-        <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-border z-20" style={{paddingBottom:'env(safe-area-inset-bottom)'}}>
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95  border-t border-border z-20" style={{paddingBottom:'env(safe-area-inset-bottom)'}}>
           <div className="flex items-center">
             {[
               { to:'/', icon:LayoutDashboard, label:'Přehled',   perm:'dashboard'  },

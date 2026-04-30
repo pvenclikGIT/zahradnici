@@ -176,8 +176,8 @@ export function Invoices() {
       {/* Invoice Preview Modal */}
       {previewInv && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4">
-          <div className="absolute inset-0 bg-black/35 backdrop-blur-sm" onClick={()=>setPreviewId(null)}/>
-          <div className="relative bg-white w-full sm:max-w-2xl max-h-[92vh] sm:max-h-[88vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl shadow-2xl" ref={printRef}>
+          <div className="absolute inset-0 bg-black/50 " onClick={()=>setPreviewId(null)}/>
+          <div className="relative bg-white w-full sm:max-w-2xl max-h-[88svh] sm:max-h-[88svh] overflow-y-auto rounded-t-2xl sm:rounded-2xl shadow-2xl" ref={printRef}>
             {/* Header */}
             <div className="no-print flex items-center justify-between px-5 sm:px-6 py-4 border-b border-border sticky top-0 bg-white z-10 rounded-t-2xl">
               <div className="absolute top-2 left-1/2 -translate-x-1/2 w-8 h-1 rounded-full bg-gray-200 sm:hidden"/>
@@ -191,7 +191,7 @@ export function Invoices() {
             </div>
 
             {/* Invoice content */}
-            <div className="p-4 sm:p-6" id="invoice-print">
+            <div className="p-4 sm:p-6 overflow-y-auto flex-1" id="invoice-print" style={{WebkitOverflowScrolling:'touch'}}>
               {/* Dark header */}
               <div className="bg-gray-900 rounded-xl p-5 sm:p-6 text-white mb-5 sm:mb-6">
                 <div className="flex justify-between items-start gap-4 flex-wrap">
@@ -283,7 +283,7 @@ export function Invoices() {
       {/* SMS offer after payment */}
       {smsOffer && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={() => setSmsOffer(null)}/>
+          <div className="absolute inset-0 bg-black/50 " onClick={() => setSmsOffer(null)}/>
           <div className="relative bg-white rounded-2xl border border-border shadow-2xl p-6 max-w-sm w-full">
             <h3 className="font-bold text-base mb-1">Odeslat poděkování?</h3>
             <p className="text-sm text-muted-foreground mb-4">{smsOffer.name} zaplatil. Chcete odeslat SMS s poděkováním?</p>

@@ -131,7 +131,7 @@ export default function Clients() {
       {/* Detail Panel */}
       {detailClient && (
         <div className="fixed inset-0 z-40">
-          <div className="absolute inset-0 bg-black/25 backdrop-blur-sm" onClick={() => setDetailId(null)}/>
+          <div className="absolute inset-0 bg-black/50 " onClick={() => setDetailId(null)}/>
           <div className="absolute right-0 top-0 bottom-0 w-full max-w-[420px] bg-white border-l border-border shadow-2xl flex flex-col overflow-y-auto">
             <div className="sticky top-0 bg-white z-10 flex items-center justify-between px-5 py-4 border-b border-border">
               <p className="text-sm font-semibold">Detail klienta</p>
@@ -292,7 +292,7 @@ export default function Clients() {
       {/* First order offer */}
       {firstOrderOffer && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={() => setFirstOrderOffer(null)}/>
+          <div className="absolute inset-0 bg-black/50 " onClick={() => setFirstOrderOffer(null)}/>
           <div className="relative bg-white rounded-2xl border border-border shadow-2xl p-6 max-w-sm w-full">
             <h3 className="font-bold text-base mb-1">Vytvořit první zakázku?</h3>
             <p className="text-sm text-muted-foreground mb-5">

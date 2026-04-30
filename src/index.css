@@ -80,3 +80,39 @@
   --accent-foreground: 60 5% 92%;
 }
 .dark body { color-scheme: dark; }
+
+/* iOS Safari fixes */
+html {
+  -webkit-text-size-adjust: 100%;
+  height: -webkit-fill-available;
+}
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+/* Prevent iOS bounce scroll behind modal */
+.modal-open {
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
+}
+/* iOS safe area for modals */
+.modal-footer {
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
+}
+/* Remove iOS input zoom */
+input, select, textarea {
+  font-size: 16px !important;
+}
+@media (min-width: 640px) {
+  input, select, textarea {
+    font-size: 14px !important;
+  }
+}
+
+/* iOS zoom fix — inputs must be min 16px */
+@media screen and (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}

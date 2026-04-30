@@ -129,23 +129,34 @@ export function EmptyState({ icon: Icon, title, description, action }) {
 // ── Dialog / Modal ────────────────────────────
 export function Dialog({ open, onClose, title, children, footer, wide }) {
   useEffect(() => {
-    if (open) document.body.style.overflow = 'hidden'
-    else document.body.style.overflow = ''
-    return () => { document.body.style.overflow = '' }
+    if (open) {
+      document.body.style.overflow = 'hidden'
+      document.body.style.position = 'fixed'
+      document.body.style.width = '100%'
+    } else {
+      document.body.style.overflow = ''
+      document.body.style.position = ''
+      document.body.style.width = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+      document.body.style.position = ''
+      document.body.style.width = ''
+    }
   }, [open])
 
   if (!open) return null
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4">
-      <div className="absolute inset-0 bg-black/35 backdrop-blur-sm" onClick={onClose}/>
-      <div className={cn('relative bg-white w-full flex flex-col max-h-[92vh] sm:max-h-[88vh] rounded-t-2xl sm:rounded-2xl border border-border shadow-2xl', wide ? 'sm:max-w-2xl' : 'sm:max-w-lg')}>
+      <div className="absolute inset-0 bg-black/50" onClick={onClose}/>
+      <div className={cn('relative bg-white w-full flex flex-col rounded-t-2xl sm:rounded-2xl border border-border shadow-2xl', wide ? 'sm:max-w-2xl' : 'sm:max-w-lg')} style={{maxHeight:'min(92vh, 680px)'}}>
         <div className="flex items-center justify-between px-5 sm:px-6 py-4 sm:py-5 border-b border-border sticky top-0 bg-white z-10 rounded-t-2xl">
           {/* Mobile drag indicator */}
           <div className="absolute top-2 left-1/2 -translate-x-1/2 w-8 h-1 rounded-full bg-gray-200 sm:hidden"/>
           <h2 className="text-base sm:text-lg font-bold tracking-tight mt-1 sm:mt-0">{title}</h2>
           <button onClick={onClose} className="w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-accent transition-colors touch-manipulation"><X size={14}/></button>
         </div>
-        <div className="overflow-y-auto flex-1 px-5 sm:px-6 py-4 sm:py-5 flex flex-col gap-4 scroll-smooth">{children}</div>
+        <div className="overflow-y-auto flex-1 px-5 sm:px-6 py-4 sm:py-5 flex flex-col gap-4" style={{WebkitOverflowScrolling:"touch"}}>{children}</div>
         {footer && <div className="px-5 sm:px-6 py-4 border-t border-border flex gap-3 justify-end bg-white rounded-b-2xl sticky bottom-0 safe-bottom">{footer}</div>}
       </div>
     </div>
@@ -217,7 +228,7 @@ export function ConfirmDialog({ open, onClose, onConfirm, title, description, co
   if (!open) return null
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose}/>
+      <div className="absolute inset-0 bg-black/50" onClick={onClose}/>
       <div className="relative bg-white rounded-2xl border border-border shadow-2xl p-6 max-w-sm w-full">
         <h3 className="font-bold text-base mb-2">{title}</h3>
         {description && <p className="text-sm text-muted-foreground mb-5">{description}</p>}
@@ -247,7 +258,7 @@ export function OnboardingTour({ onComplete }) {
 
   return (
     <div className="fixed inset-0 z-[70] flex items-end sm:items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"/>
+      <div className="absolute inset-0 bg-black/50"/>
       <div className="relative bg-white rounded-2xl border border-border shadow-2xl p-6 max-w-sm w-full">
         <div className="text-center mb-5">
           <div className="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center mx-auto mb-4"><Leaf size={20} className="text-green-600"/></div>
