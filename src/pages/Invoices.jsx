@@ -68,7 +68,7 @@ export function Invoices() {
   return (
     <div className="space-y-5">
       {/* Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
         <StatCard label="Zaplaceno" value={formatCurrency(totalPaid)} subVariant="up" sub={`${invoices.filter(i=>i.paid).length} faktur`} icon={CheckCircle}/>
         <StatCard label="Čeká" value={formatCurrency(totalPending)} sub={`${invoices.filter(i=>!i.paid).length} faktur`} icon={Clock}/>
         <StatCard label="Po splatnosti" value={formatCurrency(totalOverdue)} subVariant={totalOverdue>0?'down':undefined} color={totalOverdue>0?'text-destructive':undefined} icon={AlertCircle}/>
@@ -76,10 +76,11 @@ export function Invoices() {
       </div>
 
       {/* Toolbar */}
-      <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-        <PillTabs tabs={tabs} active={filter} onChange={setFilter} className="w-full sm:w-auto"/>
-        <div className="flex-1"/>
-        <Button variant="primary" size="sm" onClick={() => setNewOpen(true)}><Plus size={14}/>Nová faktura</Button>
+      <div className="flex flex-col gap-3">
+        <div className="flex items-center justify-between gap-2">
+        <PillTabs tabs={tabs} active={filter} onChange={setFilter} className="flex-1 overflow-x-auto"/>
+        <Button variant="primary" size="sm" onClick={() => setNewOpen(true)} className="flex-shrink-0"><Plus size={14}/><span className="hidden sm:inline">Nová faktura</span><span className="sm:hidden">Nová</span></Button>
+        </div>
       </div>
 
       {/* Table — desktop */}
@@ -145,26 +146,31 @@ export function Invoices() {
           return (
             <Card key={inv.id} onClick={()=>setPreviewId(inv.id)}>
               <CardContent className="p-4">
-                <div className="flex items-start justify-between gap-3 mb-2">
-                  <div>
-                    <p className="font-bold text-primary text-sm">#{inv.id}</p>
-                    <p className="font-semibold">{c?.name||'—'}</p>
-                    <p className="text-xs text-muted-foreground">{formatDate(inv.date)} → {formatDate(inv.dueDate)}</p>
-                  </div>
-                  <div className="text-right flex-shrink-0">
-                    <p className="font-bold text-base">{formatCurrency(inv.amount)}</p>
-                    {inv.paid ? (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-green-50 text-green-700 border border-green-200 mt-1"><span className="w-1 h-1 rounded-full bg-green-500"/>Zaplaceno</span>
-                    ) : (
-                      <span className={cn('inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold border mt-1', isOverdue?'bg-red-50 text-red-700 border-red-200':'bg-amber-50 text-amber-700 border-amber-200')}>
-                        <span className={cn('w-1 h-1 rounded-full',isOverdue?'bg-destructive':'bg-amber-500')}/>{isOverdue?'Po splatnosti':'Čeká'}
-                      </span>
-                    )}
-                  </div>
+                {/* Top row — number + amount */}
+                <div className="flex items-center justify-between mb-1">
+                  <p className="font-bold text-primary text-sm">#{inv.id}</p>
+                  <p className="font-bold text-base">{formatCurrency(inv.amount)}</p>
                 </div>
+                {/* Client name */}
+                <p className="font-semibold text-base">{c?.name||'—'}</p>
+                {/* Dates + status */}
+                <div className="flex items-center justify-between mt-1 mb-3 gap-2">
+                  <p className="text-xs text-muted-foreground">{formatDate(inv.date)} → {formatDate(inv.dueDate)}</p>
+                  {inv.paid ? (
+                    <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold bg-green-50 text-green-700 border border-green-200 flex-shrink-0">
+                      <span className="w-1.5 h-1.5 rounded-full bg-green-500"/>Zaplaceno
+                    </span>
+                  ) : (
+                    <span className={cn('inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold border flex-shrink-0', isOverdue?'bg-red-50 text-red-700 border-red-200':'bg-amber-50 text-amber-700 border-amber-200')}>
+                      <span className={cn('w-1.5 h-1.5 rounded-full',isOverdue?'bg-destructive':'bg-amber-500')}/>
+                      {isOverdue?'Po splatnosti':'Čeká na platbu'}
+                    </span>
+                  )}
+                </div>
+                {/* Action button */}
                 {!inv.paid && (
-                  <Button variant="primary" size="sm" className="w-full mt-2" onClick={e=>{e.stopPropagation();markInvoicePaid(inv.id);toast('Faktura zaplacena')}}>
-                    <CheckCircle size={14}/> Označit jako zaplaceno
+                  <Button variant="primary" size="md" className="w-full gap-2" onClick={e=>{e.stopPropagation();const cl=getClient(inv.clientId);markInvoicePaid(inv.id);setSmsOffer({clientId:inv.clientId,name:cl?.name,phone:cl?.phone,amount:inv.amount});toast('Faktura zaplacena')}}>
+                    <CheckCircle size={16}/> Označit jako zaplaceno
                   </Button>
                 )}
               </CardContent>

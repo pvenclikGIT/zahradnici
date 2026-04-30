@@ -57,12 +57,13 @@ export default function Clients() {
       {showMap && <ClientMap onClose={() => setShowMap(false)}/>}
 
       {/* Toolbar */}
-      <div className="flex flex-wrap gap-2 items-center">
-        <div className="relative flex-1 min-w-[160px]">
+      <div className="flex flex-col gap-2">
+        <div className="relative w-full">
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"/>
           <Input value={q} onChange={e=>setQ(e.target.value)} placeholder="Hledat klienta, adresu…" className="pl-8"/>
         </div>
-        <Select value={filterTag} onChange={e=>setFilterTag(e.target.value)} className="w-36">
+        <div className="flex gap-2">
+        <Select value={filterTag} onChange={e=>setFilterTag(e.target.value)} className="flex-1">
           <option value="">Všechny typy</option>
           <option value="pravidelný">Pravidelný</option>
           <option value="vip">VIP</option>
@@ -70,13 +71,16 @@ export default function Clients() {
           <option value="jednorázový">Jednorázový</option>
           <option value="nový">Nový</option>
         </Select>
-        <Select value={filterStatus} onChange={e=>setFilterStatus(e.target.value)} className="w-32">
+        <Select value={filterStatus} onChange={e=>setFilterStatus(e.target.value)} className="flex-1">
           <option value="">Všichni</option>
           <option value="active">Aktivní</option>
           <option value="inactive">Neaktivní</option>
         </Select>
-        <Button size="sm" onClick={() => setShowMap(true)} className="gap-1.5"><Map size={13}/>Mapa</Button>
-        <Button variant="primary" size="sm" onClick={openNew}><Plus size={14}/>Nový klient</Button>
+        </div>
+        <div className="flex gap-2">
+        <Button size="sm" onClick={() => setShowMap(true)} className="flex-1 sm:flex-none gap-1.5"><Map size={13}/>Mapa</Button>
+        <Button variant="primary" size="sm" onClick={openNew} className="flex-1 sm:flex-none"><Plus size={14}/>Nový klient</Button>
+        </div>
       </div>
 
       <p className="text-xs text-muted-foreground">{filtered.length} {filtered.length===1?'klient':'klientů'}</p>

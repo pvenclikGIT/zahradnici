@@ -109,9 +109,10 @@ export function Calendar() {
           <h2 className="text-lg font-bold tracking-tight">
             {view==='month' ? `${MONTHS[m]} ${y}` : `${weekStart.getDate()}.${weekStart.getMonth()+1}. — ${weekDays[6].getDate()}.${weekDays[6].getMonth()+1}.`}
           </h2>
-          <p className="text-sm text-muted-foreground">{upcoming.length} nadcházejících · přetáhnutím přesunete zakázku</p>
+          <p className="text-sm text-muted-foreground hidden sm:block">{upcoming.length} nadcházejících · přetáhnutím přesunete zakázku</p>
+          <p className="text-sm text-muted-foreground sm:hidden">{upcoming.length} nadcházejících</p>
         </div>
-        <div className="flex items-center gap-2 flex-wrap">
+        <div className="flex items-center gap-1.5 flex-wrap">
           <div className="flex bg-muted rounded-xl p-1 gap-0.5">
             {['month','week'].map(v => (
               <button key={v} onClick={() => setView(v)}

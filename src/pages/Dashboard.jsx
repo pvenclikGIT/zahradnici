@@ -88,7 +88,7 @@ export default function Dashboard() {
       {/* Demo banner */}
       <div className="flex items-center gap-3 px-4 py-3 bg-amber-50 border border-amber-200 rounded-xl">
         <Info size={15} className="text-amber-600 flex-shrink-0"/>
-        <p className="text-sm text-amber-800 flex-1">
+        <p className="text-sm text-amber-800 flex-1 min-w-0">
           <span className="font-semibold">Demo verze</span> — Praha Východ. Vyzkoušejte všechny funkce.
         </p>
         <button onClick={() => setShowReset(true)} className="flex items-center gap-1 text-xs font-semibold text-amber-700 hover:text-amber-900 whitespace-nowrap touch-manipulation">
@@ -116,7 +116,7 @@ export default function Dashboard() {
         <div className="absolute right-0 top-0 bottom-0 w-32 sm:w-48 bg-gradient-to-l from-green-50 to-transparent pointer-events-none"/>
         <div className="relative flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
           <div>
-            <h2 className="font-serif-italic text-2xl sm:text-3xl text-foreground mb-1">Dobrý den, Jane.</h2>
+            <h2 className="font-serif-italic text-xl sm:text-3xl text-foreground mb-1 leading-tight">Dobrý den, Jane.</h2>
             <p className="text-sm text-muted-foreground">
               {dayName.charAt(0).toUpperCase()+dayName.slice(1)}, {dateStr}
               {scheduledOrders.length > 0 && <span> · <span className="font-medium text-foreground">{scheduledOrders.length} naplánovaných zakázek</span></span>}

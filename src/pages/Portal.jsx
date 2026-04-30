@@ -154,7 +154,7 @@ function ClientDashboard({ client }) {
         </div>
 
         {/* Stats row */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           {[
             { label:'Zakázek celkem', value: myOrders.length,          icon:ClipboardList, color:'text-blue-600'  },
             { label:'Zaplaceno',      value: formatCurrency(totalPaid), icon:CheckCircle,   color:'text-green-600' },
@@ -195,7 +195,7 @@ function ClientDashboard({ client }) {
                 const isToday = o.date===todayISO
                 const isTomorrow = o.date===new Date(Date.now()+86400000).toISOString().split('T')[0]
                 return (
-                  <div key={o.id} className="flex items-center gap-4 px-5 py-4">
+                  <div key={o.id} className="flex items-center gap-3 px-4 py-4">
                     <div className={cn('text-center w-12 rounded-xl py-2 border flex-shrink-0', isToday?'bg-primary border-primary':'bg-green-50 border-green-100')}>
                       <p className={cn('text-lg font-bold leading-none', isToday?'text-white':'text-primary')}>{dt.getDate()}</p>
                       <p className={cn('text-[10px] uppercase mt-0.5', isToday?'text-white/70':'text-gray-400')}>

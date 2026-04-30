@@ -191,7 +191,7 @@ export function Checklist() {
                   <Layers size={13}/>Šablona
                 </Button>
               </div>
-              <Select value={clientId} onChange={e => setClientId(e.target.value)}>
+              <Select value={clientId} onChange={e => setClientId(e.target.value)} className="w-full">
                 <option value="">— Vyberte klienta —</option>
                 {clients.filter(c=>c.status==='active').map(c => (
                   <option key={c.id} value={c.id}>{c.name} · {c.city || c.address.split(',').pop()?.trim()}</option>

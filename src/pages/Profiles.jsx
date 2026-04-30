@@ -115,9 +115,9 @@ export function Profiles() {
                       <RoleIcon size={12} className="text-muted-foreground"/>
                       <p className="text-sm text-muted-foreground">{p.roleLabel}</p>
                     </div>
-                    <p className="text-xs text-muted-foreground mt-1">{ROLE_DESCRIPTIONS[p.role]}</p>
+                    <p className="text-xs text-muted-foreground mt-1 hidden sm:block">{ROLE_DESCRIPTIONS[p.role]}</p>
                     {/* Permissions chips */}
-                    <div className="flex flex-wrap gap-1 mt-3">
+                    <div className="flex flex-wrap gap-1 mt-3 overflow-hidden">
                       {Object.entries(p.permissions||{}).filter(([,v])=>v).map(([key]) => (
                         <span key={key} className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-green-50 text-green-700 border border-green-200">
                           {PERM_LABELS[key]||key}

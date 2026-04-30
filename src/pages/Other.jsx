@@ -182,7 +182,7 @@ export function Notifications() {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-5">
 
         {/* Left — notifications */}
         <div className="space-y-5">
@@ -342,7 +342,7 @@ export function Settings() {
         <h2 className="text-lg font-bold tracking-tight">Nastavení</h2>
         <p className="text-sm text-muted-foreground">Firemní údaje, notifikace a správa dat</p>
       </div>
-      <PillTabs tabs={tabs} active={tab} onChange={setTab} className="w-full sm:w-auto"/>
+      <PillTabs tabs={tabs} active={tab} onChange={setTab} className="w-full overflow-x-auto"/>
 
       {tab === 'firma' && (
         <div className="space-y-4">

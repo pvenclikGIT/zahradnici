@@ -124,13 +124,13 @@ export function Login() {
               if (key === '') return <div key={idx}/>
               if (key === 'del') return (
                 <button key={idx} onClick={backspace}
-                  className="h-16 rounded-2xl bg-white/8 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/15 active:scale-95 transition-all touch-manipulation">
+                  className="h-14 sm:h-16 rounded-2xl bg-white/8 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/15 active:scale-95 transition-all touch-manipulation">
                   <Delete size={20}/>
                 </button>
               )
               return (
                 <button key={idx} onClick={() => pressKey(String(key))}
-                  className="h-16 rounded-2xl bg-white/10 border border-white/10 text-white text-xl font-semibold hover:bg-white/20 active:scale-95 transition-all touch-manipulation select-none">
+                  className="h-14 sm:h-16 rounded-2xl bg-white/10 border border-white/10 text-white text-xl font-semibold hover:bg-white/20 active:scale-95 transition-all touch-manipulation select-none">
                   {key}
                 </button>
               )

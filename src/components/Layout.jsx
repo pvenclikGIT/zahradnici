@@ -202,7 +202,7 @@ export default function Layout({ children }) {
         )}
         <FAB/>
 
-        <main className="flex-1 p-4 sm:p-5 lg:p-8 max-w-[1200px] w-full mx-auto pb-24 lg:pb-8">
+        <main className="flex-1 p-4 sm:p-5 lg:p-8 max-w-[1200px] w-full mx-auto pb-24 lg:pb-8 overflow-x-hidden">
           {children}
         </main>
 

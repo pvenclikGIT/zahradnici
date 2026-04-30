@@ -118,7 +118,7 @@ export function Orders() {
                   <span className={o.paid?'text-green-600':'text-amber-600'}>{o.paid?'Zaplaceno':'Ceka na platbu'}</span>
                 </div>
               </div>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 items-center">
                 {o.status==='scheduled' && (
                   <Link to={`/checklist?order=${o.id}`}><Button variant="primary" size="sm" className="gap-1"><CheckSquare size={12}/>Zahajit</Button></Link>
                 )}
@@ -174,7 +174,7 @@ export function Orders() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
         <StatCard label="Celkem" value={orders.length}/>
         <StatCard label="Naplanovane" value={orders.filter(o=>o.status==='scheduled').length}/>
         <StatCard label="Dokoncene" value={orders.filter(o=>o.status==='completed').length}/>
