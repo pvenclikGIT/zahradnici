@@ -76,7 +76,7 @@ export function ClientMap({ onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-end sm:items-center justify-center sm:p-4">
+    <div className="fixed inset-0 z-[999] flex flex-col justify-end sm:justify-center sm:items-center sm:p-4">
       <div className="absolute inset-0 bg-black/50 " onClick={onClose}/>
       <div className="relative bg-white w-full sm:max-w-2xl rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden" style={{maxHeight:'90vh', WebkitOverflowScrolling:'touch'}}>
         {/* Header */}
