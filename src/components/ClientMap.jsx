@@ -76,21 +76,23 @@ export function ClientMap({ onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-[999] flex flex-col justify-end sm:justify-center sm:items-center sm:p-4">
-      <div className="absolute inset-0 bg-black/50 " onClick={onClose}/>
-      <div className="relative bg-white w-full sm:max-w-2xl rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden" style={{maxHeight:'90vh', WebkitOverflowScrolling:'touch'}}>
+    <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center" onClick={onClose}>
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"/>
+      <div onClick={e => e.stopPropagation()} className="relative bg-white w-full sm:max-w-2xl sm:m-4 rounded-t-3xl sm:rounded-2xl shadow-2xl border border-border flex flex-col" style={{maxHeight:'calc(100dvh - 16px)', minHeight:'200px'}}>
+        <div className="sm:hidden flex justify-center pt-2.5 pb-1 flex-shrink-0"><div className="w-10 h-1.5 rounded-full bg-gray-300"/></div>
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-border">
+        <div className="flex items-center justify-between px-5 py-3 sm:py-4 border-b border-border flex-shrink-0">
           <div>
             <h2 className="font-bold tracking-tight">Mapa klientu</h2>
             <p className="text-xs text-muted-foreground">Praha Vychod · {activeClients.length} aktivnich klientu</p>
           </div>
-          <button onClick={onClose} className="w-8 h-8 rounded-xl flex items-center justify-center hover:bg-accent touch-manipulation">
+          <button onClick={onClose} className="w-9 h-9 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center hover:bg-accent touch-manipulation">
             <X size={15}/>
           </button>
         </div>
 
         {/* Legend */}
+        <div className="flex-1 overflow-y-auto overscroll-contain" style={{WebkitOverflowScrolling:'touch'}}>
         <div className="flex flex-wrap gap-3 px-5 py-2.5 border-b border-border bg-muted/30">
           {Object.entries(tagColors).map(([tag, color]) => (
             <div key={tag} className="flex items-center gap-1.5">
@@ -170,6 +172,7 @@ export function ClientMap({ onClose }) {
               )
             })}
           </div>
+        </div>
         </div>
       </div>
     </div>

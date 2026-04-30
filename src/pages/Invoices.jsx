@@ -181,23 +181,23 @@ export function Invoices() {
 
       {/* Invoice Preview Modal */}
       {previewInv && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4">
-          <div className="absolute inset-0 bg-black/50 " onClick={()=>setPreviewId(null)}/>
-          <div className="relative bg-white w-full sm:max-w-2xl max-h-[88svh] sm:max-h-[88svh] overflow-y-auto rounded-t-2xl sm:rounded-2xl shadow-2xl" ref={printRef}>
+        <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center" onClick={()=>setPreviewId(null)}>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"/>
+          <div onClick={e => e.stopPropagation()} className="relative bg-white w-full sm:max-w-2xl sm:m-4 rounded-t-3xl sm:rounded-2xl shadow-2xl border border-border flex flex-col" style={{maxHeight:'calc(100dvh - 16px)', minHeight:'200px'}} ref={printRef}>
+            <div className="sm:hidden flex justify-center pt-2.5 pb-1 flex-shrink-0"><div className="w-10 h-1.5 rounded-full bg-gray-300"/></div>
             {/* Header */}
-            <div className="no-print flex items-center justify-between px-5 sm:px-6 py-4 border-b border-border sticky top-0 bg-white z-10 rounded-t-2xl">
-              <div className="absolute top-2 left-1/2 -translate-x-1/2 w-8 h-1 rounded-full bg-gray-200 sm:hidden"/>
-              <h2 className="font-bold tracking-tight mt-1 sm:mt-0">Faktura #{previewInv.id}</h2>
+            <div className="no-print flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-border bg-white flex-shrink-0">
+              <h2 className="font-bold tracking-tight">Faktura #{previewInv.id}</h2>
               <div className="flex gap-2">
                 <Button size="sm" onClick={()=>{toast('Faktura odeslána emailem');setPreviewId(null)}} className="hidden sm:flex gap-1"><Mail size={12}/>Odeslat</Button>
                 <Button size="sm" onClick={handlePdf} className="gap-1"><Download size={12}/>PDF</Button>
-                <Button size="sm" onClick={handlePrint} className="gap-1"><Printer size={12}/>Tisknout</Button>
-                <button onClick={()=>setPreviewId(null)} className="w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-accent"><X size={14}/></button>
+                <Button size="sm" onClick={handlePrint} className="hidden sm:flex gap-1"><Printer size={12}/>Tisknout</Button>
+                <button onClick={()=>setPreviewId(null)} className="w-9 h-9 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-accent flex-shrink-0"><X size={14}/></button>
               </div>
             </div>
 
             {/* Invoice content */}
-            <div className="p-4 sm:p-6 overflow-y-auto flex-1" id="invoice-print" style={{WebkitOverflowScrolling:'touch'}}>
+            <div className="overflow-y-auto overscroll-contain p-4 sm:p-6 flex-1" id="invoice-print" style={{WebkitOverflowScrolling:'touch'}}>
               {/* Dark header */}
               <div className="bg-gray-900 rounded-xl p-5 sm:p-6 text-white mb-5 sm:mb-6">
                 <div className="flex justify-between items-start gap-4 flex-wrap">
@@ -288,9 +288,10 @@ export function Invoices() {
 
       {/* SMS offer after payment */}
       {smsOffer && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/50 " onClick={() => setSmsOffer(null)}/>
-          <div className="relative bg-white rounded-2xl border border-border shadow-2xl p-6 max-w-sm w-full">
+        <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center" onClick={() => setSmsOffer(null)}>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"/>
+          <div onClick={e => e.stopPropagation()} className="relative bg-white w-full sm:max-w-sm sm:m-4 rounded-t-3xl sm:rounded-2xl shadow-2xl border border-border p-5 sm:p-6" style={{paddingBottom:'max(20px, env(safe-area-inset-bottom))'}}>
+            <div className="sm:hidden flex justify-center -mt-2 mb-3"><div className="w-10 h-1.5 rounded-full bg-gray-300"/></div>
             <h3 className="font-bold text-base mb-1">Odeslat poděkování?</h3>
             <p className="text-sm text-muted-foreground mb-4">{smsOffer.name} zaplatil. Chcete odeslat SMS s poděkováním?</p>
             <div className="bg-muted/50 rounded-xl p-3 mb-5 text-sm text-muted-foreground italic">

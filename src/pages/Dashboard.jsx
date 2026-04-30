@@ -98,14 +98,18 @@ export default function Dashboard() {
 
       {/* Reset confirm */}
       {showReset && (
-        <div className="fixed inset-0 z-[999] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/50 " onClick={() => setShowReset(false)}/>
-          <div className="relative bg-white rounded-2xl border border-border shadow-2xl p-6 max-w-sm w-full">
-            <h3 className="font-bold text-base mb-2">Obnovit demo data?</h3>
-            <p className="text-sm text-muted-foreground mb-5">Všechny změny budou ztraceny.</p>
+        <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center" onClick={() => setShowReset(false)}>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"/>
+          <div onClick={e => e.stopPropagation()} className="relative bg-white w-full sm:max-w-sm sm:m-4 rounded-t-3xl sm:rounded-2xl shadow-2xl border border-border p-5 sm:p-6" style={{paddingBottom:'max(20px, env(safe-area-inset-bottom))'}}>
+            <div className="sm:hidden flex justify-center -mt-2 mb-3"><div className="w-10 h-1.5 rounded-full bg-gray-300"/></div>
+            <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center mx-auto mb-4">
+              <RotateCcw size={20} className="text-amber-600"/>
+            </div>
+            <h3 className="font-bold text-base text-center mb-2">Resetovat demo data?</h3>
+            <p className="text-sm text-muted-foreground text-center mb-5">Všechna vaše data budou nahrazena výchozími demo daty. Tato akce je nevratná.</p>
             <div className="flex gap-3">
               <Button className="flex-1" onClick={() => setShowReset(false)}>Zrušit</Button>
-              <Button variant="primary" className="flex-1" onClick={() => { resetDemo(); setShowReset(false); toast('Demo data obnovena') }}>Obnovit</Button>
+              <Button variant="danger" className="flex-1" onClick={() => { resetDemo(); setShowReset(false); toast('Demo data resetována') }}>Resetovat</Button>
             </div>
           </div>
         </div>

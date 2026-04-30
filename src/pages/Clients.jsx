@@ -134,13 +134,15 @@ export default function Clients() {
 
       {/* Detail Panel */}
       {detailClient && (
-        <div className="fixed inset-0 z-[998]">
-          <div className="absolute inset-0 bg-black/50 " onClick={() => setDetailId(null)}/>
-          <div className="absolute right-0 top-0 bottom-0 w-full max-w-[420px] bg-white border-l border-border shadow-2xl flex flex-col" style={{overflowY:"auto",WebkitOverflowScrolling:"touch"}}>
-            <div className="sticky top-0 bg-white z-10 flex items-center justify-between px-5 py-4 border-b border-border">
+        <div className="fixed inset-0 z-[100] flex items-end sm:items-stretch sm:justify-end" onClick={() => setDetailId(null)}>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"/>
+          <div onClick={e => e.stopPropagation()} className="relative w-full sm:max-w-[420px] bg-white border-border shadow-2xl flex flex-col rounded-t-3xl sm:rounded-none sm:border-l" style={{maxHeight:'calc(100dvh - 16px)', height:'100%'}}>
+            <div className="sm:hidden flex justify-center pt-2.5 pb-1 flex-shrink-0"><div className="w-10 h-1.5 rounded-full bg-gray-300"/></div>
+            <div className="bg-white flex items-center justify-between px-5 py-3 sm:py-4 border-b border-border flex-shrink-0">
               <p className="text-sm font-semibold">Detail klienta</p>
-              <button onClick={() => setDetailId(null)} className="w-8 h-8 rounded-xl flex items-center justify-center text-muted-foreground hover:bg-accent touch-manipulation"><X size={14}/></button>
+              <button onClick={() => setDetailId(null)} className="w-9 h-9 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center text-muted-foreground hover:bg-accent touch-manipulation"><X size={14}/></button>
             </div>
+            <div className="overflow-y-auto overscroll-contain flex-1" style={{WebkitOverflowScrolling:'touch'}}>
             <div className="px-5 py-5 border-b border-border">
               <div className="flex items-start gap-4 mb-4">
                 <Avatar name={detailClient.name} size="xl"/>
@@ -251,7 +253,8 @@ export default function Clients() {
                   ))}
                 </div>
               </div>
-            <div className="px-5 py-4 border-t border-border flex gap-2 flex-wrap">
+            </div>
+            <div className="px-5 py-3 sm:py-4 border-t border-border flex gap-2 flex-wrap flex-shrink-0 bg-white" style={{paddingBottom:'max(12px, env(safe-area-inset-bottom))'}}>
               <Button size="sm" onClick={() => openEdit(detailClient)} className="gap-1"><Edit2 size={12}/>Upravit</Button>
               <Link to={`/portal/${detailClient.id}`} target="_blank"><Button size="sm" className="gap-1"><ExternalLink size={12}/>Portál klienta</Button></Link>
               <Button variant="danger" size="sm" onClick={() => setDeleteId(detailClient.id)} className="gap-1"><Trash2 size={12}/>Odstranit</Button>
@@ -295,10 +298,11 @@ export default function Clients() {
 
       {/* First order offer */}
       {firstOrderOffer && (
-        <div className="fixed inset-0 z-[999] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/50 " onClick={() => setFirstOrderOffer(null)}/>
-          <div className="relative bg-white rounded-2xl border border-border shadow-2xl p-6 max-w-sm w-full">
-            <h3 className="font-bold text-base mb-1">Vytvořit první zakázku?</h3>
+        <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center" onClick={() => setFirstOrderOffer(null)}>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"/>
+          <div onClick={e => e.stopPropagation()} className="relative bg-white w-full sm:max-w-sm sm:m-4 rounded-t-3xl sm:rounded-2xl shadow-2xl border border-border p-5 sm:p-6" style={{paddingBottom:'max(20px, env(safe-area-inset-bottom))'}}>
+            <div className="sm:hidden flex justify-center -mt-2 mb-3"><div className="w-10 h-1.5 rounded-full bg-gray-300"/></div>
+            <h3 className="font-bold text-base mb-2">Vytvořit první zakázku?</h3>
             <p className="text-sm text-muted-foreground mb-5">
               Klient <span className="font-semibold text-foreground">{firstOrderOffer.name}</span> byl přidán. Chcete rovnou vytvořit první zakázku?
             </p>

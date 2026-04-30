@@ -336,11 +336,11 @@ export function Calendar() {
 
       {/* ── DAY MODAL ── */}
       {dayModal && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4">
-          <div className="absolute inset-0 bg-black/50 " onClick={() => setDayModal(null)}/>
-          <div className="relative bg-white w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl shadow-2xl flex flex-col max-h-[88svh]">
-            <div className="px-5 py-4 border-b border-border flex-shrink-0">
-              <div className="w-8 h-1 rounded-full bg-gray-200 mx-auto mb-3 sm:hidden"/>
+        <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center" onClick={() => setDayModal(null)}>
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"/>
+          <div onClick={e => e.stopPropagation()} className="relative bg-white w-full sm:max-w-md sm:m-4 rounded-t-3xl sm:rounded-2xl shadow-2xl border border-border flex flex-col" style={{maxHeight:'calc(100dvh - 16px)', minHeight:'180px'}}>
+            <div className="sm:hidden flex justify-center pt-2.5 pb-1 flex-shrink-0"><div className="w-10 h-1.5 rounded-full bg-gray-300"/></div>
+            <div className="px-5 py-3 sm:py-4 border-b border-border flex-shrink-0">
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="font-bold tracking-tight">{formatDate(dayModal.date)}</h3>
@@ -352,7 +352,7 @@ export function Calendar() {
                 <button onClick={() => setDayModal(null)} className="w-8 h-8 rounded-xl flex items-center justify-center hover:bg-accent touch-manipulation text-muted-foreground">✕</button>
               </div>
             </div>
-            <div className="flex-1 overflow-y-auto">
+            <div className="flex-1 overflow-y-auto overscroll-contain" style={{WebkitOverflowScrolling:'touch'}}>
               {/* Existing orders */}
               {dayModal.orders.length>0 && (
                 <div className="p-4 space-y-2 border-b border-border">
@@ -421,7 +421,7 @@ export function Calendar() {
                 </FormField>
               </div>
             </div>
-            <div className="px-4 py-4 border-t border-border flex gap-3 flex-shrink-0">
+            <div className="px-4 py-3 sm:py-4 border-t border-border flex gap-3 flex-shrink-0 bg-white" style={{paddingBottom:'max(12px, env(safe-area-inset-bottom))'}}>
               <Button className="flex-1" onClick={() => setDayModal(null)}>Zavřít</Button>
               <Button variant="primary" className="flex-1" onClick={quickAdd}><Plus size={14}/>Přidat zakázku</Button>
             </div>

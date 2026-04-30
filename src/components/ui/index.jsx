@@ -130,34 +130,65 @@ export function EmptyState({ icon: Icon, title, description, action }) {
 export function Dialog({ open, onClose, title, children, footer, wide }) {
   useEffect(() => {
     if (open) {
+      const scrollY = window.scrollY
       document.body.style.overflow = 'hidden'
-      document.body.style.position = 'fixed'
-      document.body.style.width = '100%'
-    } else {
-      document.body.style.overflow = ''
-      document.body.style.position = ''
-      document.body.style.width = ''
-    }
-    return () => {
-      document.body.style.overflow = ''
-      document.body.style.position = ''
-      document.body.style.width = ''
+      return () => {
+        document.body.style.overflow = ''
+      }
     }
   }, [open])
 
   if (!open) return null
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4">
-      <div className="absolute inset-0 bg-black/50" onClick={onClose}/>
-      <div className={cn('relative bg-white w-full flex flex-col rounded-t-2xl sm:rounded-2xl border border-border shadow-2xl', wide ? 'sm:max-w-2xl' : 'sm:max-w-lg')} style={{maxHeight:'min(92vh, 680px)'}}>
-        <div className="flex items-center justify-between px-5 sm:px-6 py-4 sm:py-5 border-b border-border sticky top-0 bg-white z-10 rounded-t-2xl">
-          {/* Mobile drag indicator */}
-          <div className="absolute top-2 left-1/2 -translate-x-1/2 w-8 h-1 rounded-full bg-gray-200 sm:hidden"/>
-          <h2 className="text-base sm:text-lg font-bold tracking-tight mt-1 sm:mt-0">{title}</h2>
-          <button onClick={onClose} className="w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-accent transition-colors touch-manipulation"><X size={14}/></button>
+    <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center" onClick={onClose}>
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+      <div
+        onClick={e => e.stopPropagation()}
+        className={cn(
+          'relative bg-white w-full flex flex-col shadow-2xl border border-border',
+          'rounded-t-3xl sm:rounded-2xl',
+          'sm:m-4',
+          wide ? 'sm:max-w-2xl' : 'sm:max-w-lg'
+        )}
+        style={{
+          maxHeight: 'calc(100dvh - 16px)',
+          minHeight: '180px'
+        }}
+      >
+        {/* Drag indicator (mobile) */}
+        <div className="sm:hidden flex justify-center pt-2.5 pb-1">
+          <div className="w-10 h-1.5 rounded-full bg-gray-300" />
         </div>
-        <div className="overflow-y-auto flex-1 px-5 sm:px-6 py-4 sm:py-5 flex flex-col gap-4" style={{WebkitOverflowScrolling:"touch"}}>{children}</div>
-        {footer && <div className="px-5 sm:px-6 py-4 border-t border-border flex gap-3 justify-end bg-white rounded-b-2xl sticky bottom-0 safe-bottom">{footer}</div>}
+
+        {/* Header */}
+        <div className="flex items-center justify-between px-5 sm:px-6 py-3 sm:py-5 border-b border-border flex-shrink-0">
+          <h2 className="text-base sm:text-lg font-bold tracking-tight">{title}</h2>
+          <button
+            type="button"
+            onClick={onClose}
+            className="w-9 h-9 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center text-muted-foreground hover:bg-accent transition-colors touch-manipulation flex-shrink-0"
+          >
+            <X size={16}/>
+          </button>
+        </div>
+
+        {/* Content (scrollable) */}
+        <div
+          className="flex-1 overflow-y-auto overscroll-contain px-5 sm:px-6 py-4 sm:py-5 flex flex-col gap-4"
+          style={{ WebkitOverflowScrolling: 'touch' }}
+        >
+          {children}
+        </div>
+
+        {/* Footer */}
+        {footer && (
+          <div
+            className="flex gap-3 justify-end px-5 sm:px-6 py-3 sm:py-4 border-t border-border bg-white flex-shrink-0"
+            style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }}
+          >
+            {footer}
+          </div>
+        )}
       </div>
     </div>
   )
@@ -227,14 +258,21 @@ export function SectionHeader({ title, action }) {
 export function ConfirmDialog({ open, onClose, onConfirm, title, description, confirmLabel='Potvrdit', variant='danger' }) {
   if (!open) return null
   return (
-    <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/50" onClick={onClose}/>
-      <div className="relative bg-white rounded-2xl border border-border shadow-2xl p-6 max-w-sm w-full">
+    <div className="fixed inset-0 z-[110] flex items-end sm:items-center justify-center" onClick={onClose}>
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"/>
+      <div
+        onClick={e => e.stopPropagation()}
+        className="relative bg-white rounded-t-3xl sm:rounded-2xl border border-border shadow-2xl w-full sm:max-w-sm sm:m-4 p-5 sm:p-6"
+        style={{ paddingBottom: 'max(20px, env(safe-area-inset-bottom))' }}
+      >
+        <div className="sm:hidden flex justify-center -mt-2 mb-3">
+          <div className="w-10 h-1.5 rounded-full bg-gray-300"/>
+        </div>
         <h3 className="font-bold text-base mb-2">{title}</h3>
         {description && <p className="text-sm text-muted-foreground mb-5">{description}</p>}
         <div className="flex gap-3">
           <Button className="flex-1" onClick={onClose}>Zrušit</Button>
-          <Button variant={variant} className="flex-1" onClick={() => { onConfirm(); onClose(); }}>{confirmLabel}</Button>
+          <Button variant={variant} className="flex-1" onClick={() => { onConfirm(); onClose() }}>{confirmLabel}</Button>
         </div>
       </div>
     </div>
@@ -255,26 +293,31 @@ export function OnboardingTour({ onComplete }) {
   const [step, setStep] = useState(0)
   const current = tourSteps[step]
   const isLast = step === tourSteps.length - 1
-
   return (
-    <div className="fixed inset-0 z-[1001] flex items-end sm:items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/50"/>
-      <div className="relative bg-white rounded-2xl border border-border shadow-2xl p-6 max-w-sm w-full">
+    <div className="fixed inset-0 z-[120] flex items-end sm:items-center justify-center" onClick={onComplete}>
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"/>
+      <div
+        onClick={e => e.stopPropagation()}
+        className="relative bg-white rounded-t-3xl sm:rounded-2xl border border-border shadow-2xl w-full sm:max-w-sm sm:m-4 p-6"
+        style={{ paddingBottom: 'max(24px, env(safe-area-inset-bottom))' }}
+      >
+        <div className="sm:hidden flex justify-center -mt-2 mb-3">
+          <div className="w-10 h-1.5 rounded-full bg-gray-300"/>
+        </div>
         <div className="text-center mb-5">
           <div className="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center mx-auto mb-4"><Leaf size={20} className="text-green-600"/></div>
           <h3 className="font-bold text-lg mb-2">{current.title}</h3>
           <p className="text-sm text-muted-foreground leading-relaxed">{current.desc}</p>
         </div>
-        {/* Progress dots */}
         <div className="flex justify-center gap-1.5 mb-5">
-          {tourSteps.map((_,i) => (
-            <div key={i} className={cn('h-1.5 rounded-full transition-all', i===step ? 'w-6 bg-primary' : 'w-1.5 bg-gray-200')}/>
+          {tourSteps.map((_, i) => (
+            <div key={i} className={cn('h-1.5 rounded-full transition-all', i === step ? 'w-6 bg-primary' : 'w-1.5 bg-gray-200')}/>
           ))}
         </div>
         <div className="flex gap-3">
-          {step > 0 && <Button className="flex-1" onClick={() => setStep(s=>s-1)}>← Zpět</Button>}
-          <Button variant="primary" className="flex-1" onClick={() => isLast ? onComplete() : setStep(s=>s+1)}>
-            {isLast ? 'Začít používat' : 'Další →'}
+          {step > 0 && <Button className="flex-1" onClick={() => setStep(s => s - 1)}>Zpět</Button>}
+          <Button variant="primary" className="flex-1" onClick={() => isLast ? onComplete() : setStep(s => s + 1)}>
+            {isLast ? 'Začít používat' : 'Další'}
           </Button>
         </div>
         <button onClick={onComplete} className="mt-3 w-full text-xs text-muted-foreground hover:text-foreground text-center py-1">Přeskočit průvodce</button>

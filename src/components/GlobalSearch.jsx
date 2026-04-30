@@ -70,11 +70,12 @@ export function GlobalSearch({ onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-end sm:items-start justify-center sm:pt-24 px-0 sm:px-4">
-      <div className="absolute inset-0 bg-black/50 " onClick={onClose}/>
-      <div className="relative bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl w-full sm:max-w-lg border border-border overflow-hidden">
+    <div className="fixed inset-0 z-[100] flex items-end sm:items-start justify-center sm:pt-20" onClick={onClose}>
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"/>
+      <div onClick={e => e.stopPropagation()} className="relative bg-white rounded-t-3xl sm:rounded-2xl shadow-2xl w-full sm:max-w-lg sm:m-4 border border-border flex flex-col overflow-hidden" style={{maxHeight:'calc(100dvh - 16px)'}}>
+        <div className="sm:hidden flex justify-center pt-2.5 pb-1 flex-shrink-0"><div className="w-10 h-1.5 rounded-full bg-gray-300"/></div>
         {/* Input */}
-        <div className="flex items-center gap-3 px-4 py-3.5 border-b border-border">
+        <div className="flex items-center gap-3 px-4 py-3 sm:py-3.5 border-b border-border flex-shrink-0">
           <Search size={16} className="text-muted-foreground flex-shrink-0"/>
           <input
             ref={inputRef}
@@ -160,12 +161,13 @@ export function KeyboardShortcutsHelp({ onClose }) {
     ['?', 'Tato nápověda'],
   ]
   return (
-    <div className="fixed inset-0 z-[80] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/50 " onClick={onClose}/>
-      <div className="relative bg-white rounded-2xl shadow-2xl border border-border p-6 max-w-sm w-full">
+    <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center" onClick={onClose}>
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"/>
+      <div onClick={e => e.stopPropagation()} className="relative bg-white rounded-t-3xl sm:rounded-2xl shadow-2xl border border-border p-5 sm:p-6 w-full sm:max-w-sm sm:m-4" style={{paddingBottom:'max(20px, env(safe-area-inset-bottom))'}}>
+        <div className="sm:hidden flex justify-center -mt-2 mb-3"><div className="w-10 h-1.5 rounded-full bg-gray-300"/></div>
         <div className="flex items-center justify-between mb-5">
           <h2 className="font-bold tracking-tight">Klávesové zkratky</h2>
-          <button onClick={onClose} className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-accent"><X size={14}/></button>
+          <button onClick={onClose} className="w-9 h-9 sm:w-7 sm:h-7 rounded-lg flex items-center justify-center hover:bg-accent"><X size={14}/></button>
         </div>
         <div className="space-y-2">
           {shortcuts.map(([key, label]) => (
