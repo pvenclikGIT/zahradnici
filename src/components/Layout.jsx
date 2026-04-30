@@ -160,9 +160,9 @@ export default function Layout({ children }) {
         </div>
       )}
 
-      <div className="flex-1 lg:ml-[260px] flex flex-col min-h-screen">
+      <div className="flex-1 lg:ml-[260px] flex flex-col min-h-screen min-w-0">
         {/* Topbar */}
-        <header className="sticky top-0 z-20 h-14 bg-white/95  border-b border-border flex items-center justify-between px-4 lg:px-6 gap-3">
+        <header className="sticky top-0 z-20 h-14 bg-white/95  border-b border-border flex items-center justify-between px-4 lg:px-6 gap-3 min-w-0">
           <div className="flex items-center gap-3">
             <button onClick={() => setMobileOpen(true)} className="lg:hidden p-2 rounded-xl text-muted-foreground hover:bg-accent touch-manipulation">
               <Menu size={18}/>

@@ -80,14 +80,14 @@ export function CardContent({ className, children }) {
 // ── StatCard ──────────────────────────────────
 export function StatCard({ label, value, sub, subVariant, icon: Icon, color }) {
   return (
-    <Card>
-      <CardContent className="p-4 sm:p-5">
-        <div className="flex items-start justify-between gap-2">
-          <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">{label}</p>
-          {Icon && <span className="text-muted-foreground/40 flex-shrink-0"><Icon size={16}/></span>}
+    <Card className="min-w-0">
+      <CardContent className="p-3 sm:p-5">
+        <div className="flex items-start justify-between gap-1 min-w-0">
+          <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-widest text-muted-foreground truncate">{label}</p>
+          {Icon && <span className="text-muted-foreground/40 flex-shrink-0"><Icon size={14}/></span>}
         </div>
-        <p className={cn('mt-2 text-2xl sm:text-[1.75rem] font-bold tracking-tight leading-none', color)}>{value}</p>
-        {sub && <p className={cn('mt-2 text-xs flex items-center gap-1', subVariant==='up'&&'text-green-600', subVariant==='down'&&'text-destructive', !subVariant&&'text-muted-foreground')}>{sub}</p>}
+        <p className={cn('mt-1.5 sm:mt-2 text-lg sm:text-2xl lg:text-[1.75rem] font-bold tracking-tight leading-none truncate', color)}>{value}</p>
+        {sub && <p className={cn('mt-1.5 sm:mt-2 text-[11px] sm:text-xs flex items-center gap-1 truncate', subVariant==='up'&&'text-green-600', subVariant==='down'&&'text-destructive', !subVariant&&'text-muted-foreground')}>{sub}</p>}
       </CardContent>
     </Card>
   )
