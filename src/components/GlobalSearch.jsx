@@ -71,8 +71,8 @@ export function GlobalSearch({ onClose }) {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-end sm:items-start justify-center sm:pt-20" onClick={onClose}>
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"/>
-      <div onClick={e => e.stopPropagation()} className="relative bg-white rounded-t-3xl sm:rounded-2xl shadow-2xl w-full sm:max-w-lg sm:m-4 border border-border flex flex-col overflow-hidden" style={{maxHeight:'calc(100dvh - 16px)'}}>
+      <div className="absolute inset-0 bg-black/60"/>
+      <div onClick={e => e.stopPropagation()} className="relative bg-white rounded-t-3xl sm:rounded-2xl shadow-2xl w-full sm:max-w-lg sm:m-4 border border-border flex flex-col overflow-hidden" style={{maxHeight:'calc(100vh - 16px)'}}>
         <div className="sm:hidden flex justify-center pt-2.5 pb-1 flex-shrink-0"><div className="w-10 h-1.5 rounded-full bg-gray-300"/></div>
         {/* Input */}
         <div className="flex items-center gap-3 px-4 py-3 sm:py-3.5 border-b border-border flex-shrink-0">
@@ -162,7 +162,7 @@ export function KeyboardShortcutsHelp({ onClose }) {
   ]
   return (
     <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center" onClick={onClose}>
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"/>
+      <div className="absolute inset-0 bg-black/60"/>
       <div onClick={e => e.stopPropagation()} className="relative bg-white rounded-t-3xl sm:rounded-2xl shadow-2xl border border-border p-5 sm:p-6 w-full sm:max-w-sm sm:m-4" style={{paddingBottom:'max(20px, env(safe-area-inset-bottom))'}}>
         <div className="sm:hidden flex justify-center -mt-2 mb-3"><div className="w-10 h-1.5 rounded-full bg-gray-300"/></div>
         <div className="flex items-center justify-between mb-5">

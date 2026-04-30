@@ -129,19 +129,18 @@ export function EmptyState({ icon: Icon, title, description, action }) {
 // ── Dialog / Modal ────────────────────────────
 export function Dialog({ open, onClose, title, children, footer, wide }) {
   useEffect(() => {
-    if (open) {
-      const scrollY = window.scrollY
-      document.body.style.overflow = 'hidden'
-      return () => {
-        document.body.style.overflow = ''
-      }
+    if (!open) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = prev || ''
     }
   }, [open])
 
   if (!open) return null
   return (
     <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center" onClick={onClose}>
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-black/60" />
       <div
         onClick={e => e.stopPropagation()}
         className={cn(
@@ -151,7 +150,7 @@ export function Dialog({ open, onClose, title, children, footer, wide }) {
           wide ? 'sm:max-w-2xl' : 'sm:max-w-lg'
         )}
         style={{
-          maxHeight: 'calc(100dvh - 16px)',
+          maxHeight: 'calc(100vh - 16px)',
           minHeight: '180px'
         }}
       >
@@ -259,7 +258,7 @@ export function ConfirmDialog({ open, onClose, onConfirm, title, description, co
   if (!open) return null
   return (
     <div className="fixed inset-0 z-[110] flex items-end sm:items-center justify-center" onClick={onClose}>
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"/>
+      <div className="absolute inset-0 bg-black/60"/>
       <div
         onClick={e => e.stopPropagation()}
         className="relative bg-white rounded-t-3xl sm:rounded-2xl border border-border shadow-2xl w-full sm:max-w-sm sm:m-4 p-5 sm:p-6"
@@ -295,7 +294,7 @@ export function OnboardingTour({ onComplete }) {
   const isLast = step === tourSteps.length - 1
   return (
     <div className="fixed inset-0 z-[120] flex items-end sm:items-center justify-center" onClick={onComplete}>
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"/>
+      <div className="absolute inset-0 bg-black/70"/>
       <div
         onClick={e => e.stopPropagation()}
         className="relative bg-white rounded-t-3xl sm:rounded-2xl border border-border shadow-2xl w-full sm:max-w-sm sm:m-4 p-6"

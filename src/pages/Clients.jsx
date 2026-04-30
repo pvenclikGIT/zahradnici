@@ -135,8 +135,8 @@ export default function Clients() {
       {/* Detail Panel */}
       {detailClient && (
         <div className="fixed inset-0 z-[100] flex items-end sm:items-stretch sm:justify-end" onClick={() => setDetailId(null)}>
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"/>
-          <div onClick={e => e.stopPropagation()} className="relative w-full sm:max-w-[420px] bg-white border-border shadow-2xl flex flex-col rounded-t-3xl sm:rounded-none sm:border-l" style={{maxHeight:'calc(100dvh - 16px)', height:'100%'}}>
+          <div className="absolute inset-0 bg-black/60"/>
+          <div onClick={e => e.stopPropagation()} className="relative w-full sm:max-w-[420px] bg-white border-border shadow-2xl flex flex-col rounded-t-3xl sm:rounded-none sm:border-l" style={{maxHeight:'calc(100vh - 16px)', height:'100%'}}>
             <div className="sm:hidden flex justify-center pt-2.5 pb-1 flex-shrink-0"><div className="w-10 h-1.5 rounded-full bg-gray-300"/></div>
             <div className="bg-white flex items-center justify-between px-5 py-3 sm:py-4 border-b border-border flex-shrink-0">
               <p className="text-sm font-semibold">Detail klienta</p>
@@ -299,7 +299,7 @@ export default function Clients() {
       {/* First order offer */}
       {firstOrderOffer && (
         <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center" onClick={() => setFirstOrderOffer(null)}>
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"/>
+          <div className="absolute inset-0 bg-black/60"/>
           <div onClick={e => e.stopPropagation()} className="relative bg-white w-full sm:max-w-sm sm:m-4 rounded-t-3xl sm:rounded-2xl shadow-2xl border border-border p-5 sm:p-6" style={{paddingBottom:'max(20px, env(safe-area-inset-bottom))'}}>
             <div className="sm:hidden flex justify-center -mt-2 mb-3"><div className="w-10 h-1.5 rounded-full bg-gray-300"/></div>
             <h3 className="font-bold text-base mb-2">Vytvořit první zakázku?</h3>

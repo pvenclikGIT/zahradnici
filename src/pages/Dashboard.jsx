@@ -99,7 +99,7 @@ export default function Dashboard() {
       {/* Reset confirm */}
       {showReset && (
         <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center" onClick={() => setShowReset(false)}>
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"/>
+          <div className="absolute inset-0 bg-black/60"/>
           <div onClick={e => e.stopPropagation()} className="relative bg-white w-full sm:max-w-sm sm:m-4 rounded-t-3xl sm:rounded-2xl shadow-2xl border border-border p-5 sm:p-6" style={{paddingBottom:'max(20px, env(safe-area-inset-bottom))'}}>
             <div className="sm:hidden flex justify-center -mt-2 mb-3"><div className="w-10 h-1.5 rounded-full bg-gray-300"/></div>
             <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center mx-auto mb-4">

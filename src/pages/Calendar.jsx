@@ -337,8 +337,8 @@ export function Calendar() {
       {/* ── DAY MODAL ── */}
       {dayModal && (
         <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center" onClick={() => setDayModal(null)}>
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"/>
-          <div onClick={e => e.stopPropagation()} className="relative bg-white w-full sm:max-w-md sm:m-4 rounded-t-3xl sm:rounded-2xl shadow-2xl border border-border flex flex-col" style={{maxHeight:'calc(100dvh - 16px)', minHeight:'180px'}}>
+          <div className="absolute inset-0 bg-black/60"/>
+          <div onClick={e => e.stopPropagation()} className="relative bg-white w-full sm:max-w-md sm:m-4 rounded-t-3xl sm:rounded-2xl shadow-2xl border border-border flex flex-col" style={{maxHeight:'calc(100vh - 16px)', minHeight:'180px'}}>
             <div className="sm:hidden flex justify-center pt-2.5 pb-1 flex-shrink-0"><div className="w-10 h-1.5 rounded-full bg-gray-300"/></div>
             <div className="px-5 py-3 sm:py-4 border-b border-border flex-shrink-0">
               <div className="flex items-center justify-between">

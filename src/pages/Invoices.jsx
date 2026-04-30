@@ -182,8 +182,8 @@ export function Invoices() {
       {/* Invoice Preview Modal */}
       {previewInv && (
         <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center" onClick={()=>setPreviewId(null)}>
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"/>
-          <div onClick={e => e.stopPropagation()} className="relative bg-white w-full sm:max-w-2xl sm:m-4 rounded-t-3xl sm:rounded-2xl shadow-2xl border border-border flex flex-col" style={{maxHeight:'calc(100dvh - 16px)', minHeight:'200px'}} ref={printRef}>
+          <div className="absolute inset-0 bg-black/60"/>
+          <div onClick={e => e.stopPropagation()} className="relative bg-white w-full sm:max-w-2xl sm:m-4 rounded-t-3xl sm:rounded-2xl shadow-2xl border border-border flex flex-col" style={{maxHeight:'calc(100vh - 16px)', minHeight:'200px'}} ref={printRef}>
             <div className="sm:hidden flex justify-center pt-2.5 pb-1 flex-shrink-0"><div className="w-10 h-1.5 rounded-full bg-gray-300"/></div>
             {/* Header */}
             <div className="no-print flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-border bg-white flex-shrink-0">
@@ -289,7 +289,7 @@ export function Invoices() {
       {/* SMS offer after payment */}
       {smsOffer && (
         <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center" onClick={() => setSmsOffer(null)}>
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"/>
+          <div className="absolute inset-0 bg-black/60"/>
           <div onClick={e => e.stopPropagation()} className="relative bg-white w-full sm:max-w-sm sm:m-4 rounded-t-3xl sm:rounded-2xl shadow-2xl border border-border p-5 sm:p-6" style={{paddingBottom:'max(20px, env(safe-area-inset-bottom))'}}>
             <div className="sm:hidden flex justify-center -mt-2 mb-3"><div className="w-10 h-1.5 rounded-full bg-gray-300"/></div>
             <h3 className="font-bold text-base mb-1">Odeslat poděkování?</h3>
