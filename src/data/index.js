@@ -695,3 +695,243 @@ export const defaultAbsences = [
   { id:6, workerId:3, type:'personal', dateFrom:d(14), dateTo:d(14), allDay:false, hourFrom:'14:00', hourTo:'18:00',
     status:'pending', approvedBy:null, approvedAt:null, note:'Schůzka s účetní firmou', requestedAt:d(0) },
 ]
+
+
+// ── Quotes (cenové nabídky) ────────────────────
+export const quoteStatuses = [
+  { id:'draft',    label:'Rozpracovaná', color:'bg-gray-100 text-gray-700 border-gray-200' },
+  { id:'sent',     label:'Odeslaná',     color:'bg-blue-50 text-blue-700 border-blue-200' },
+  { id:'accepted', label:'Přijatá',      color:'bg-green-50 text-green-700 border-green-200' },
+  { id:'rejected', label:'Odmítnutá',    color:'bg-red-50 text-red-700 border-red-200' },
+  { id:'expired',  label:'Propadlá',     color:'bg-amber-50 text-amber-700 border-amber-200' },
+]
+
+export const defaultQuotes = [
+  {
+    id:1, number:'NAB-2026-001', clientId:6, status:'accepted',
+    issueDate:abs(2026,3,15), validUntil:abs(2026,4,30),
+    title:'Komplexní úprava zahrady — Velké Popovice',
+    items:[
+      { id:1, name:'Údržba trávníku — sekání + okrajování', qty:1, unit:'sezóna', price:18000, total:18000 },
+      { id:2, name:'Mulčování záhonů — kůra borová', qty:25, unit:'pytel', price:200, total:5000 },
+      { id:3, name:'Hnojení trávníku 3× ročně', qty:3, unit:'aplikace', price:2500, total:7500 },
+      { id:4, name:'Úprava živého plotu', qty:8, unit:'h', price:450, total:3600 },
+    ],
+    discount:5, vat:21, notes:'Celosezónní balíček. Sleva 5% při sjednání paušální smlouvy.',
+    sentAt:abs(2026,3,16), acceptedAt:abs(2026,3,22),
+  },
+  {
+    id:2, number:'NAB-2026-002', clientId:7, status:'accepted',
+    issueDate:abs(2026,4,1), validUntil:abs(2026,4,30),
+    title:'Hotelová zahrada — výsadba 2026',
+    items:[
+      { id:1, name:'Tuje smaragd 80 cm — výsadba', qty:30, unit:'ks', price:480, total:14400 },
+      { id:2, name:'Buxus sempervirens — výsadba', qty:20, unit:'ks', price:320, total:6400 },
+      { id:3, name:'Práce zahradníka', qty:24, unit:'h', price:450, total:10800 },
+      { id:4, name:'Doprava materiálu', qty:1, unit:'jízda', price:1800, total:1800 },
+    ],
+    discount:0, vat:21, notes:'Záruka na rostliny 1 rok při dodržení podmínek údržby.',
+    sentAt:abs(2026,4,2), acceptedAt:abs(2026,4,8),
+  },
+  {
+    id:3, number:'NAB-2026-003', clientId:2, status:'sent',
+    issueDate:abs(2026,4,20), validUntil:abs(2026,5,20),
+    title:'Jarní program — Horák, Říčany',
+    items:[
+      { id:1, name:'Vertikutace trávníku', qty:1, unit:'aplikace', price:2400, total:2400 },
+      { id:2, name:'Provzdušnění + dosetí', qty:1, unit:'aplikace', price:1800, total:1800 },
+      { id:3, name:'Hnojivo BoFix proti plevelu', qty:2, unit:'kg', price:520, total:1040 },
+    ],
+    discount:0, vat:21, notes:'Termín: do 15.5.2026. Závisí na počasí.',
+    sentAt:abs(2026,4,21), acceptedAt:null,
+  },
+  {
+    id:4, number:'NAB-2026-004', clientId:10, status:'draft',
+    issueDate:d(0), validUntil:d(30),
+    title:'Bylinková zahrada — návrh a realizace',
+    items:[
+      { id:1, name:'Návrh osazení', qty:1, unit:'ks', price:3500, total:3500 },
+      { id:2, name:'Levandule lékařská', qty:15, unit:'ks', price:160, total:2400 },
+      { id:3, name:'Příprava půdy + výsadba', qty:6, unit:'h', price:450, total:2700 },
+    ],
+    discount:0, vat:21, notes:'',
+    sentAt:null, acceptedAt:null,
+  },
+  {
+    id:5, number:'NAB-2026-005', clientId:14, status:'rejected',
+    issueDate:abs(2026,3,5), validUntil:abs(2026,4,5),
+    title:'Pokácení 3 stromů — Mukařov',
+    items:[
+      { id:1, name:'Pokácení vzrostlého stromu', qty:3, unit:'ks', price:3500, total:10500 },
+      { id:2, name:'Frézování pařezů', qty:3, unit:'ks', price:1800, total:5400 },
+      { id:3, name:'Odvoz a likvidace dřevní hmoty', qty:1, unit:'paušál', price:2800, total:2800 },
+    ],
+    discount:10, vat:21, notes:'Klient zvolil jinou firmu kvůli ceně.',
+    sentAt:abs(2026,3,6), acceptedAt:null,
+  },
+]
+
+// ── Contracts (smlouvy) ─────────────────────────
+export const contractTypes = [
+  { id:'seasonal',  label:'Sezónní paušál', icon:'☀️', color:'bg-green-50 text-green-700 border-green-200' },
+  { id:'annual',    label:'Roční smlouva',  icon:'📅', color:'bg-blue-50 text-blue-700 border-blue-200' },
+  { id:'monthly',   label:'Měsíční',        icon:'🔄', color:'bg-purple-50 text-purple-700 border-purple-200' },
+  { id:'one_time',  label:'Jednorázová',    icon:'📋', color:'bg-gray-100 text-gray-700 border-gray-200' },
+]
+
+export const defaultContracts = [
+  {
+    id:1, number:'SM-2026-001', clientId:6, type:'seasonal', status:'active',
+    title:'Celoroční údržba — Šimánek',
+    startDate:abs(2026,3,1), endDate:abs(2026,11,30),
+    monthlyPrice:8500, totalValue:76500,
+    services:['Sekání trávníku 1×týdně','Hnojení 3×ročně','Úprava živého plotu 4×','Mulčování','Podzimní úklid'],
+    paymentTerms:'měsíčně k 15. dni',
+    autoRenew:true,
+    signedAt:abs(2026,2,20),
+    notes:'Klient od roku 2023. Sleva 5% za víceleté klienty.',
+  },
+  {
+    id:2, number:'SM-2026-002', clientId:7, type:'annual', status:'active',
+    title:'Hotelová zahrada — celoroční',
+    startDate:abs(2026,1,1), endDate:abs(2026,12,31),
+    monthlyPrice:18500, totalValue:222000,
+    services:['Denní pochůzková údržba','Týdenní sekání','Sezónní výsadba','Údržba zavlažování','Pohotovost'],
+    paymentTerms:'měsíčně předem',
+    autoRenew:true,
+    signedAt:abs(2025,12,15),
+    notes:'Premium klient. Reakční doba 24h.',
+  },
+  {
+    id:3, number:'SM-2026-003', clientId:2, type:'seasonal', status:'active',
+    title:'Sezónní údržba — Horák',
+    startDate:abs(2026,4,1), endDate:abs(2026,10,31),
+    monthlyPrice:4200, totalValue:29400,
+    services:['Sekání 1×za 2 týdny','Plení záhonů','Hnojení 2×ročně'],
+    paymentTerms:'měsíčně',
+    autoRenew:false,
+    signedAt:abs(2026,3,25),
+    notes:'',
+  },
+  {
+    id:4, number:'SM-2025-008', clientId:1, type:'annual', status:'expired',
+    title:'Celoroční údržba 2025 — Procházková',
+    startDate:abs(2025,1,1), endDate:abs(2025,12,31),
+    monthlyPrice:3800, totalValue:45600,
+    services:['Sekání','Hnojení','Mulčování'],
+    paymentTerms:'měsíčně',
+    autoRenew:false,
+    signedAt:abs(2024,12,10),
+    notes:'Smlouva v roce 2026 neobnovena — klient dělá samá.',
+  },
+  {
+    id:5, number:'SM-2026-004', clientId:10, type:'monthly', status:'pending',
+    title:'Měsíční údržba bylinkové zahrady',
+    startDate:d(7), endDate:d(367),
+    monthlyPrice:2400, totalValue:28800,
+    services:['Údržba bylinek 2×měsíčně','Sezónní výsadba'],
+    paymentTerms:'měsíčně',
+    autoRenew:true,
+    signedAt:null,
+    notes:'Čeká se na podpis.',
+  },
+]
+
+// ── Complaints (reklamace) ─────────────────────
+export const complaintStatuses = [
+  { id:'open',       label:'Otevřená',     color:'bg-red-50 text-red-700 border-red-200',    priority:1 },
+  { id:'in_progress',label:'Řeší se',      color:'bg-amber-50 text-amber-700 border-amber-200',priority:2 },
+  { id:'resolved',   label:'Vyřešená',     color:'bg-green-50 text-green-700 border-green-200',priority:3 },
+  { id:'rejected',   label:'Zamítnutá',    color:'bg-gray-100 text-gray-700 border-gray-200',  priority:4 },
+]
+
+export const defaultComplaints = [
+  {
+    id:1, clientId:7, orderId:119, status:'resolved', priority:'high',
+    title:'Uschlé tuje po výsadbě', date:abs(2025,10,5),
+    description:'3 z 8 vysazených tují uschly do 2 měsíců po výsadbě. Klient žádá náhradu.',
+    resolution:'Tuje vyměněny zdarma v rámci záruky. Doplněna instrukce k zalévání.',
+    resolvedAt:abs(2025,10,20), resolvedBy:1,
+    cost:1140, refunded:0,
+  },
+  {
+    id:2, clientId:2, orderId:null, status:'in_progress', priority:'medium',
+    title:'Nerovnoměrné sekání trávníku', date:d(-5),
+    description:'Trávník po sekání má místa s vyšší trávou. Žádá nápravu.',
+    resolution:'Domluveno opakované sekání zdarma 30.4.',
+    resolvedAt:null, resolvedBy:null,
+    cost:0, refunded:0,
+  },
+  {
+    id:3, clientId:6, orderId:131, status:'open', priority:'low',
+    title:'Hluk při ranní práci', date:d(-2),
+    description:'Soused si stěžoval na hluk před 8:00. Klient žádá posunout startovní čas.',
+    resolution:'',
+    resolvedAt:null, resolvedBy:null,
+    cost:0, refunded:0,
+  },
+  {
+    id:4, clientId:11, orderId:null, status:'rejected', priority:'medium',
+    title:'Reklamace barvy mulče', date:abs(2025,8,15),
+    description:'Klient tvrdí že kůra je tmavší než dohodnuto.',
+    resolution:'Vzorek odpovídá objednávce. Reklamace zamítnuta po společné kontrole.',
+    resolvedAt:abs(2025,8,18), resolvedBy:1,
+    cost:0, refunded:0,
+  },
+]
+
+// ── Vehicles (vozidla — tachograf) ──────────────
+export const vehicleTypes = [
+  { id:'van',    label:'Dodávka' },
+  { id:'pickup', label:'Pickup'  },
+  { id:'car',    label:'Osobní'  },
+  { id:'tractor',label:'Traktor' },
+]
+
+export const defaultVehicles = [
+  {
+    id:1, name:'Ford Transit 2.0', type:'van', plate:'2AB 1234',
+    year:2020, currentKm:78420,
+    fuelType:'diesel', avgConsumption:8.2,
+    insurance:'Allianz',  insuranceExpiry:abs(2027,3,15),
+    inspection:abs(2027,5,20), assignedTo:1,
+    notes:'Hlavní dodávka pro materiál a tým.',
+  },
+  {
+    id:2, name:'Škoda Octavia Combi', type:'car', plate:'3CD 5678',
+    year:2022, currentKm:42150,
+    fuelType:'diesel', avgConsumption:5.4,
+    insurance:'Generali', insuranceExpiry:abs(2026,11,8),
+    inspection:abs(2027,2,12), assignedTo:1,
+    notes:'Pro dojíždění ke klientům.',
+  },
+  {
+    id:3, name:'VW Caddy', type:'pickup', plate:'4EF 9012',
+    year:2018, currentKm:124300,
+    fuelType:'diesel', avgConsumption:6.8,
+    insurance:'Allianz',  insuranceExpiry:abs(2026,9,3),
+    inspection:abs(2026,8,15), assignedTo:2,
+    notes:'Tomášův pracovní vůz.',
+  },
+]
+
+export const defaultTrips = [
+  // Recent trips for current month
+  { id:1, vehicleId:1, driverId:1, date:d(-1),  startKm:78380, endKm:78420, distance:40, purpose:'Klient Šimánek + AGRO CS', clientId:6, fuelCost:0, notes:'' },
+  { id:2, vehicleId:1, driverId:1, date:d(-2),  startKm:78340, endKm:78380, distance:40, purpose:'Hotel Průhonice', clientId:7, fuelCost:0, notes:'' },
+  { id:3, vehicleId:2, driverId:1, date:d(-3),  startKm:42120, endKm:42150, distance:30, purpose:'Schůzka — nový klient', clientId:null, fuelCost:0, notes:'Předběžná prohlídka' },
+  { id:4, vehicleId:1, driverId:2, date:d(-3),  startKm:78280, endKm:78340, distance:60, purpose:'Trasa Říčany — Jesenice', clientId:null, fuelCost:0, notes:'Více klientů' },
+  { id:5, vehicleId:3, driverId:2, date:d(-4),  startKm:124220,endKm:124300,distance:80, purpose:'Velké Popovice', clientId:6, fuelCost:0, notes:'' },
+  { id:6, vehicleId:1, driverId:1, date:d(-7),  startKm:78180, endKm:78280, distance:100,purpose:'Litomyšl — školka rostlin', clientId:null, fuelCost:0, notes:'Velký nákup' },
+  { id:7, vehicleId:2, driverId:1, date:d(-10), startKm:42050, endKm:42120, distance:70, purpose:'Klienti Praha-východ', clientId:null, fuelCost:0, notes:'' },
+  { id:8, vehicleId:3, driverId:2, date:d(-12), startKm:124140,endKm:124220,distance:80, purpose:'Říčany + Mukařov', clientId:null, fuelCost:0, notes:'' },
+]
+
+export const defaultRefuels = [
+  // Tankování
+  { id:1, vehicleId:1, date:d(-2),  liters:42.5, pricePerL:43.5, total:1849, km:78380, station:'OMV Říčany',         notes:'' },
+  { id:2, vehicleId:2, date:d(-5),  liters:38.2, pricePerL:42.8, total:1635, km:42100, station:'Shell Praha',         notes:'' },
+  { id:3, vehicleId:3, date:d(-8),  liters:55.0, pricePerL:43.5, total:2393, km:124180,station:'OMV Praha-východ',   notes:'Plná nádrž' },
+  { id:4, vehicleId:1, date:d(-15), liters:50.0, pricePerL:43.2, total:2160, km:78180, station:'OMV Říčany',         notes:'' },
+  { id:5, vehicleId:2, date:d(-20), liters:35.4, pricePerL:42.5, total:1505, km:42030, station:'Benzina',             notes:'' },
+]

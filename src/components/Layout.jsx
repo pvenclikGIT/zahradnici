@@ -11,10 +11,10 @@ import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts'
 import {
   LayoutDashboard, CalendarDays, ClipboardList, CheckSquare,
   Receipt, BadgeDollarSign, Users, Bell, Settings,
-  Plus, Menu, X, Leaf, Search, LogOut, UserCircle, Package, Building2, Receipt as ReceiptIconLucide, Users2
+  Plus, Menu, X, Leaf, Search, LogOut, UserCircle, Package, Building2, Receipt as ReceiptIconLucide, Users2, FileEdit, FileSignature, AlertTriangle, Truck, ChevronDown, BookOpen
 } from 'lucide-react'
 
-const VERSION = 'v2.4.0'
+const VERSION = 'v2.6.0'
 
 const pageTitles = {
   '/':'Dashboard', '/calendar':'Kalendář', '/orders':'Zakázky',
@@ -46,25 +46,32 @@ export default function Layout({ children }) {
   }, [])
 
   const navGroups = [
-    { group:'Denní práce', items:[
+    { group:'Denní práce', defaultOpen: true, items:[
       { to:'/',          icon:LayoutDashboard, label:'Dashboard',  perm:'dashboard'  },
       { to:'/calendar',  icon:CalendarDays,    label:'Kalendář',   perm:'calendar'   },
       { to:'/team',      icon:Users2,          label:'Tým',        perm:'calendar'   },
       { to:'/orders',    icon:ClipboardList,   label:'Zakázky',    perm:'orders'     },
       { to:'/checklist', icon:CheckSquare,     label:'Checklist',  perm:'checklist'  },
     ]},
-    { group:'Obchod', items:[
-      { to:'/clients',       icon:Users,   label:'Klienti',     perm:'clients'       },
-      { to:'/invoices',      icon:Receipt,            label:'Faktury',    perm:'invoices'      },
-      { to:'/receipts',      icon:ReceiptIconLucide,  label:'Účtenky',    perm:'invoices'      },
-      { to:'/notifications', icon:Bell,    label:'Notifikace',  perm:'notifications', badge: unreadCount },
+    { group:'Obchod', defaultOpen: true, items:[
+      { to:'/clients',       icon:Users,                  label:'Klienti',      perm:'clients'       },
+      { to:'/quotes',        icon:FileEdit,               label:'Nabídky',      perm:'invoices'      },
+      { to:'/contracts',     icon:FileSignature,          label:'Smlouvy',      perm:'invoices'      },
+      { to:'/invoices',      icon:Receipt,                label:'Faktury',      perm:'invoices'      },
+      { to:'/receipts',      icon:ReceiptIconLucide,      label:'Účtenky',      perm:'invoices'      },
+      { to:'/complaints',    icon:AlertTriangle,          label:'Reklamace',    perm:'clients'       },
+      { to:'/notifications', icon:Bell,                   label:'Notifikace',   perm:'notifications', badge: unreadCount },
     ]},
-    { group:'Katalog', items:[
+    { group:'Katalog', defaultOpen: false, items:[
       { to:'/pricelist', icon:BadgeDollarSign, label:'Ceník služeb', perm:'pricelist' },
       { to:'/products',  icon:Package,         label:'Produkty',     perm:'pricelist' },
       { to:'/suppliers', icon:Building2,       label:'Dodavatelé',   perm:'pricelist' },
     ]},
-    { group:'Systém', items:[
+    { group:'Provoz', defaultOpen: false, items:[
+      { to:'/vehicles',  icon:Truck,           label:'Vozidla',      perm:'orders'    },
+    ]},
+    { group:'Systém', defaultOpen: false, items:[
+      { to:'/help',     icon:BookOpen,    label:'Nápověda',  perm:null       },
       { to:'/settings', icon:Settings,    label:'Nastavení', perm:'settings' },
       { to:'/profiles', icon:UserCircle,  label:'Profily',   perm:null       },
     ]},
@@ -92,29 +99,54 @@ export default function Layout({ children }) {
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 overflow-y-auto px-3 py-3 flex flex-col gap-4">
+      <nav className="flex-1 overflow-y-auto px-3 py-3 flex flex-col gap-2">
         {navGroups.map((group, gIdx) => {
           const visibleItems = group.items.filter(item => !item.perm || can(item.perm))
           if (!visibleItems.length) return null
           const isSystem = group.group === 'Systém'
+          const isOpen = openGroups[group.group] ?? group.defaultOpen ?? true
+          // Auto-open if any item in group is active
+          const hasActive = visibleItems.some(item =>
+            item.to === '/' ? location.pathname === '/' : location.pathname.startsWith(item.to)
+          )
+          const shouldShow = isOpen || hasActive
+          // Sum of badges in group (for collapsed state indicator)
+          const groupBadge = visibleItems.reduce((s, i) => s + (i.badge || 0), 0)
+
           return (
             <div key={group.group} className={cn(isSystem && 'mt-auto pt-3 border-t border-border')}>
-              <p className="px-3 pb-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">{group.group}</p>
-              <div className="space-y-0.5">
-                {visibleItems.map(item => (
-                  <NavLink key={item.to} to={item.to} end={item.to==='/'} onClick={onNavClick}
-                    className={({ isActive }) => cn(
-                      'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all group touch-manipulation active:scale-[0.97]',
-                      isActive ? 'bg-green-50 text-green-700' : 'text-muted-foreground hover:bg-accent hover:text-foreground'
-                    )}>
-                    {({ isActive }) => (<>
-                      <item.icon size={16} className={cn('flex-shrink-0', isActive?'text-green-600':'text-muted-foreground/70 group-hover:text-foreground/70')}/>
-                      <span className="flex-1 truncate">{item.label}</span>
-                      {(item.badge||0)>0 && <span className="min-w-[20px] h-5 px-1 inline-flex items-center justify-center text-[10px] font-bold rounded-full text-white bg-destructive">{item.badge>9?'9+':item.badge}</span>}
-                    </>)}
-                  </NavLink>
-                ))}
-              </div>
+              <button
+                onClick={() => setOpenGroups(g => ({...g, [group.group]: !shouldShow}))}
+                className="w-full flex items-center justify-between px-3 py-1.5 rounded-lg hover:bg-accent/50 transition-colors group touch-manipulation">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 group-hover:text-muted-foreground">
+                  {group.group}
+                </span>
+                <span className="flex items-center gap-1.5">
+                  {!shouldShow && groupBadge > 0 && (
+                    <span className="min-w-[16px] h-4 px-1 inline-flex items-center justify-center text-[9px] font-bold rounded-full text-white bg-destructive">
+                      {groupBadge > 9 ? '9+' : groupBadge}
+                    </span>
+                  )}
+                  <ChevronDown size={12} className={cn('text-muted-foreground/50 transition-transform', !shouldShow && '-rotate-90')}/>
+                </span>
+              </button>
+              {shouldShow && (
+                <div className="space-y-0.5 mt-1">
+                  {visibleItems.map(item => (
+                    <NavLink key={item.to} to={item.to} end={item.to==='/'} onClick={onNavClick}
+                      className={({ isActive }) => cn(
+                        'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all group touch-manipulation active:scale-[0.97]',
+                        isActive ? 'bg-green-50 text-green-700' : 'text-muted-foreground hover:bg-accent hover:text-foreground'
+                      )}>
+                      {({ isActive }) => (<>
+                        <item.icon size={16} className={cn('flex-shrink-0', isActive?'text-green-600':'text-muted-foreground/70 group-hover:text-foreground/70')}/>
+                        <span className="flex-1 truncate">{item.label}</span>
+                        {(item.badge||0)>0 && <span className="min-w-[20px] h-5 px-1 inline-flex items-center justify-center text-[10px] font-bold rounded-full text-white bg-destructive">{item.badge>9?'9+':item.badge}</span>}
+                      </>)}
+                    </NavLink>
+                  ))}
+                </div>
+              )}
             </div>
           )
         })}

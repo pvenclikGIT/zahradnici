@@ -15,6 +15,11 @@ import { Products } from './pages/Products'
 import { Suppliers } from './pages/Suppliers'
 import { Receipts } from './pages/Receipts'
 import { Team } from './pages/Team'
+import { Quotes } from './pages/Quotes'
+import { Contracts } from './pages/Contracts'
+import { Complaints } from './pages/Complaints'
+import { Vehicles } from './pages/Vehicles'
+import { Help } from './pages/Help'
 import { Login } from './pages/Login'
 import { Profiles } from './pages/Profiles'
 import { Portal } from './pages/Portal'
@@ -58,6 +63,11 @@ function AppRoutes() {
             <Route path="/"              element={<ProtectedRoute permission="dashboard"><Dashboard/></ProtectedRoute>}/>
             <Route path="/calendar"      element={<ProtectedRoute permission="calendar"><Calendar/></ProtectedRoute>}/>
             <Route path="/team"          element={<ProtectedRoute permission="calendar"><Team/></ProtectedRoute>}/>
+            <Route path="/quotes"        element={<ProtectedRoute permission="invoices"><Quotes/></ProtectedRoute>}/>
+            <Route path="/contracts"     element={<ProtectedRoute permission="invoices"><Contracts/></ProtectedRoute>}/>
+            <Route path="/complaints"    element={<ProtectedRoute permission="clients"><Complaints/></ProtectedRoute>}/>
+            <Route path="/vehicles"      element={<ProtectedRoute permission="orders"><Vehicles/></ProtectedRoute>}/>
+            <Route path="/help"          element={<Help/>}/>
             <Route path="/orders"        element={<ProtectedRoute permission="orders"><Orders/></ProtectedRoute>}/>
             <Route path="/checklist"     element={<ProtectedRoute permission="checklist"><Checklist/></ProtectedRoute>}/>
             <Route path="/invoices"      element={<ProtectedRoute permission="invoices"><Invoices/></ProtectedRoute>}/>

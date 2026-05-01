@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useCallback, useMemo } from 'react'
-import { defaultClients, defaultOrders, defaultInvoices, defaultServices, defaultProducts, defaultSuppliers, defaultReceipts, defaultWorkers, defaultAbsences } from '../data'
+import { defaultClients, defaultOrders, defaultInvoices, defaultServices, defaultProducts, defaultSuppliers, defaultReceipts, defaultWorkers, defaultAbsences, defaultQuotes, defaultContracts, defaultComplaints, defaultVehicles, defaultTrips, defaultRefuels } from '../data'
 import { useAutoNotifications } from './useNotifications'
 import { useRecurring } from './useRecurring'
 
@@ -19,6 +19,12 @@ export function AppProvider({ children }) {
   const [receipts, setReceiptsRaw]  = useState(() => load('receipts', defaultReceipts))
   const [workers,  setWorkersRaw]   = useState(() => load('workers',  defaultWorkers))
   const [absences, setAbsencesRaw]  = useState(() => load('absences', defaultAbsences))
+  const [quotes,    setQuotesRaw]    = useState(() => load('quotes',    defaultQuotes))
+  const [contracts, setContractsRaw] = useState(() => load('contracts', defaultContracts))
+  const [complaints,setComplaintsRaw]= useState(() => load('complaints',defaultComplaints))
+  const [vehicles,  setVehiclesRaw]  = useState(() => load('vehicles',  defaultVehicles))
+  const [trips,     setTripsRaw]     = useState(() => load('trips',     defaultTrips))
+  const [refuels,   setRefuelsRaw]   = useState(() => load('refuels',   defaultRefuels))
   // Manual read state overlay
   const [readIds, setReadIds] = useState(() => load('readNotifIds', []))
 
@@ -32,6 +38,12 @@ export function AppProvider({ children }) {
   const setReceipts  = mk(setReceiptsRaw,  'receipts')
   const setWorkers   = mk(setWorkersRaw,   'workers')
   const setAbsences  = mk(setAbsencesRaw,  'absences')
+  const setQuotes    = mk(setQuotesRaw,    'quotes')
+  const setContracts = mk(setContractsRaw, 'contracts')
+  const setComplaints= mk(setComplaintsRaw,'complaints')
+  const setVehicles  = mk(setVehiclesRaw,  'vehicles')
+  const setTrips     = mk(setTripsRaw,     'trips')
+  const setRefuels   = mk(setRefuelsRaw,   'refuels')
 
   // Live generated notifications
   const rawNotifications = useAutoNotifications(clients, orders, invoices)
@@ -78,6 +90,8 @@ export function AppProvider({ children }) {
     setReceipts(defaultReceipts)
     setWorkers(defaultWorkers)
     setAbsences(defaultAbsences)
+    setQuotes(defaultQuotes); setContracts(defaultContracts); setComplaints(defaultComplaints)
+    setVehicles(defaultVehicles); setTrips(defaultTrips); setRefuels(defaultRefuels)
     setReadIds([]); save('readNotifIds',[])
   }, [])
 
@@ -149,6 +163,31 @@ export function AppProvider({ children }) {
     setAbsences(absences.map(a => a.id === id ? { ...a, status:'rejected', approvedBy:approverId, approvedAt: new Date().toISOString().split('T')[0] } : a))
   }, [absences, setAbsences])
 
+
+  // ── Quotes CRUD ──
+  const addQuote = useCallback(q => setQuotes([...quotes, { ...q, id: Date.now() }]), [quotes, setQuotes])
+  const updateQuote = useCallback(q => setQuotes(quotes.map(x => x.id === q.id ? q : x)), [quotes, setQuotes])
+  const deleteQuote = useCallback(id => setQuotes(quotes.filter(q => q.id !== id)), [quotes, setQuotes])
+
+  // ── Contracts CRUD ──
+  const addContract = useCallback(c => setContracts([...contracts, { ...c, id: Date.now() }]), [contracts, setContracts])
+  const updateContract = useCallback(c => setContracts(contracts.map(x => x.id === c.id ? c : x)), [contracts, setContracts])
+  const deleteContract = useCallback(id => setContracts(contracts.filter(c => c.id !== id)), [contracts, setContracts])
+
+  // ── Complaints CRUD ──
+  const addComplaint = useCallback(c => setComplaints([...complaints, { ...c, id: Date.now() }]), [complaints, setComplaints])
+  const updateComplaint = useCallback(c => setComplaints(complaints.map(x => x.id === c.id ? c : x)), [complaints, setComplaints])
+  const deleteComplaint = useCallback(id => setComplaints(complaints.filter(c => c.id !== id)), [complaints, setComplaints])
+
+  // ── Vehicles + Trips + Refuels CRUD ──
+  const addVehicle = useCallback(v => setVehicles([...vehicles, { ...v, id: Date.now() }]), [vehicles, setVehicles])
+  const updateVehicle = useCallback(v => setVehicles(vehicles.map(x => x.id === v.id ? v : x)), [vehicles, setVehicles])
+  const deleteVehicle = useCallback(id => setVehicles(vehicles.filter(v => v.id !== id)), [vehicles, setVehicles])
+  const addTrip = useCallback(t => setTrips([...trips, { ...t, id: Date.now() }]), [trips, setTrips])
+  const deleteTrip = useCallback(id => setTrips(trips.filter(t => t.id !== id)), [trips, setTrips])
+  const addRefuel = useCallback(r => setRefuels([...refuels, { ...r, id: Date.now() }]), [refuels, setRefuels])
+  const deleteRefuel = useCallback(id => setRefuels(refuels.filter(r => r.id !== id)), [refuels, setRefuels])
+
   return (
     <AppContext.Provider value={{
       clients, orders, invoices, services,
@@ -164,6 +203,12 @@ export function AppProvider({ children }) {
       receipts, addReceipt, updateReceipt, deleteReceipt,
       workers, absences,
       addAbsence, updateAbsence, deleteAbsence, approveAbsence, rejectAbsence,
+      quotes, addQuote, updateQuote, deleteQuote,
+      contracts, addContract, updateContract, deleteContract,
+      complaints, addComplaint, updateComplaint, deleteComplaint,
+      vehicles, trips, refuels,
+      addVehicle, updateVehicle, deleteVehicle,
+      addTrip, deleteTrip, addRefuel, deleteRefuel,
       markNotifRead, markAllNotifsRead,
       nextInvoiceNum, resetDemo,
     }}>
