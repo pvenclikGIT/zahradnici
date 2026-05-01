@@ -30,12 +30,22 @@ const pageTitles = {
 export default function Layout({ children }) {
   const [mobileOpen, setMobileOpen]  = useState(false)
   const [searchOpen, setSearchOpen]  = useState(false)
+  const [openGroups, setOpenGroups]  = useState(() => {
+    try {
+      const saved = localStorage.getItem('zp_sidebarGroups')
+      return saved ? JSON.parse(saved) : {}
+    } catch { return {} }
+  })
   const location  = useLocation()
   const { unreadCount } = useApp()
   const { currentUser, can, logout } = useAuth()
   const { pulling, progress } = usePullToRefresh(() => window.location.reload())
 
   useKeyboardShortcuts(() => setSearchOpen(true))
+
+  useEffect(() => {
+    try { localStorage.setItem('zp_sidebarGroups', JSON.stringify(openGroups)) } catch {}
+  }, [openGroups])
 
   useEffect(() => {
     const handler = e => {
