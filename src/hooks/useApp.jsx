@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useCallback, useMemo } from 'react'
-import { defaultClients, defaultOrders, defaultInvoices, defaultServices } from '../data'
+import { defaultClients, defaultOrders, defaultInvoices, defaultServices, defaultProducts, defaultSuppliers } from '../data'
 import { useAutoNotifications } from './useNotifications'
 import { useRecurring } from './useRecurring'
 
@@ -10,18 +10,22 @@ const save = (k, v) => { try { localStorage.setItem(KEY+k,JSON.stringify(v)) } c
 const AppContext = createContext(null)
 
 export function AppProvider({ children }) {
-  const [clients,  setClientsRaw]  = useState(() => load('clients',  defaultClients))
-  const [orders,   setOrdersRaw]   = useState(() => load('orders',   defaultOrders))
-  const [invoices, setInvoicesRaw] = useState(() => load('invoices', defaultInvoices))
-  const [services, setServicesRaw] = useState(() => load('services', defaultServices))
+  const [clients,  setClientsRaw]   = useState(() => load('clients',  defaultClients))
+  const [orders,   setOrdersRaw]    = useState(() => load('orders',   defaultOrders))
+  const [invoices, setInvoicesRaw]  = useState(() => load('invoices', defaultInvoices))
+  const [services, setServicesRaw]  = useState(() => load('services', defaultServices))
+  const [products, setProductsRaw]  = useState(() => load('products', defaultProducts))
+  const [suppliers,setSuppliersRaw] = useState(() => load('suppliers',defaultSuppliers))
   // Manual read state overlay
   const [readIds, setReadIds] = useState(() => load('readNotifIds', []))
 
   const mk = (raw, key) => useCallback(v => { raw(v); save(key, v) }, [])
-  const setClients  = mk(setClientsRaw,  'clients')
-  const setOrders   = mk(setOrdersRaw,   'orders')
-  const setInvoices = mk(setInvoicesRaw, 'invoices')
-  const setServices = mk(setServicesRaw, 'services')
+  const setClients   = mk(setClientsRaw,   'clients')
+  const setOrders    = mk(setOrdersRaw,    'orders')
+  const setInvoices  = mk(setInvoicesRaw,  'invoices')
+  const setServices  = mk(setServicesRaw,  'services')
+  const setProducts  = mk(setProductsRaw,  'products')
+  const setSuppliers = mk(setSuppliersRaw, 'suppliers')
 
   // Live generated notifications
   const rawNotifications = useAutoNotifications(clients, orders, invoices)
@@ -64,38 +68,54 @@ export function AppProvider({ children }) {
   const resetDemo = useCallback(() => {
     setClients(defaultClients); setOrders(defaultOrders)
     setInvoices(defaultInvoices); setServices(defaultServices)
+    setProducts(defaultProducts); setSuppliers(defaultSuppliers)
     setReadIds([]); save('readNotifIds',[])
   }, [])
 
 
   // ── Products CRUD ──
   const addProduct = useCallback(p => {
-    const next = [...products, { ...p, id: Date.now() }]
-    setProducts(next)
-    localStorage.setItem('zp3_products', JSON.stringify(next))
-  }, [products])
+    setProducts([...products, { ...p, id: Date.now() }])
+  }, [products, setProducts])
 
   const updateProduct = useCallback(p => {
-    const next = products.map(x => x.id === p.id ? p : x)
-    setProducts(next)
-    localStorage.setItem('zp3_products', JSON.stringify(next))
-  }, [products])
+    setProducts(products.map(x => x.id === p.id ? p : x))
+  }, [products, setProducts])
 
   const deleteProduct = useCallback(id => {
-    const next = products.filter(p => p.id !== id)
-    setProducts(next)
-    localStorage.setItem('zp3_products', JSON.stringify(next))
-  }, [products])
+    setProducts(products.filter(p => p.id !== id))
+  }, [products, setProducts])
+
+
+  // ── Suppliers CRUD ──
+  const addSupplier = useCallback(s => {
+    setSuppliers([...suppliers, { ...s, id: Date.now() }])
+  }, [suppliers, setSuppliers])
+
+  const updateSupplier = useCallback(s => {
+    setSuppliers(suppliers.map(x => x.id === s.id ? s : x))
+  }, [suppliers, setSuppliers])
+
+  const deleteSupplier = useCallback(id => {
+    setSuppliers(suppliers.filter(s => s.id !== id))
+  }, [suppliers, setSuppliers])
+
+  const toggleSupplierFavorite = useCallback(id => {
+    setSuppliers(suppliers.map(s => s.id === id ? { ...s, favorite: !s.favorite } : s))
+  }, [suppliers, setSuppliers])
 
   return (
     <AppContext.Provider value={{
       clients, orders, invoices, services,
+      products, suppliers,
       notifications, unreadCount,
       getClient, getOrder,
       addClient, updateClient, deleteClient,
       addOrder, updateOrder, deleteOrder,
       addInvoice, markInvoicePaid, deleteInvoice,
       addService, updateService, deleteService,
+      addProduct, updateProduct, deleteProduct,
+      addSupplier, updateSupplier, deleteSupplier, toggleSupplierFavorite,
       markNotifRead, markAllNotifsRead,
       nextInvoiceNum, resetDemo,
     }}>

@@ -12,6 +12,7 @@ import { Invoices } from './pages/Invoices'
 import { Calendar } from './pages/Calendar'
 import { Pricelist, Notifications, Settings } from './pages/Other'
 import { Products } from './pages/Products'
+import { Suppliers } from './pages/Suppliers'
 import { Login } from './pages/Login'
 import { Profiles } from './pages/Profiles'
 import { Portal } from './pages/Portal'
@@ -59,6 +60,7 @@ function AppRoutes() {
             <Route path="/invoices"      element={<ProtectedRoute permission="invoices"><Invoices/></ProtectedRoute>}/>
             <Route path="/pricelist"     element={<ProtectedRoute permission="pricelist"><Pricelist/></ProtectedRoute>}/>
             <Route path="/products"      element={<ProtectedRoute permission="pricelist"><Products/></ProtectedRoute>}/>
+            <Route path="/suppliers"     element={<ProtectedRoute permission="pricelist"><Suppliers/></ProtectedRoute>}/>
             <Route path="/clients"       element={<ProtectedRoute permission="clients"><Clients/></ProtectedRoute>}/>
             <Route path="/notifications" element={<ProtectedRoute permission="notifications"><Notifications/></ProtectedRoute>}/>
             <Route path="/settings"      element={<ProtectedRoute permission="settings"><Settings/></ProtectedRoute>}/>
