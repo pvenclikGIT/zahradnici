@@ -63,49 +63,49 @@ export const defaultClients = [
 // ── Orders (38 zakázek) — 2025/2026 ──────────
 export const defaultOrders = [
   // 2025 — jaro (dokoncene, zaplacene)
-  { id:101, clientId:3,  date:abs(2025,3,12), status:'completed', services:['Sekání trávy','Zálivka'],                          duration:65,  totalPrice:950,  paid:true,  paidDate:abs(2025,3,15), notes:'Zálivka ovocných stromků.', worker:'Jan Novák' },
-  { id:102, clientId:6,  date:abs(2025,3,18), status:'completed', services:['Sekání trávy','Stříhání živého plotu','Mulčování'], duration:260, totalPrice:6800, paid:true,  paidDate:abs(2025,3,18), notes:'Zaplaceno hotově na místě.', worker:'Jan Novák' },
-  { id:103, clientId:1,  date:abs(2025,3,25), status:'completed', services:['Vertikutace','Hnojení trávníku'],                  duration:130, totalPrice:2800, paid:true,  paidDate:abs(2025,3,27), notes:'Jarní vertikutace a hnojení.', worker:'Jan Novák' },
-  { id:104, clientId:7,  date:abs(2025,4,2),  status:'completed', services:['Sekání trávy','Stříhání keřů','Výsadba rostlin'],  duration:230, totalPrice:8200, paid:true,  paidDate:abs(2025,4,2),  notes:'Hotelová zahrada — sezónní výsadba letniček.', worker:'Jan Novák' },
-  { id:105, clientId:2,  date:abs(2025,4,8),  status:'completed', services:['Sekání trávy','Vertikutace','Odvoz odpadu'],       duration:220, totalPrice:5800, paid:true,  paidDate:abs(2025,4,20), notes:'Firemní areál, velká plocha.', worker:'Jan Novák' },
-  { id:106, clientId:4,  date:abs(2025,4,15), status:'completed', services:['Sekání trávy','Odvoz odpadu'],                    duration:160, totalPrice:3600, paid:true,  paidDate:abs(2025,4,22), notes:'Nafocen stav zahrady před a po.', worker:'Jan Novák' },
-  { id:107, clientId:8,  date:abs(2025,4,22), status:'completed', services:['Sekání trávy','Stříhání keřů'],                   duration:95,  totalPrice:2100, paid:true,  paidDate:abs(2025,4,25), notes:'', worker:'Jan Novák' },
-  { id:108, clientId:9,  date:abs(2025,4,28), status:'completed', services:['Sekání trávy','Hnojení trávníku'],                duration:90,  totalPrice:1900, paid:true,  paidDate:abs(2025,4,30), notes:'Bez chemie — organické hnojivo.', worker:'Jan Novák' },
+  { id:101, clientId:3,  date:abs(2025,3,12), status:'completed', services:['Sekání trávy','Zálivka'],                          duration:65,  totalPrice:950,  paid:true,  paidDate:abs(2025,3,15), notes:'Zálivka ovocných stromků.', worker:'Tomáš Zelený', workerId:2 },
+  { id:102, clientId:6,  date:abs(2025,3,18), status:'completed', services:['Sekání trávy','Stříhání živého plotu','Mulčování'], duration:260, totalPrice:6800, paid:true,  paidDate:abs(2025,3,18), notes:'Zaplaceno hotově na místě.', worker:'Jan Novák', workerId:1 },
+  { id:103, clientId:1,  date:abs(2025,3,25), status:'completed', services:['Vertikutace','Hnojení trávníku'],                  duration:130, totalPrice:2800, paid:true,  paidDate:abs(2025,3,27), notes:'Jarní vertikutace a hnojení.', worker:'Tomáš Zelený', workerId:2 },
+  { id:104, clientId:7,  date:abs(2025,4,2),  status:'completed', services:['Sekání trávy','Stříhání keřů','Výsadba rostlin'],  duration:230, totalPrice:8200, paid:true,  paidDate:abs(2025,4,2),  notes:'Hotelová zahrada — sezónní výsadba letniček.', worker:'Tomáš Zelený', workerId:2 },
+  { id:105, clientId:2,  date:abs(2025,4,8),  status:'completed', services:['Sekání trávy','Vertikutace','Odvoz odpadu'],       duration:220, totalPrice:5800, paid:true,  paidDate:abs(2025,4,20), notes:'Firemní areál, velká plocha.', worker:'Jan Novák', workerId:1 },
+  { id:106, clientId:4,  date:abs(2025,4,15), status:'completed', services:['Sekání trávy','Odvoz odpadu'],                    duration:160, totalPrice:3600, paid:true,  paidDate:abs(2025,4,22), notes:'Nafocen stav zahrady před a po.', worker:'Tomáš Zelený', workerId:2 },
+  { id:107, clientId:8,  date:abs(2025,4,22), status:'completed', services:['Sekání trávy','Stříhání keřů'],                   duration:95,  totalPrice:2100, paid:true,  paidDate:abs(2025,4,25), notes:'', worker:'Tomáš Zelený', workerId:2 },
+  { id:108, clientId:9,  date:abs(2025,4,28), status:'completed', services:['Sekání trávy','Hnojení trávníku'],                duration:90,  totalPrice:1900, paid:true,  paidDate:abs(2025,4,30), notes:'Bez chemie — organické hnojivo.', worker:'Jan Novák', workerId:1 },
   // 2025 — léto
-  { id:109, clientId:6,  date:abs(2025,5,6),  status:'completed', services:['Sekání trávy','Stříhání živého plotu'],           duration:190, totalPrice:4800, paid:true,  paidDate:abs(2025,5,6),  notes:'Zaplaceno hotově.', worker:'Jan Novák' },
-  { id:110, clientId:1,  date:abs(2025,5,14), status:'completed', services:['Sekání trávy','Stříhání keřů'],                   duration:100, totalPrice:2200, paid:true,  paidDate:abs(2025,5,16), notes:'', worker:'Jan Novák' },
-  { id:111, clientId:7,  date:abs(2025,5,20), status:'completed', services:['Sekání trávy','Stříhání živého plotu'],           duration:190, totalPrice:5600, paid:true,  paidDate:abs(2025,5,20), notes:'Hotel — letní údržba vstupu.', worker:'Jan Novák' },
-  { id:112, clientId:2,  date:abs(2025,5,27), status:'completed', services:['Sekání trávy','Stříhání keřů','Zálivka'],        duration:210, totalPrice:5200, paid:true,  paidDate:abs(2025,6,5),  notes:'', worker:'Jan Novák' },
-  { id:113, clientId:10, date:abs(2025,6,3),  status:'completed', services:['Sekání trávy','Výsadba rostlin'],                duration:140, totalPrice:4200, paid:true,  paidDate:abs(2025,6,5),  notes:'Výsadba trvalkového záhonu.', worker:'Jan Novák' },
-  { id:114, clientId:12, date:abs(2025,6,10), status:'completed', services:['Sekání trávy','Odvoz odpadu'],                   duration:270, totalPrice:7200, paid:true,  paidDate:abs(2025,6,12), notes:'Školní hřiště a zahrada — letní úklid.', worker:'Jan Novák' },
-  { id:115, clientId:3,  date:abs(2025,6,17), status:'completed', services:['Sekání trávy'],                                  duration:55,  totalPrice:850,  paid:true,  paidDate:abs(2025,6,19), notes:'', worker:'Jan Novák' },
-  { id:116, clientId:5,  date:abs(2025,6,24), status:'completed', services:['Sekání trávy','Stříhání keřů'],                  duration:100, totalPrice:2300, paid:true,  paidDate:abs(2025,6,26), notes:'', worker:'Jan Novák' },
+  { id:109, clientId:6,  date:abs(2025,5,6),  status:'completed', services:['Sekání trávy','Stříhání živého plotu'],           duration:190, totalPrice:4800, paid:true,  paidDate:abs(2025,5,6),  notes:'Zaplaceno hotově.', worker:'Tomáš Zelený', workerId:2 },
+  { id:110, clientId:1,  date:abs(2025,5,14), status:'completed', services:['Sekání trávy','Stříhání keřů'],                   duration:100, totalPrice:2200, paid:true,  paidDate:abs(2025,5,16), notes:'', worker:'Tomáš Zelený', workerId:2 },
+  { id:111, clientId:7,  date:abs(2025,5,20), status:'completed', services:['Sekání trávy','Stříhání živého plotu'],           duration:190, totalPrice:5600, paid:true,  paidDate:abs(2025,5,20), notes:'Hotel — letní údržba vstupu.', worker:'Jan Novák', workerId:1 },
+  { id:112, clientId:2,  date:abs(2025,5,27), status:'completed', services:['Sekání trávy','Stříhání keřů','Zálivka'],        duration:210, totalPrice:5200, paid:true,  paidDate:abs(2025,6,5),  notes:'', worker:'Tomáš Zelený', workerId:2 },
+  { id:113, clientId:10, date:abs(2025,6,3),  status:'completed', services:['Sekání trávy','Výsadba rostlin'],                duration:140, totalPrice:4200, paid:true,  paidDate:abs(2025,6,5),  notes:'Výsadba trvalkového záhonu.', worker:'Tomáš Zelený', workerId:2 },
+  { id:114, clientId:12, date:abs(2025,6,10), status:'completed', services:['Sekání trávy','Odvoz odpadu'],                   duration:270, totalPrice:7200, paid:true,  paidDate:abs(2025,6,12), notes:'Školní hřiště a zahrada — letní úklid.', worker:'Jan Novák', workerId:1 },
+  { id:115, clientId:3,  date:abs(2025,6,17), status:'completed', services:['Sekání trávy'],                                  duration:55,  totalPrice:850,  paid:true,  paidDate:abs(2025,6,19), notes:'', worker:'Tomáš Zelený', workerId:2 },
+  { id:116, clientId:5,  date:abs(2025,6,24), status:'completed', services:['Sekání trávy','Stříhání keřů'],                  duration:100, totalPrice:2300, paid:true,  paidDate:abs(2025,6,26), notes:'', worker:'Tomáš Zelený', workerId:2 },
   // 2025 — podzim
-  { id:117, clientId:6,  date:abs(2025,9,9),  status:'completed', services:['Shrabání listí','Mulčování','Odvoz odpadu'],      duration:240, totalPrice:6200, paid:true,  paidDate:abs(2025,9,9),  notes:'Podzimní úklid — zaplaceno hotově.', worker:'Jan Novák' },
-  { id:118, clientId:1,  date:abs(2025,9,16), status:'completed', services:['Shrabání listí','Stříhání keřů'],                duration:110, totalPrice:2500, paid:true,  paidDate:abs(2025,9,18), notes:'', worker:'Jan Novák' },
-  { id:119, clientId:7,  date:abs(2025,9,23), status:'completed', services:['Shrabání listí','Odvoz odpadu'],                 duration:200, totalPrice:5400, paid:true,  paidDate:abs(2025,9,23), notes:'Hotel — podzimní příprava.', worker:'Jan Novák' },
-  { id:120, clientId:2,  date:abs(2025,10,7), status:'completed', services:['Shrabání listí','Mulčování','Odvoz odpadu'],     duration:300, totalPrice:7800, paid:true,  paidDate:abs(2025,10,20),notes:'Firemní areál — kompletní podzimní úklid.', worker:'Jan Novák' },
-  { id:121, clientId:12, date:abs(2025,10,18),status:'completed', services:['Shrabání listí','Sekání trávy'],                 duration:270, totalPrice:6800, paid:true,  paidDate:abs(2025,10,20),notes:'Škola — podzimní úklid hřiště.', worker:'Jan Novák' },
+  { id:117, clientId:6,  date:abs(2025,9,9),  status:'completed', services:['Shrabání listí','Mulčování','Odvoz odpadu'],      duration:240, totalPrice:6200, paid:true,  paidDate:abs(2025,9,9),  notes:'Podzimní úklid — zaplaceno hotově.', worker:'Jan Novák', workerId:1 },
+  { id:118, clientId:1,  date:abs(2025,9,16), status:'completed', services:['Shrabání listí','Stříhání keřů'],                duration:110, totalPrice:2500, paid:true,  paidDate:abs(2025,9,18), notes:'', worker:'Tomáš Zelený', workerId:2 },
+  { id:119, clientId:7,  date:abs(2025,9,23), status:'completed', services:['Shrabání listí','Odvoz odpadu'],                 duration:200, totalPrice:5400, paid:true,  paidDate:abs(2025,9,23), notes:'Hotel — podzimní příprava.', worker:'Tomáš Zelený', workerId:2 },
+  { id:120, clientId:2,  date:abs(2025,10,7), status:'completed', services:['Shrabání listí','Mulčování','Odvoz odpadu'],     duration:300, totalPrice:7800, paid:true,  paidDate:abs(2025,10,20),notes:'Firemní areál — kompletní podzimní úklid.', worker:'Jan Novák', workerId:1 },
+  { id:121, clientId:12, date:abs(2025,10,18),status:'completed', services:['Shrabání listí','Sekání trávy'],                 duration:270, totalPrice:6800, paid:true,  paidDate:abs(2025,10,20),notes:'Škola — podzimní úklid hřiště.', worker:'Tomáš Zelený', workerId:2 },
   // 2025 — zima / řez stromů
-  { id:122, clientId:13, date:abs(2025,12,3), status:'completed', services:['Řez stromů','Odvoz odpadu'],                     duration:180, totalPrice:5400, paid:true,  paidDate:abs(2025,12,5), notes:'Brzy ráno — do 7:30.', worker:'Jan Novák' },
-  { id:123, clientId:10, date:abs(2025,12,10),status:'completed', services:['Řez stromů','Odvoz odpadu'],                    duration:280, totalPrice:7800, paid:true,  paidDate:abs(2025,12,12),notes:'Precizní řez — architekt.', worker:'Jan Novák' },
+  { id:122, clientId:13, date:abs(2025,12,3), status:'completed', services:['Řez stromů','Odvoz odpadu'],                     duration:180, totalPrice:5400, paid:true,  paidDate:abs(2025,12,5), notes:'Brzy ráno — do 7:30.', worker:'Tomáš Zelený', workerId:2 },
+  { id:123, clientId:10, date:abs(2025,12,10),status:'completed', services:['Řez stromů','Odvoz odpadu'],                    duration:280, totalPrice:7800, paid:true,  paidDate:abs(2025,12,12),notes:'Precizní řez — architekt.', worker:'Jan Novák', workerId:1 },
   // 2026 — jaro (dokoncene)
-  { id:124, clientId:6,  date:abs(2026,3,5),  status:'completed', services:['Sekání trávy','Vertikutace','Hnojení trávníku'], duration:260, totalPrice:7200, paid:true,  paidDate:abs(2026,3,5),  notes:'Jarní start 2026 — zaplaceno hotově.', worker:'Jan Novák' },
-  { id:125, clientId:1,  date:abs(2026,3,12), status:'completed', services:['Vertikutace','Hnojení trávníku'],                duration:130, totalPrice:2800, paid:true,  paidDate:abs(2026,3,14), notes:'Jarní vertikutace 2026.', worker:'Jan Novák' },
-  { id:126, clientId:7,  date:abs(2026,3,18), status:'completed', services:['Sekání trávy','Výsadba rostlin'],                duration:210, totalPrice:7400, paid:true,  paidDate:abs(2026,3,18), notes:'Hotel — jarní výsadba 2026.', worker:'Jan Novák' },
-  { id:127, clientId:2,  date:abs(2026,4,2),  status:'completed', services:['Sekání trávy','Vertikutace','Odvoz odpadu'],     duration:220, totalPrice:5800, paid:true,  paidDate:abs(2026,4,15), notes:'Firemní areál — jarní péče.', worker:'Jan Novák' },
-  { id:128, clientId:4,  date:abs(2026,4,8),  status:'completed', services:['Sekání trávy','Mulčování'],                     duration:150, totalPrice:3900, paid:false, paidDate:null,           notes:'Zaslána faktura emailem.', worker:'Jan Novák' },
-  { id:129, clientId:9,  date:abs(2026,4,15), status:'completed', services:['Sekání trávy','Zálivka'],                       duration:90,  totalPrice:1900, paid:false, paidDate:null,           notes:'Bez chemie.', worker:'Jan Novák' },
+  { id:124, clientId:6,  date:abs(2026,3,5),  status:'completed', services:['Sekání trávy','Vertikutace','Hnojení trávníku'], duration:260, totalPrice:7200, paid:true,  paidDate:abs(2026,3,5),  notes:'Jarní start 2026 — zaplaceno hotově.', worker:'Tomáš Zelený', workerId:2 },
+  { id:125, clientId:1,  date:abs(2026,3,12), status:'completed', services:['Vertikutace','Hnojení trávníku'],                duration:130, totalPrice:2800, paid:true,  paidDate:abs(2026,3,14), notes:'Jarní vertikutace 2026.', worker:'Tomáš Zelený', workerId:2 },
+  { id:126, clientId:7,  date:abs(2026,3,18), status:'completed', services:['Sekání trávy','Výsadba rostlin'],                duration:210, totalPrice:7400, paid:true,  paidDate:abs(2026,3,18), notes:'Hotel — jarní výsadba 2026.', worker:'Jan Novák', workerId:1 },
+  { id:127, clientId:2,  date:abs(2026,4,2),  status:'completed', services:['Sekání trávy','Vertikutace','Odvoz odpadu'],     duration:220, totalPrice:5800, paid:true,  paidDate:abs(2026,4,15), notes:'Firemní areál — jarní péče.', worker:'Tomáš Zelený', workerId:2 },
+  { id:128, clientId:4,  date:abs(2026,4,8),  status:'completed', services:['Sekání trávy','Mulčování'],                     duration:150, totalPrice:3900, paid:false, paidDate:null,           notes:'Zaslána faktura emailem.', worker:'Tomáš Zelený', workerId:2 },
+  { id:129, clientId:9,  date:abs(2026,4,15), status:'completed', services:['Sekání trávy','Zálivka'],                       duration:90,  totalPrice:1900, paid:false, paidDate:null,           notes:'Bez chemie.', worker:'Jan Novák', workerId:1 },
   { id:130, clientId:3,  date:abs(2026,4,22), status:'completed', services:['Sekání trávy'],                                 duration:55,  totalPrice:850,  paid:false, paidDate:null,           notes:'Po splatnosti — zaslat upomínku.', worker:'Jan Novák' },
   // Naplánované — 2026
-  { id:131, clientId:6,  date:d(1),  status:'scheduled', services:['Sekání trávy','Stříhání živého plotu','Mulčování'],       duration:260, totalPrice:6800, paid:false, paidDate:null, notes:'Velká zakázka — přijet dříve.', worker:'Jan Novák' },
-  { id:132, clientId:1,  date:d(2),  status:'scheduled', services:['Sekání trávy'],                                          duration:100, totalPrice:1400, paid:false, paidDate:null, notes:'', worker:'Jan Novák' },
-  { id:133, clientId:7,  date:d(3),  status:'scheduled', services:['Sekání trávy','Stříhání keřů'],                          duration:190, totalPrice:5800, paid:false, paidDate:null, notes:'Hotel — týdenní návštěva.', worker:'Jan Novák' },
-  { id:134, clientId:2,  date:d(5),  status:'scheduled', services:['Sekání trávy','Hnojení trávníku'],                       duration:230, totalPrice:6400, paid:false, paidDate:null, notes:'Firemní areál.', worker:'Jan Novák' },
-  { id:135, clientId:9,  date:d(6),  status:'scheduled', services:['Sekání trávy','Zálivka'],                                duration:90,  totalPrice:1900, paid:false, paidDate:null, notes:'Bez chemie.', worker:'Jan Novák' },
-  { id:136, clientId:13, date:d(7),  status:'scheduled', services:['Sekání trávy','Stříhání keřů','Odvoz odpadu'],           duration:140, totalPrice:3600, paid:false, paidDate:null, notes:'Brzy ráno — do 7:30.', worker:'Jan Novák' },
-  { id:137, clientId:5,  date:d(9),  status:'scheduled', services:['Sekání trávy','Stříhání keřů'],                          duration:100, totalPrice:2300, paid:false, paidDate:null, notes:'', worker:'Jan Novák' },
-  { id:138, clientId:12, date:d(12), status:'scheduled', services:['Sekání trávy','Odvoz odpadu'],                           duration:270, totalPrice:7200, paid:false, paidDate:null, notes:'Škola — víkendový termín.', worker:'Jan Novák' },
+  { id:131, clientId:6,  date:d(1),  status:'scheduled', services:['Sekání trávy','Stříhání živého plotu','Mulčování'],       duration:260, totalPrice:6800, paid:false, paidDate:null, notes:'Velká zakázka — přijet dříve.', worker:'Tomáš Zelený', workerId:2 },
+  { id:132, clientId:1,  date:d(2),  status:'scheduled', services:['Sekání trávy'],                                          duration:100, totalPrice:1400, paid:false, paidDate:null, notes:'', worker:'Jan Novák', workerId:1 },
+  { id:133, clientId:7,  date:d(3),  status:'scheduled', services:['Sekání trávy','Stříhání keřů'],                          duration:190, totalPrice:5800, paid:false, paidDate:null, notes:'Hotel — týdenní návštěva.', worker:'Tomáš Zelený', workerId:2 },
+  { id:134, clientId:2,  date:d(5),  status:'scheduled', services:['Sekání trávy','Hnojení trávníku'],                       duration:230, totalPrice:6400, paid:false, paidDate:null, notes:'Firemní areál.', worker:'Jan Novák', workerId:1 },
+  { id:135, clientId:9,  date:d(6),  status:'scheduled', services:['Sekání trávy','Zálivka'],                                duration:90,  totalPrice:1900, paid:false, paidDate:null, notes:'Bez chemie.', worker:'Tomáš Zelený', workerId:2 },
+  { id:136, clientId:13, date:d(7),  status:'scheduled', services:['Sekání trávy','Stříhání keřů','Odvoz odpadu'],           duration:140, totalPrice:3600, paid:false, paidDate:null, notes:'Brzy ráno — do 7:30.', worker:'Jan Novák', workerId:1 },
+  { id:137, clientId:5,  date:d(9),  status:'scheduled', services:['Sekání trávy','Stříhání keřů'],                          duration:100, totalPrice:2300, paid:false, paidDate:null, notes:'', worker:'Tomáš Zelený', workerId:2 },
+  { id:138, clientId:12, date:d(12), status:'scheduled', services:['Sekání trávy','Odvoz odpadu'],                           duration:270, totalPrice:7200, paid:false, paidDate:null, notes:'Škola — víkendový termín.', worker:'Jan Novák', workerId:1 },
 ]
 
 // ── Invoices (25 faktur) — 2025/2026 ─────────
@@ -655,4 +655,43 @@ export const defaultReceipts = [
     clientId:6, orderId:102, rebill:true, rebilled:true, margin:15,
     notes:'Jarní úprava pH — Šimánek',
     photo:true, fakeImage:'mock-receipt-18' },
+]
+
+
+// ── Workers (zahradnici) ──────────────────────
+export const defaultWorkers = [
+  { id:1, name:'Jan Novák',      role:'owner',      color:'#16a34a', initials:'JN', phone:'+420 602 123 456', active:true },
+  { id:2, name:'Tomáš Zelený',   role:'worker',     color:'#2563eb', initials:'TZ', phone:'+420 605 222 333', active:true },
+  { id:3, name:'Eva Horáková',   role:'accountant', color:'#9333ea', initials:'EH', phone:'+420 608 444 555', active:true },
+]
+
+// ── Absence types ─────────────────────────────
+export const absenceTypes = [
+  { id:'vacation', label:'Dovolená',    icon:'🏖️', color:'bg-blue-100 text-blue-800 border-blue-300' },
+  { id:'sick',     label:'Nemoc',       icon:'🤒', color:'bg-red-100 text-red-800 border-red-300' },
+  { id:'personal', label:'Osobní volno',icon:'⏸️', color:'bg-amber-100 text-amber-800 border-amber-300' },
+  { id:'doctor',   label:'Lékař',       icon:'🏥', color:'bg-rose-100 text-rose-800 border-rose-300' },
+  { id:'other',    label:'Jiné',        icon:'📝', color:'bg-gray-100 text-gray-700 border-gray-300' },
+]
+
+export const defaultAbsences = [
+  // Past — for history visibility
+  { id:1, workerId:3, type:'sick',     dateFrom:abs(2026,4,30), dateTo:abs(2026,4,30), allDay:true,
+    status:'approved', approvedBy:1, approvedAt:abs(2026,4,30), note:'Chřipka', requestedAt:abs(2026,4,29) },
+
+  // Current/future
+  { id:2, workerId:2, type:'vacation', dateFrom:d(7),  dateTo:d(13), allDay:true,
+    status:'approved', approvedBy:1, approvedAt:d(-3), note:'Rodinná dovolená u moře', requestedAt:d(-10) },
+
+  { id:3, workerId:1, type:'doctor',   dateFrom:d(6),  dateTo:d(6),  allDay:false, hourFrom:'13:00', hourTo:'16:00',
+    status:'approved', approvedBy:1, approvedAt:d(-1), note:'Plánovaná prohlídka', requestedAt:d(-2) },
+
+  { id:4, workerId:2, type:'personal', dateFrom:d(21), dateTo:d(21), allDay:true,
+    status:'pending', approvedBy:null, approvedAt:null, note:'Stěhování', requestedAt:d(-1) },
+
+  { id:5, workerId:2, type:'vacation', dateFrom:abs(2026,7,15), dateTo:abs(2026,7,22), allDay:true,
+    status:'approved', approvedBy:1, approvedAt:abs(2026,4,15), note:'Letní dovolená — Chorvatsko', requestedAt:abs(2026,4,10) },
+
+  { id:6, workerId:3, type:'personal', dateFrom:d(14), dateTo:d(14), allDay:false, hourFrom:'14:00', hourTo:'18:00',
+    status:'pending', approvedBy:null, approvedAt:null, note:'Schůzka s účetní firmou', requestedAt:d(0) },
 ]

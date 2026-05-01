@@ -20,7 +20,7 @@ const quickActions = [
 ]
 
 export default function Dashboard() {
-  const { clients, orders, invoices, receipts, resetDemo } = useApp()
+  const { clients, orders, invoices, receipts, workers, absences, resetDemo } = useApp()
   const loaded = usePageLoad(400)
   const [showReset, setShowReset] = useState(false)
   const [showMap, setShowMap] = useState(false)
@@ -388,6 +388,54 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       )}
+
+
+      {/* Team status today */}
+      <Card>
+        <CardHeader className="px-4 sm:px-6 pt-4 sm:pt-5 pb-3 flex items-center justify-between">
+          <CardTitle>Stav týmu dnes</CardTitle>
+          <Link to="/team"><Button variant="ghost" size="sm">Detail <ArrowRight size={12}/></Button></Link>
+        </CardHeader>
+        <CardContent className="p-4 pt-0 space-y-2">
+          {workers.filter(w => w.active).map(w => {
+            const ab = absences.find(a => {
+              if (a.workerId !== w.id || a.status !== 'approved') return false
+              const d = new Date(todayISO)
+              return d >= new Date(a.dateFrom) && d <= new Date(a.dateTo)
+            })
+            const ord = orders.filter(o => o.workerId === w.id && o.date === todayISO)
+            return (
+              <Link key={w.id} to="/team" className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-accent transition-colors">
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center text-xs font-bold text-white flex-shrink-0"
+                  style={{backgroundColor: w.color}}>
+                  {w.initials}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold truncate">{w.name}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {w.role === 'owner' ? 'Majitel' : w.role === 'worker' ? 'Zahradník' : 'Účetní'}
+                  </p>
+                </div>
+                <div className="flex-shrink-0">
+                  {ab ? (
+                    <span className="text-[10px] font-bold px-2 py-1 rounded-full bg-blue-100 text-blue-800 border border-blue-300">
+                      Volno
+                    </span>
+                  ) : ord.length > 0 ? (
+                    <span className="text-[10px] font-bold px-2 py-1 rounded-full bg-green-100 text-green-800 border border-green-300">
+                      {ord.length} {ord.length === 1 ? 'zakázka' : 'zakázek'}
+                    </span>
+                  ) : (
+                    <span className="text-[10px] font-medium px-2 py-1 rounded-full bg-muted text-muted-foreground border border-border">
+                      Volný den
+                    </span>
+                  )}
+                </div>
+              </Link>
+            )
+          })}
+        </CardContent>
+      </Card>
 
       {/* Quick actions + Top clients */}
       <div className="grid grid-cols-1 xl:grid-cols-[1fr_360px] gap-5">

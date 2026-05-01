@@ -83,7 +83,7 @@ export function Login() {
             ))}
           </div>
 
-          <p className="text-center text-xs text-white/20 mt-8">ZahradaPro v2.3.0</p>
+          <p className="text-center text-xs text-white/20 mt-8">ZahradaPro v2.4.0</p>
         </div>
       ) : (
         /* ── PIN Entry ── */

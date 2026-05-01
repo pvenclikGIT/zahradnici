@@ -8,10 +8,10 @@ import { SwipeCard } from '../components/SwipeCard'
 import { recurringIntervals } from '../data'
 import { cn } from '../lib/utils'
 
-const emptyForm = { clientId:'', date:'', services:[], totalPrice:'', duration:'', notes:'', recurring:'0' }
+const emptyForm = { clientId:'', date:'', services:[], totalPrice:'', duration:'', notes:'', recurring:'0', workerId:1 }
 
 export function Orders() {
-  const { clients, orders, services, addOrder, updateOrder, deleteOrder } = useApp()
+  const { clients, orders, services, workers, absences, addOrder, updateOrder, deleteOrder } = useApp()
   const [searchParams] = useSearchParams()
   const [q, setQ] = useState('')
   const [filterStatus, setFilterStatus] = useState('')

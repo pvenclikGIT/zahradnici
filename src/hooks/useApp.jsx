@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useCallback, useMemo } from 'react'
-import { defaultClients, defaultOrders, defaultInvoices, defaultServices, defaultProducts, defaultSuppliers, defaultReceipts } from '../data'
+import { defaultClients, defaultOrders, defaultInvoices, defaultServices, defaultProducts, defaultSuppliers, defaultReceipts, defaultWorkers, defaultAbsences } from '../data'
 import { useAutoNotifications } from './useNotifications'
 import { useRecurring } from './useRecurring'
 
@@ -17,6 +17,8 @@ export function AppProvider({ children }) {
   const [products, setProductsRaw]  = useState(() => load('products', defaultProducts))
   const [suppliers,setSuppliersRaw] = useState(() => load('suppliers',defaultSuppliers))
   const [receipts, setReceiptsRaw]  = useState(() => load('receipts', defaultReceipts))
+  const [workers,  setWorkersRaw]   = useState(() => load('workers',  defaultWorkers))
+  const [absences, setAbsencesRaw]  = useState(() => load('absences', defaultAbsences))
   // Manual read state overlay
   const [readIds, setReadIds] = useState(() => load('readNotifIds', []))
 
@@ -28,6 +30,8 @@ export function AppProvider({ children }) {
   const setProducts  = mk(setProductsRaw,  'products')
   const setSuppliers = mk(setSuppliersRaw, 'suppliers')
   const setReceipts  = mk(setReceiptsRaw,  'receipts')
+  const setWorkers   = mk(setWorkersRaw,   'workers')
+  const setAbsences  = mk(setAbsencesRaw,  'absences')
 
   // Live generated notifications
   const rawNotifications = useAutoNotifications(clients, orders, invoices)
@@ -72,6 +76,8 @@ export function AppProvider({ children }) {
     setInvoices(defaultInvoices); setServices(defaultServices)
     setProducts(defaultProducts); setSuppliers(defaultSuppliers)
     setReceipts(defaultReceipts)
+    setWorkers(defaultWorkers)
+    setAbsences(defaultAbsences)
     setReadIds([]); save('readNotifIds',[])
   }, [])
 
@@ -121,6 +127,28 @@ export function AppProvider({ children }) {
     setReceipts(receipts.filter(r => r.id !== id))
   }, [receipts, setReceipts])
 
+
+  // ── Absences CRUD ──
+  const addAbsence = useCallback(a => {
+    setAbsences([...absences, { ...a, id: Date.now(), requestedAt: new Date().toISOString().split('T')[0] }])
+  }, [absences, setAbsences])
+
+  const updateAbsence = useCallback(a => {
+    setAbsences(absences.map(x => x.id === a.id ? a : x))
+  }, [absences, setAbsences])
+
+  const deleteAbsence = useCallback(id => {
+    setAbsences(absences.filter(a => a.id !== id))
+  }, [absences, setAbsences])
+
+  const approveAbsence = useCallback((id, approverId) => {
+    setAbsences(absences.map(a => a.id === id ? { ...a, status:'approved', approvedBy:approverId, approvedAt: new Date().toISOString().split('T')[0] } : a))
+  }, [absences, setAbsences])
+
+  const rejectAbsence = useCallback((id, approverId) => {
+    setAbsences(absences.map(a => a.id === id ? { ...a, status:'rejected', approvedBy:approverId, approvedAt: new Date().toISOString().split('T')[0] } : a))
+  }, [absences, setAbsences])
+
   return (
     <AppContext.Provider value={{
       clients, orders, invoices, services,
@@ -134,6 +162,8 @@ export function AppProvider({ children }) {
       addProduct, updateProduct, deleteProduct,
       addSupplier, updateSupplier, deleteSupplier, toggleSupplierFavorite,
       receipts, addReceipt, updateReceipt, deleteReceipt,
+      workers, absences,
+      addAbsence, updateAbsence, deleteAbsence, approveAbsence, rejectAbsence,
       markNotifRead, markAllNotifsRead,
       nextInvoiceNum, resetDemo,
     }}>
