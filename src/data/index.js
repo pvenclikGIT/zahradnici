@@ -224,3 +224,58 @@ export const recurringIntervals = [
   { value:'28', label:'Každý měsíc'     },
   { value:'42', label:'Každých 6 týdnů' },
 ]
+
+
+// ── Products (30 polozek) ─────────────────────
+export const productCategories = [
+  { id:'substraty', label:'Substráty a kůra', color:'bg-amber-50 text-amber-700 border-amber-200' },
+  { id:'hnojiva',   label:'Hnojiva',           color:'bg-green-50 text-green-700 border-green-200' },
+  { id:'osiva',     label:'Osiva a sadba',     color:'bg-emerald-50 text-emerald-700 border-emerald-200' },
+  { id:'rostliny',  label:'Rostliny',          color:'bg-rose-50 text-rose-700 border-rose-200' },
+  { id:'naradi',    label:'Nářadí',            color:'bg-blue-50 text-blue-700 border-blue-200' },
+  { id:'doplnky',   label:'Doplňky',           color:'bg-purple-50 text-purple-700 border-purple-200' },
+]
+
+export const defaultProducts = [
+  // Substráty a kůra
+  { id:1,  name:'Mulčovací kůra borová',     category:'substraty', unit:'pytel 70 l',  price:180,  stock:48,  minStock:10, supplier:'AGRO CS',          sku:'MK-BO-70',  desc:'Borová kůra hrubá frakce, 70 litrů' },
+  { id:2,  name:'Mulčovací kůra dekorativní',category:'substraty', unit:'pytel 70 l',  price:240,  stock:22,  minStock:10, supplier:'AGRO CS',          sku:'MK-DEK-70', desc:'Dekorativní červenohnědá kůra' },
+  { id:3,  name:'Zahradní substrát univerzální',category:'substraty', unit:'pytel 50 l',price:120,  stock:65,  minStock:15, supplier:'Florcom',          sku:'SU-UNI-50', desc:'Univerzální substrát pro zahradní výsadbu' },
+  { id:4,  name:'Substrát pro rajčata',       category:'substraty', unit:'pytel 40 l',  price:160,  stock:18,  minStock:8,  supplier:'Florcom',          sku:'SU-RAJ-40', desc:'Speciální substrát pro pěstování rajčat' },
+  { id:5,  name:'Rašelinový substrát kyselý', category:'substraty', unit:'pytel 70 l',  price:280,  stock:12,  minStock:5,  supplier:'AGRO CS',          sku:'SU-RAS-70', desc:'Pro rododendrony, azalky, vřesy' },
+  { id:6,  name:'Kompost zralý',              category:'substraty', unit:'pytel 40 l',  price:140,  stock:32,  minStock:10, supplier:'Komposta s.r.o.',  sku:'KO-ZR-40',  desc:'Zralý kompost pro vylepšení půdy' },
+
+  // Hnojiva
+  { id:7,  name:'Hnojivo na trávník BoFix',   category:'hnojiva',   unit:'5 kg',        price:520,  stock:24,  minStock:8,  supplier:'COMPO',            sku:'HN-BFX-5',  desc:'Hnojivo proti plevelu a mechu' },
+  { id:8,  name:'Cereiit komplexní hnojivo',  category:'hnojiva',   unit:'10 kg',       price:780,  stock:15,  minStock:5,  supplier:'AGRO CS',          sku:'HN-CER-10', desc:'Komplexní NPK hnojivo' },
+  { id:9,  name:'Kapalné hnojivo na květiny', category:'hnojiva',   unit:'1 l',         price:180,  stock:42,  minStock:12, supplier:'COMPO',            sku:'HN-KVE-1',  desc:'Pro pokojové i zahradní květiny' },
+  { id:10, name:'Hnojivo na jehličnany',      category:'hnojiva',   unit:'2,5 kg',      price:340,  stock:8,   minStock:6,  supplier:'COMPO',            sku:'HN-JEH-2',  desc:'Speciální pro jehličnany' },
+  { id:11, name:'Vápno dolomitické',          category:'hnojiva',   unit:'25 kg',       price:240,  stock:18,  minStock:6,  supplier:'AGRO CS',          sku:'HN-VAP-25', desc:'Pro úpravu pH půdy' },
+  { id:12, name:'Hnojivo na rajčata',         category:'hnojiva',   unit:'1 kg',        price:140,  stock:35,  minStock:10, supplier:'Floraservis',     sku:'HN-RAJ-1',  desc:'Pro rajčata, papriky a okurky' },
+  { id:13, name:'Železo chelát',              category:'hnojiva',   unit:'250 g',       price:280,  stock:14,  minStock:5,  supplier:'COMPO',            sku:'HN-FE-250', desc:'Proti chloróze rostlin' },
+
+  // Osiva a sadba
+  { id:14, name:'Travní semeno univerzální',  category:'osiva',     unit:'1 kg',        price:280,  stock:55,  minStock:15, supplier:'OSEVA UNI',        sku:'OS-TRA-1',  desc:'Univerzální směs pro běžné použití' },
+  { id:15, name:'Travní semeno hřišťové',     category:'osiva',     unit:'10 kg',       price:2200, stock:6,   minStock:3,  supplier:'OSEVA UNI',        sku:'OS-HRI-10', desc:'Pro sportovní plochy' },
+  { id:16, name:'Travní semeno do stínu',     category:'osiva',     unit:'1 kg',        price:340,  stock:28,  minStock:8,  supplier:'OSEVA UNI',        sku:'OS-STI-1',  desc:'Pro stinné lokace' },
+  { id:17, name:'Letnicková směs polní',      category:'osiva',     unit:'500 g',       price:220,  stock:16,  minStock:5,  supplier:'Semo',             sku:'OS-LET-05', desc:'Barevná letnicková směs' },
+  { id:18, name:'Cibule tulipánů (mix)',      category:'osiva',     unit:'25 ks',       price:180,  stock:0,   minStock:10, supplier:'Floraservis',      sku:'OS-TUL-25', desc:'Mix barev tulipánů' },
+
+  // Rostliny
+  { id:19, name:'Tuje smaragd 80 cm',         category:'rostliny',  unit:'ks',          price:380,  stock:25,  minStock:5,  supplier:'Školka Litomyšl',  sku:'RO-TS-80',  desc:'Tuje smaragd výška 80 cm' },
+  { id:20, name:'Buxus sempervirens 30 cm',   category:'rostliny',  unit:'ks',          price:240,  stock:18,  minStock:5,  supplier:'Školka Litomyšl',  sku:'RO-BX-30',  desc:'Pravý buxus 30 cm' },
+  { id:21, name:'Levandule lékařská',         category:'rostliny',  unit:'ks K11',      price:120,  stock:40,  minStock:10, supplier:'Bylinky CZ',       sku:'RO-LEV-K11',desc:'Levandule v květináči K11' },
+  { id:22, name:'Růže keřová červená',        category:'rostliny',  unit:'ks K3',       price:280,  stock:14,  minStock:4,  supplier:'Růžová zahrada',   sku:'RO-RU-CRV', desc:'Keřová růže červená' },
+  { id:23, name:'Hortenzie velkolistá',       category:'rostliny',  unit:'ks K5',       price:340,  stock:10,  minStock:3,  supplier:'Školka Litomyšl',  sku:'RO-HOR-K5', desc:'Modrá hortenzie K5' },
+
+  // Nářadí
+  { id:24, name:'Zahradní nůžky FELCO 6',     category:'naradi',    unit:'ks',          price:1280, stock:4,   minStock:2,  supplier:'FELCO',            sku:'NA-FE-6',   desc:'Profi zahradní nůžky' },
+  { id:25, name:'Hrábě listové',              category:'naradi',    unit:'ks',          price:380,  stock:12,  minStock:3,  supplier:'Fiskars',          sku:'NA-HR-L',   desc:'Plastové hrábě na listí' },
+  { id:26, name:'Rýč ostrý',                  category:'naradi',    unit:'ks',          price:520,  stock:8,   minStock:3,  supplier:'Fiskars',          sku:'NA-RY-OS',  desc:'Kovaný rýč s násadou' },
+  { id:27, name:'Plečka ruční',               category:'naradi',    unit:'ks',          price:180,  stock:15,  minStock:5,  supplier:'AGRO CS',          sku:'NA-PL-R',   desc:'Plečka pro pletí záhonů' },
+
+  // Doplňky
+  { id:28, name:'Geotextilie 1×10 m',         category:'doplnky',   unit:'role',        price:340,  stock:22,  minStock:6,  supplier:'AGRO CS',          sku:'DO-GEO-110',desc:'Mulčovací netkaná textilie' },
+  { id:29, name:'Zahradní hadice 25 m',       category:'doplnky',   unit:'ks',          price:680,  stock:6,   minStock:2,  supplier:'GARDENA',          sku:'DO-HAD-25', desc:'Profi zahradní hadice' },
+  { id:30, name:'Postřikovač zahradní 5 l',   category:'doplnky',   unit:'ks',          price:520,  stock:10,  minStock:3,  supplier:'GARDENA',          sku:'DO-PO-5',   desc:'Tlakový postřikovač' },
+]

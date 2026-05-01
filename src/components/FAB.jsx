@@ -2,12 +2,13 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import { cn } from '../lib/utils'
-import { Plus, ClipboardList, Users, Receipt } from 'lucide-react'
+import { Plus, ClipboardList, Users, Receipt, Package } from 'lucide-react'
 
 const fabActions = [
   { icon:ClipboardList, label:'Nová zakázka', to:'/orders?new=1',  color:'bg-blue-500',   perm:'orders'   },
   { icon:Users,         label:'Nový klient',  to:'/clients?new=1', color:'bg-purple-500', perm:'clients'  },
   { icon:Receipt,       label:'Nová faktura', to:'/invoices?new=1',color:'bg-amber-500',  perm:'invoices' },
+  { icon:Package,       label:'Nový produkt', to:'/products',      color:'bg-emerald-500',perm:'pricelist'},
 ]
 
 export function FAB() {

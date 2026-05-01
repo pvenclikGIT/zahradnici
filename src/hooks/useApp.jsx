@@ -67,6 +67,26 @@ export function AppProvider({ children }) {
     setReadIds([]); save('readNotifIds',[])
   }, [])
 
+
+  // ── Products CRUD ──
+  const addProduct = useCallback(p => {
+    const next = [...products, { ...p, id: Date.now() }]
+    setProducts(next)
+    localStorage.setItem('zp3_products', JSON.stringify(next))
+  }, [products])
+
+  const updateProduct = useCallback(p => {
+    const next = products.map(x => x.id === p.id ? p : x)
+    setProducts(next)
+    localStorage.setItem('zp3_products', JSON.stringify(next))
+  }, [products])
+
+  const deleteProduct = useCallback(id => {
+    const next = products.filter(p => p.id !== id)
+    setProducts(next)
+    localStorage.setItem('zp3_products', JSON.stringify(next))
+  }, [products])
+
   return (
     <AppContext.Provider value={{
       clients, orders, invoices, services,
