@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useCallback, useMemo } from 'react'
-import { defaultClients, defaultOrders, defaultInvoices, defaultServices, defaultProducts, defaultSuppliers } from '../data'
+import { defaultClients, defaultOrders, defaultInvoices, defaultServices, defaultProducts, defaultSuppliers, defaultReceipts } from '../data'
 import { useAutoNotifications } from './useNotifications'
 import { useRecurring } from './useRecurring'
 
@@ -16,6 +16,7 @@ export function AppProvider({ children }) {
   const [services, setServicesRaw]  = useState(() => load('services', defaultServices))
   const [products, setProductsRaw]  = useState(() => load('products', defaultProducts))
   const [suppliers,setSuppliersRaw] = useState(() => load('suppliers',defaultSuppliers))
+  const [receipts, setReceiptsRaw]  = useState(() => load('receipts', defaultReceipts))
   // Manual read state overlay
   const [readIds, setReadIds] = useState(() => load('readNotifIds', []))
 
@@ -26,6 +27,7 @@ export function AppProvider({ children }) {
   const setServices  = mk(setServicesRaw,  'services')
   const setProducts  = mk(setProductsRaw,  'products')
   const setSuppliers = mk(setSuppliersRaw, 'suppliers')
+  const setReceipts  = mk(setReceiptsRaw,  'receipts')
 
   // Live generated notifications
   const rawNotifications = useAutoNotifications(clients, orders, invoices)
@@ -69,6 +71,7 @@ export function AppProvider({ children }) {
     setClients(defaultClients); setOrders(defaultOrders)
     setInvoices(defaultInvoices); setServices(defaultServices)
     setProducts(defaultProducts); setSuppliers(defaultSuppliers)
+    setReceipts(defaultReceipts)
     setReadIds([]); save('readNotifIds',[])
   }, [])
 
@@ -104,6 +107,20 @@ export function AppProvider({ children }) {
     setSuppliers(suppliers.map(s => s.id === id ? { ...s, favorite: !s.favorite } : s))
   }, [suppliers, setSuppliers])
 
+
+  // ── Receipts CRUD ──
+  const addReceipt = useCallback(r => {
+    setReceipts([...receipts, { ...r, id: Date.now() }])
+  }, [receipts, setReceipts])
+
+  const updateReceipt = useCallback(r => {
+    setReceipts(receipts.map(x => x.id === r.id ? r : x))
+  }, [receipts, setReceipts])
+
+  const deleteReceipt = useCallback(id => {
+    setReceipts(receipts.filter(r => r.id !== id))
+  }, [receipts, setReceipts])
+
   return (
     <AppContext.Provider value={{
       clients, orders, invoices, services,
@@ -116,6 +133,7 @@ export function AppProvider({ children }) {
       addService, updateService, deleteService,
       addProduct, updateProduct, deleteProduct,
       addSupplier, updateSupplier, deleteSupplier, toggleSupplierFavorite,
+      receipts, addReceipt, updateReceipt, deleteReceipt,
       markNotifRead, markAllNotifsRead,
       nextInvoiceNum, resetDemo,
     }}>

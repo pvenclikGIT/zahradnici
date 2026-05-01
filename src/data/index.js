@@ -494,3 +494,165 @@ export const defaultSuppliers = [
     discount:7,
   },
 ]
+
+
+// ── Receipts (uctenky) ────────────────────────
+export const receiptCategories = [
+  { id:'substraty',  label:'Substráty a kůra', icon:'🌱', color:'bg-amber-50 text-amber-700 border-amber-200'  },
+  { id:'hnojiva',    label:'Hnojiva',           icon:'🌿', color:'bg-green-50 text-green-700 border-green-200'  },
+  { id:'osiva',      label:'Osiva a sadba',     icon:'🌾', color:'bg-emerald-50 text-emerald-700 border-emerald-200' },
+  { id:'rostliny',   label:'Rostliny',          icon:'🌳', color:'bg-rose-50 text-rose-700 border-rose-200'    },
+  { id:'naradi',     label:'Nářadí',            icon:'🛠️', color:'bg-blue-50 text-blue-700 border-blue-200'    },
+  { id:'palivo',     label:'Palivo',            icon:'⛽', color:'bg-red-50 text-red-700 border-red-200'      },
+  { id:'doplnky',    label:'Drobný materiál',   icon:'📦', color:'bg-purple-50 text-purple-700 border-purple-200' },
+  { id:'ostatni',    label:'Ostatní',           icon:'🧾', color:'bg-gray-100 text-gray-700 border-gray-200'   },
+]
+
+export const paymentMethods = [
+  { id:'card',     label:'Karta'    },
+  { id:'cash',     label:'Hotově'   },
+  { id:'transfer', label:'Převodem' },
+]
+
+export const defaultReceipts = [
+  // 2026 — recent receipts linked to scheduled/completed orders
+  { id:1, date:abs(2026,4,28), supplier:'AGRO CS a.s.', supplierId:1, category:'substraty', amount:1620, paymentMethod:'card',
+    description:'Mulčovací kůra borová 9 ks',
+    items:[{name:'Mulčovací kůra borová', qty:9, pricePerUnit:180, total:1620}],
+    clientId:6, orderId:131, rebill:true, rebilled:false, margin:15,
+    notes:'Pro velkou zahradu Šimánek — Velké Popovice',
+    photo:true, fakeImage:'mock-receipt-1' },
+
+  { id:2, date:abs(2026,4,27), supplier:'COMPO Praha s.r.o.', supplierId:2, category:'hnojiva', amount:780, paymentMethod:'transfer',
+    description:'Cereiit komplexní hnojivo 10 kg',
+    items:[{name:'Cereiit komplexní hnojivo', qty:1, pricePerUnit:780, total:780}],
+    clientId:1, orderId:132, rebill:true, rebilled:false, margin:20,
+    notes:'Pro Horák — jarní hnojení trávníku',
+    photo:true, fakeImage:'mock-receipt-2' },
+
+  { id:3, date:abs(2026,4,25), supplier:'Školka Litomyšl', supplierId:4, category:'rostliny', amount:3800, paymentMethod:'card',
+    description:'Tuje smaragd 80 cm — 10 ks',
+    items:[{name:'Tuje smaragd 80 cm', qty:10, pricePerUnit:380, total:3800}],
+    clientId:7, orderId:133, rebill:true, rebilled:false, margin:25,
+    notes:'Hotelová zahrada Průhonice — výsadba živého plotu',
+    photo:true, fakeImage:'mock-receipt-3' },
+
+  { id:4, date:abs(2026,4,24), supplier:'OMV Říčany', supplierId:null, category:'palivo', amount:1850, paymentMethod:'card',
+    description:'Nafta — služební vůz',
+    items:[{name:'Nafta', qty:42.5, pricePerUnit:43.5, total:1849}],
+    clientId:null, orderId:null, rebill:false, rebilled:false, margin:0,
+    notes:'Týdenní tankování',
+    photo:true, fakeImage:'mock-receipt-4' },
+
+  { id:5, date:abs(2026,4,22), supplier:'OSEVA UNI a.s.', supplierId:5, category:'osiva', amount:340, paymentMethod:'card',
+    description:'Travní semeno do stínu 1 kg',
+    items:[{name:'Travní semeno do stínu', qty:1, pricePerUnit:340, total:340}],
+    clientId:5, orderId:null, rebill:true, rebilled:false, margin:10,
+    notes:'Pro Bártová — dosetí pod ovocnými stromy',
+    photo:true, fakeImage:'mock-receipt-5' },
+
+  { id:6, date:abs(2026,4,20), supplier:'GARDENA', supplierId:7, category:'naradi', amount:680, paymentMethod:'transfer',
+    description:'Zahradní hadice 25 m — náhrada',
+    items:[{name:'Zahradní hadice 25 m', qty:1, pricePerUnit:680, total:680}],
+    clientId:null, orderId:null, rebill:false, rebilled:false, margin:0,
+    notes:'Stará praskla — režie',
+    photo:true, fakeImage:'mock-receipt-6' },
+
+  { id:7, date:abs(2026,4,18), supplier:'AGRO CS a.s.', supplierId:1, category:'substraty', amount:480, paymentMethod:'cash',
+    description:'Mulčovací kůra dekorativní 2 ks',
+    items:[{name:'Mulčovací kůra dekorativní', qty:2, pricePerUnit:240, total:480}],
+    clientId:9, orderId:135, rebill:true, rebilled:false, margin:15,
+    notes:'Pro Horáková Sulice — okrasné záhony',
+    photo:true, fakeImage:'mock-receipt-7' },
+
+  { id:8, date:abs(2026,4,15), supplier:'Floraservis Praha', supplierId:10, category:'hnojiva', amount:1240, paymentMethod:'card',
+    description:'Hnojivo na trávník BoFix + kapalné na květiny',
+    items:[
+      {name:'Hnojivo BoFix 5 kg', qty:2, pricePerUnit:520, total:1040},
+      {name:'Kapalné hnojivo na květiny 1 l', qty:1, pricePerUnit:200, total:200},
+    ],
+    clientId:2, orderId:134, rebill:true, rebilled:true, margin:20,
+    notes:'Refakturováno do faktury #2026004',
+    photo:true, fakeImage:'mock-receipt-8' },
+
+  { id:9, date:abs(2026,4,12), supplier:'Hornbach Praha', supplierId:null, category:'doplnky', amount:340, paymentMethod:'card',
+    description:'Drobný materiál — provázek, hřebíky, lepidlo',
+    items:[
+      {name:'Provázek zahradní', qty:2, pricePerUnit:80, total:160},
+      {name:'Hřebíky 100 mm', qty:1, pricePerUnit:120, total:120},
+      {name:'Lepidlo Pattex', qty:1, pricePerUnit:60, total:60},
+    ],
+    clientId:null, orderId:null, rebill:false, rebilled:false, margin:0,
+    notes:'Drobnosti do dílny',
+    photo:true, fakeImage:'mock-receipt-9' },
+
+  { id:10, date:abs(2026,4,10), supplier:'Komposta s.r.o.', supplierId:9, category:'substraty', amount:560, paymentMethod:'cash',
+    description:'Kompost zralý 4 pytle',
+    items:[{name:'Kompost zralý', qty:4, pricePerUnit:140, total:560}],
+    clientId:4, orderId:128, rebill:true, rebilled:true, margin:0,
+    notes:'Pro Kratochvíl — refakturováno bez marže',
+    photo:true, fakeImage:'mock-receipt-10' },
+
+  { id:11, date:abs(2026,4,8), supplier:'OMV Praha-východ', supplierId:null, category:'palivo', amount:1620, paymentMethod:'card',
+    description:'Nafta — služební vůz',
+    items:[{name:'Nafta', qty:37.2, pricePerUnit:43.5, total:1618}],
+    clientId:null, orderId:null, rebill:false, rebilled:false, margin:0,
+    notes:'',
+    photo:true, fakeImage:'mock-receipt-11' },
+
+  { id:12, date:abs(2026,4,5), supplier:'Bylinky CZ s.r.o.', supplierId:8, category:'rostliny', amount:1200, paymentMethod:'transfer',
+    description:'Levandule lékařská 10 ks',
+    items:[{name:'Levandule lékařská K11', qty:10, pricePerUnit:120, total:1200}],
+    clientId:10, orderId:null, rebill:true, rebilled:false, margin:30,
+    notes:'Pro Blaha — bylinková zahrada',
+    photo:true, fakeImage:'mock-receipt-12' },
+
+  // 2025 — historical
+  { id:13, date:abs(2025,10,15), supplier:'AGRO CS a.s.', supplierId:1, category:'substraty', amount:2160, paymentMethod:'transfer',
+    description:'Mulčovací kůra borová 12 ks',
+    items:[{name:'Mulčovací kůra borová', qty:12, pricePerUnit:180, total:2160}],
+    clientId:2, orderId:120, rebill:true, rebilled:true, margin:15,
+    notes:'Podzimní mulčování — refakturováno',
+    photo:true, fakeImage:'mock-receipt-13' },
+
+  { id:14, date:abs(2025,9,20), supplier:'Školka Litomyšl', supplierId:4, category:'rostliny', amount:5400, paymentMethod:'card',
+    description:'Tuje a buxusy — výsadba',
+    items:[
+      {name:'Tuje smaragd 80 cm', qty:8, pricePerUnit:380, total:3040},
+      {name:'Buxus sempervirens 30 cm', qty:10, pricePerUnit:240, total:2400},
+    ],
+    clientId:7, orderId:119, rebill:true, rebilled:true, margin:25,
+    notes:'Hotel Průhonice — náhrada uschlých keřů',
+    photo:true, fakeImage:'mock-receipt-14' },
+
+  { id:15, date:abs(2025,7,10), supplier:'COMPO Praha s.r.o.', supplierId:2, category:'hnojiva', amount:1560, paymentMethod:'transfer',
+    description:'Letní hnojení — kompletní balík',
+    items:[
+      {name:'Hnojivo BoFix 5 kg', qty:2, pricePerUnit:520, total:1040},
+      {name:'Železo chelát 250 g', qty:2, pricePerUnit:280, total:560},
+    ],
+    clientId:6, orderId:113, rebill:true, rebilled:true, margin:20,
+    notes:'Letní program Šimánek',
+    photo:true, fakeImage:'mock-receipt-15' },
+
+  { id:16, date:abs(2025,5,5), supplier:'OMV', supplierId:null, category:'palivo', amount:1480, paymentMethod:'card',
+    description:'Nafta — sezónní tankování',
+    items:[{name:'Nafta', qty:34, pricePerUnit:43.5, total:1479}],
+    clientId:null, orderId:null, rebill:false, rebilled:false, margin:0,
+    notes:'',
+    photo:true, fakeImage:'mock-receipt-16' },
+
+  { id:17, date:abs(2025,4,2), supplier:'Floraservis Praha', supplierId:10, category:'osiva', amount:2200, paymentMethod:'transfer',
+    description:'Travní semeno hřišťové 10 kg',
+    items:[{name:'Travní semeno hřišťové', qty:1, pricePerUnit:2200, total:2200}],
+    clientId:12, orderId:114, rebill:true, rebilled:true, margin:10,
+    notes:'Škola Radošovice — obnova hřiště',
+    photo:true, fakeImage:'mock-receipt-17' },
+
+  { id:18, date:abs(2025,3,18), supplier:'AGRO CS a.s.', supplierId:1, category:'hnojiva', amount:1200, paymentMethod:'card',
+    description:'Vápno dolomitické 5×25 kg',
+    items:[{name:'Vápno dolomitické', qty:5, pricePerUnit:240, total:1200}],
+    clientId:6, orderId:102, rebill:true, rebilled:true, margin:15,
+    notes:'Jarní úprava pH — Šimánek',
+    photo:true, fakeImage:'mock-receipt-18' },
+]

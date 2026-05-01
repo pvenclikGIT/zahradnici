@@ -47,6 +47,17 @@ export default function Dashboard() {
 
 
   // Churn — clients with no order in last 60 days
+
+  // Costs analysis
+  const thisMonth = new Date()
+  const monthCosts = receipts.filter(r => {
+    const rd = new Date(r.date)
+    return rd.getMonth() === thisMonth.getMonth() && rd.getFullYear() === thisMonth.getFullYear()
+  }).reduce((s,r) => s+r.amount, 0)
+  const monthProfit = monthRevenue - monthCosts
+  const profitMargin = monthRevenue > 0 ? Math.round((monthProfit / monthRevenue) * 100) : 0
+  const rebillPending = receipts.filter(r => r.rebill && !r.rebilled)
+
   const churnedClients = clients.filter(c => {
     if (c.status !== 'active') return false
     const last = orders.filter(o=>o.clientId===c.id).sort((a,b)=>new Date(b.date)-new Date(a.date))[0]
@@ -172,6 +183,18 @@ export default function Dashboard() {
                 </div>
               ))}
               <div className="pt-2 border-t border-border space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Tržby tento měsíc</span>
+                  <span className="font-bold text-sm">{formatCurrency(monthRevenue)}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Výdaje (účtenky)</span>
+                  <span className="font-bold text-amber-600 text-sm">−{formatCurrency(monthCosts)}</span>
+                </div>
+                <div className="flex items-center justify-between pt-1.5 border-t border-border/50">
+                  <span className="text-sm font-semibold">Čistý zisk</span>
+                  <span className={cn('font-bold text-sm', monthProfit >= 0 ? 'text-green-600' : 'text-destructive')}>{formatCurrency(monthProfit)} <span className="text-[10px] font-normal opacity-70">({profitMargin} %)</span></span>
+                </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">Forecast</span>
                   <span className="font-bold text-green-600 text-sm">{formatCurrency(forecastRevenue)}</span>

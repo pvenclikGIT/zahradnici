@@ -1,16 +1,16 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useApp } from '../hooks/useApp'
-import { formatCurrency, formatDate, formatDateShort, getInitials, TAG_STYLES, daysSince } from '../data'
+import { formatCurrency, formatDate, formatDateShort, getInitials, TAG_STYLES, daysSince, receiptCategories } from '../data'
 import { Card, CardContent, Button, Input, Select, StatusBadge, TagBadge, Avatar, EmptyState, Dialog, FormField, Textarea, toast, ConfirmDialog } from '../components/ui'
-import { Plus, Search, Phone, Mail, MapPin, AlertTriangle, X, Edit2, Trash2, Users, Map, Clock, ExternalLink } from 'lucide-react'
+import { Plus, Search, Phone, Mail, MapPin, AlertTriangle, X, Edit2, Trash2, Users, Map, Clock, ExternalLink, Receipt as ReceiptIcon } from 'lucide-react'
 import { ClientMap } from '../components/ClientMap'
 import { cn } from '../lib/utils'
 
 const emptyForm = { name:'', phone:'', email:'', address:'', gardenSize:'střední', tag:'pravidelný', notes:'', status:'active' }
 
 export default function Clients() {
-  const { clients, orders, addClient, updateClient, deleteClient } = useApp()
+  const { clients, orders, receipts, addClient, updateClient, deleteClient } = useApp()
   const [q, setQ] = useState('')
   const [filterTag, setFilterTag] = useState('')
   const [filterStatus, setFilterStatus] = useState('')
@@ -235,6 +235,52 @@ export default function Clients() {
                   </div>
                 )}
               </div>
+
+              {/* Receipts/Costs */}
+              {(() => {
+                const clientReceipts = receipts.filter(r => r.clientId === detailClient.id).sort((a,b) => new Date(b.date)-new Date(a.date))
+                const totalSpent = clientReceipts.reduce((s,r) => s+r.amount, 0)
+                const rebillPending = clientReceipts.filter(r => r.rebill && !r.rebilled)
+                if (clientReceipts.length === 0) return null
+                return (
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Náklady a účtenky</p>
+                      <Link to="/receipts"><span className="text-[10px] font-semibold text-primary hover:underline">Vše →</span></Link>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 mb-3">
+                      <div className="bg-muted/40 rounded-xl p-3">
+                        <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Celkem nakoupeno</p>
+                        <p className="text-base font-bold mt-0.5">{formatCurrency(totalSpent)}</p>
+                      </div>
+                      <div className={cn('rounded-xl p-3', rebillPending.length>0?'bg-blue-50 border border-blue-200':'bg-muted/40')}>
+                        <p className="text-[10px] uppercase tracking-wider" style={{color: rebillPending.length>0 ? '#1d4ed8' : 'inherit'}}>K refakturaci</p>
+                        <p className="text-base font-bold mt-0.5" style={{color: rebillPending.length>0 ? '#1d4ed8' : 'inherit'}}>{rebillPending.length}</p>
+                      </div>
+                    </div>
+                    <div className="space-y-1.5">
+                      {clientReceipts.slice(0, 5).map(r => {
+                        const cat = receiptCategories.find(c => c.id === r.category)
+                        return (
+                          <div key={r.id} className="flex items-center gap-2.5 p-2.5 bg-muted/30 rounded-xl">
+                            <div className="w-7 h-7 rounded-lg bg-white border border-border flex items-center justify-center flex-shrink-0 text-sm">
+                              {cat?.icon || '🧾'}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-xs font-semibold truncate">{r.description}</p>
+                              <p className="text-[10px] text-muted-foreground">{r.supplier} · {formatDateShort(r.date)}</p>
+                            </div>
+                            <p className="text-xs font-bold flex-shrink-0">{formatCurrency(r.amount)}</p>
+                          </div>
+                        )
+                      })}
+                      {clientReceipts.length > 5 && (
+                        <p className="text-[11px] text-muted-foreground text-center pt-1">+ {clientReceipts.length - 5} dalších</p>
+                      )}
+                    </div>
+                  </div>
+                )
+              })()}
 
               {/* Seasonal Plan */}
               <div>

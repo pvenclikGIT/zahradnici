@@ -11,17 +11,18 @@ import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts'
 import {
   LayoutDashboard, CalendarDays, ClipboardList, CheckSquare,
   Receipt, BadgeDollarSign, Users, Bell, Settings,
-  Plus, Menu, X, Leaf, Search, LogOut, UserCircle, Package, Building2
+  Plus, Menu, X, Leaf, Search, LogOut, UserCircle, Package, Building2, Receipt as ReceiptIconLucide
 } from 'lucide-react'
 
-const VERSION = 'v2.2.0'
+const VERSION = 'v2.3.0'
 
 const pageTitles = {
   '/':'Dashboard', '/calendar':'Kalendář', '/orders':'Zakázky',
   '/checklist':'Checklist prací', '/invoices':'Faktury',
   '/pricelist':'Ceník',
   '/products':'Produkty a sklad',
-  '/suppliers':'Dodavatelé', '/clients':'Klienti',
+  '/suppliers':'Dodavatelé',
+  '/receipts':'Účtenky a výdaje', '/clients':'Klienti',
   '/notifications':'Notifikace', '/settings':'Nastavení',
   '/profiles':'Profily a přístupy',
 }
@@ -45,27 +46,26 @@ export default function Layout({ children }) {
   }, [])
 
   const navGroups = [
-    { group:'Přehled', items:[
-      { to:'/', icon:LayoutDashboard, label:'Dashboard',       perm:'dashboard'  },
-      { to:'/calendar', icon:CalendarDays, label:'Kalendář',   perm:'calendar'   },
+    { group:'Denní práce', items:[
+      { to:'/',          icon:LayoutDashboard, label:'Dashboard',  perm:'dashboard'  },
+      { to:'/calendar',  icon:CalendarDays,    label:'Kalendář',   perm:'calendar'   },
+      { to:'/orders',    icon:ClipboardList,   label:'Zakázky',    perm:'orders'     },
+      { to:'/checklist', icon:CheckSquare,     label:'Checklist',  perm:'checklist'  },
     ]},
-    { group:'Práce', items:[
-      { to:'/orders',   icon:ClipboardList, label:'Zakázky',   perm:'orders'     },
-      { to:'/checklist',icon:CheckSquare,   label:'Checklist', perm:'checklist'  },
+    { group:'Obchod', items:[
+      { to:'/clients',       icon:Users,   label:'Klienti',     perm:'clients'       },
+      { to:'/invoices',      icon:Receipt,            label:'Faktury',    perm:'invoices'      },
+      { to:'/receipts',      icon:ReceiptIconLucide,  label:'Účtenky',    perm:'invoices'      },
+      { to:'/notifications', icon:Bell,    label:'Notifikace',  perm:'notifications', badge: unreadCount },
     ]},
-    { group:'Finance', items:[
-      { to:'/invoices', icon:Receipt,        label:'Faktury',  perm:'invoices'   },
-      { to:'/pricelist',icon:BadgeDollarSign,label:'Ceník',    perm:'pricelist'  },
-      { to:'/products', icon:Package,         label:'Produkty', perm:'pricelist'  },
-      { to:'/suppliers',icon:Building2,       label:'Dodavatelé',perm:'pricelist' },
-    ]},
-    { group:'Klienti', items:[
-      { to:'/clients',       icon:Users, label:'Klienti',      perm:'clients'    },
-      { to:'/notifications', icon:Bell,  label:'Notifikace',   perm:'notifications', badge: unreadCount },
+    { group:'Katalog', items:[
+      { to:'/pricelist', icon:BadgeDollarSign, label:'Ceník služeb', perm:'pricelist' },
+      { to:'/products',  icon:Package,         label:'Produkty',     perm:'pricelist' },
+      { to:'/suppliers', icon:Building2,       label:'Dodavatelé',   perm:'pricelist' },
     ]},
     { group:'Systém', items:[
-      { to:'/settings', icon:Settings, label:'Nastavení',      perm:'settings'   },
-      { to:'/profiles', icon:UserCircle,label:'Profily',       perm:null         },
+      { to:'/settings', icon:Settings,    label:'Nastavení', perm:'settings' },
+      { to:'/profiles', icon:UserCircle,  label:'Profily',   perm:null       },
     ]},
   ]
 
@@ -91,12 +91,13 @@ export default function Layout({ children }) {
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 overflow-y-auto px-3 py-3 space-y-4">
-        {navGroups.map(group => {
+      <nav className="flex-1 overflow-y-auto px-3 py-3 flex flex-col gap-4">
+        {navGroups.map((group, gIdx) => {
           const visibleItems = group.items.filter(item => !item.perm || can(item.perm))
           if (!visibleItems.length) return null
+          const isSystem = group.group === 'Systém'
           return (
-            <div key={group.group}>
+            <div key={group.group} className={cn(isSystem && 'mt-auto pt-3 border-t border-border')}>
               <p className="px-3 pb-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">{group.group}</p>
               <div className="space-y-0.5">
                 {visibleItems.map(item => (
@@ -108,7 +109,7 @@ export default function Layout({ children }) {
                     {({ isActive }) => (<>
                       <item.icon size={16} className={cn('flex-shrink-0', isActive?'text-green-600':'text-muted-foreground/70 group-hover:text-foreground/70')}/>
                       <span className="flex-1 truncate">{item.label}</span>
-                      {(item.badge||0)>0 && <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full text-white bg-destructive">{item.badge>9?'9+':item.badge}</span>}
+                      {(item.badge||0)>0 && <span className="min-w-[20px] h-5 px-1 inline-flex items-center justify-center text-[10px] font-bold rounded-full text-white bg-destructive">{item.badge>9?'9+':item.badge}</span>}
                     </>)}
                   </NavLink>
                 ))}
