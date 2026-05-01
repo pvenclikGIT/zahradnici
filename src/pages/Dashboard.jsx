@@ -20,7 +20,7 @@ const quickActions = [
 ]
 
 export default function Dashboard() {
-  const { clients, orders, invoices, resetDemo } = useApp()
+  const { clients, orders, invoices, receipts, resetDemo } = useApp()
   const loaded = usePageLoad(400)
   const [showReset, setShowReset] = useState(false)
   const [showMap, setShowMap] = useState(false)
