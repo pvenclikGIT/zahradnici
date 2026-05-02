@@ -935,3 +935,135 @@ export const defaultRefuels = [
   { id:4, vehicleId:1, date:d(-15), liters:50.0, pricePerL:43.2, total:2160, km:78180, station:'OMV Říčany',         notes:'' },
   { id:5, vehicleId:2, date:d(-20), liters:35.4, pricePerL:42.5, total:1505, km:42030, station:'Benzina',             notes:'' },
 ]
+
+
+// ── Equipment (vybaveni a naradi) ─────────────
+export const equipmentCategories = [
+  { id:'machines',  label:'Stroje',           icon:'⚙️', color:'bg-orange-50 text-orange-700 border-orange-200' },
+  { id:'tools',     label:'Nářadí ruční',     icon:'🔧', color:'bg-blue-50 text-blue-700 border-blue-200' },
+  { id:'cutting',   label:'Stříhací',         icon:'✂️', color:'bg-purple-50 text-purple-700 border-purple-200' },
+  { id:'fuel',      label:'Pohonné hmoty',    icon:'⛽', color:'bg-amber-50 text-amber-700 border-amber-200' },
+  { id:'safety',    label:'Ochranné pomůcky', icon:'🦺', color:'bg-yellow-50 text-yellow-700 border-yellow-200' },
+  { id:'irrigation',label:'Zavlažování',      icon:'💧', color:'bg-cyan-50 text-cyan-700 border-cyan-200' },
+  { id:'transport', label:'Přepravní',        icon:'🛒', color:'bg-gray-100 text-gray-700 border-gray-200' },
+  { id:'consumable',label:'Spotřební materiál',icon:'📦', color:'bg-green-50 text-green-700 border-green-200' },
+]
+
+export const equipmentConditions = [
+  { id:'ok',     label:'V pořádku', color:'bg-green-50 text-green-700 border-green-200',   dot:'bg-green-500' },
+  { id:'service',label:'V servisu', color:'bg-amber-50 text-amber-700 border-amber-200', dot:'bg-amber-500' },
+  { id:'broken', label:'Rozbité',   color:'bg-red-50 text-red-700 border-red-200',     dot:'bg-red-500' },
+]
+
+export const equipmentLocations = [
+  { id:'van',     label:'V dodávce',  icon:'🚐' },
+  { id:'workshop',label:'Dílna',      icon:'🏭' },
+  { id:'storage', label:'Sklad',      icon:'📦' },
+  { id:'home',    label:'U pracovníka',icon:'🏠' },
+]
+
+export const defaultEquipment = [
+  // STROJE
+  { id:1,  name:'Sekačka Honda HRX 537',     category:'machines', icon:'🚜', condition:'ok',      location:'van',      assignedTo:2, brand:'Honda', model:'HRX 537',   serial:'HRX537-2019-1234', notes:'Hlavní sekačka. Servis 1× ročně.', purchaseDate:abs(2019,4,12), lastUsed:d(-1) },
+  { id:2,  name:'Sekačka záložní Husqvarna', category:'machines', icon:'🚜', condition:'service', location:'workshop', assignedTo:null,brand:'Husqvarna',model:'LC 247',   serial:'HQ-247-9876',     notes:'V servisu — výměna nože.', purchaseDate:abs(2017,3,8),  lastUsed:d(-30) },
+  { id:3,  name:'Vertikutátor Wolf-Garten',  category:'machines', icon:'⚙️', condition:'ok',      location:'workshop', assignedTo:null,brand:'Wolf-Garten',model:'V 3.05 E',serial:'WG-V305-555',     notes:'Elektrický.', purchaseDate:abs(2020,3,15), lastUsed:d(-45) },
+  { id:4,  name:'Křovinořez Stihl FS 460',   category:'machines', icon:'🪚', condition:'ok',      location:'van',      assignedTo:2, brand:'Stihl',   model:'FS 460 C-EM', serial:'STIHL-FS460-001',   notes:'Profesionální. Vyžaduje servis za 50 mh.', purchaseDate:abs(2021,5,20), lastUsed:d(-5) },
+  { id:5,  name:'Foukač listí Stihl BG 86',  category:'machines', icon:'💨', condition:'ok',      location:'van',      assignedTo:2, brand:'Stihl',   model:'BG 86 C-E',  serial:'STIHL-BG86-002',     notes:'', purchaseDate:abs(2022,9,1),  lastUsed:d(-2) },
+  { id:6,  name:'Plotostřih Stihl HSA 60',   category:'machines', icon:'✂️', condition:'ok',      location:'workshop', assignedTo:null,brand:'Stihl',   model:'HSA 60',     serial:'STIHL-HSA60-003',    notes:'Aku. 36V baterie.', purchaseDate:abs(2022,4,10), lastUsed:d(-8) },
+  { id:7,  name:'Aerator nasávací',           category:'machines', icon:'⚙️', condition:'ok',      location:'storage',  assignedTo:null,brand:'Honda',   model:'AGS 1.0',    serial:'AGS-1234',           notes:'Použití na podzim a jaře.', purchaseDate:abs(2021,3,5),  lastUsed:d(-90) },
+  { id:8,  name:'Frézka pařezová',            category:'machines', icon:'⚙️', condition:'broken',  location:'workshop', assignedTo:null,brand:'Stump',   model:'Pro 50',     serial:'SP50-9999',          notes:'Rozbitý hřídel — čeká na opravu.', purchaseDate:abs(2018,6,1),  lastUsed:d(-60) },
+
+  // NÁŘADÍ RUČNÍ
+  { id:10, name:'Hrábě listové (3 ks)',       category:'tools',    icon:'🍂', condition:'ok',      location:'van',      assignedTo:null,brand:'Fiskars', model:'',           serial:'',                   notes:'3× plastové hrábě.', purchaseDate:abs(2023,3,1),  lastUsed:d(-1) },
+  { id:11, name:'Rýč ostrý',                  category:'tools',    icon:'⛏️', condition:'ok',      location:'van',      assignedTo:null,brand:'Fiskars', model:'Solid',      serial:'',                   notes:'', purchaseDate:abs(2022,4,5),  lastUsed:d(-3) },
+  { id:12, name:'Rýč plochý',                 category:'tools',    icon:'⛏️', condition:'ok',      location:'workshop', assignedTo:null,brand:'Fiskars', model:'',           serial:'',                   notes:'', purchaseDate:abs(2022,4,5),  lastUsed:d(-15) },
+  { id:13, name:'Lopata zahradní (2 ks)',     category:'tools',    icon:'⛏️', condition:'ok',      location:'van',      assignedTo:null,brand:'',         model:'',           serial:'',                   notes:'', purchaseDate:abs(2021,3,1),  lastUsed:d(-1) },
+  { id:14, name:'Vidle 4 hroty',              category:'tools',    icon:'🔱', condition:'ok',      location:'workshop', assignedTo:null,brand:'',         model:'',           serial:'',                   notes:'Pro kompost.', purchaseDate:abs(2020,3,1),  lastUsed:d(-20) },
+  { id:15, name:'Plečka ruční (2 ks)',        category:'tools',    icon:'🔧', condition:'ok',      location:'van',      assignedTo:null,brand:'AGRO CS',  model:'',           serial:'',                   notes:'', purchaseDate:abs(2023,4,12), lastUsed:d(-5) },
+  { id:16, name:'Konev zalévací 10 l',        category:'tools',    icon:'🪣', condition:'ok',      location:'van',      assignedTo:null,brand:'',         model:'',           serial:'',                   notes:'', purchaseDate:abs(2022,5,1),  lastUsed:d(-7) },
+  { id:17, name:'Kbelík 12 l (4 ks)',         category:'tools',    icon:'🪣', condition:'ok',      location:'van',      assignedTo:null,brand:'',         model:'',           serial:'',                   notes:'', purchaseDate:abs(2023,3,1),  lastUsed:d(-1) },
+  { id:18, name:'Kladivo + paličky',          category:'tools',    icon:'🔨', condition:'ok',      location:'workshop', assignedTo:null,brand:'',         model:'',           serial:'',                   notes:'Sada.', purchaseDate:abs(2020,1,1),  lastUsed:d(-30) },
+
+  // STŘÍHACÍ
+  { id:20, name:'Nůžky FELCO 6',              category:'cutting',  icon:'✂️', condition:'ok',      location:'van',      assignedTo:1, brand:'FELCO',   model:'6',          serial:'FELCO-6-001',        notes:'Janovy oblíbené. Brouseno před týdnem.', purchaseDate:abs(2021,2,1),  lastUsed:d(-1) },
+  { id:21, name:'Nůžky FELCO 2',              category:'cutting',  icon:'✂️', condition:'ok',      location:'van',      assignedTo:2, brand:'FELCO',   model:'2',          serial:'FELCO-2-002',        notes:'Tomášovy.', purchaseDate:abs(2022,3,1),  lastUsed:d(-1) },
+  { id:22, name:'Plotové nůžky ruční',        category:'cutting',  icon:'✂️', condition:'ok',      location:'van',      assignedTo:null,brand:'Fiskars', model:'PowerGear',  serial:'',                   notes:'', purchaseDate:abs(2022,5,1),  lastUsed:d(-10) },
+  { id:23, name:'Pila ruční zahradní',        category:'cutting',  icon:'🪚', condition:'ok',      location:'van',      assignedTo:null,brand:'Silky',   model:'Gomboy 240', serial:'',                   notes:'Skládací japonská pila.', purchaseDate:abs(2023,4,15), lastUsed:d(-20) },
+  { id:24, name:'Sekera tesařská',            category:'cutting',  icon:'🪓', condition:'ok',      location:'workshop', assignedTo:null,brand:'Fiskars', model:'X11',        serial:'',                   notes:'Pro štípání palivového dřeva.', purchaseDate:abs(2019,11,1), lastUsed:d(-90) },
+
+  // POHONNÉ HMOTY
+  { id:30, name:'Kanystr benzín 5 l',         category:'fuel',     icon:'⛽', condition:'ok',      location:'van',      assignedTo:null,brand:'',         model:'',           serial:'',                   notes:'Aktuálně PLNÝ. Natural 95.', purchaseDate:abs(2023,1,1),  lastUsed:d(-1) },
+  { id:31, name:'Kanystr benzín 20 l',        category:'fuel',     icon:'⛽', condition:'ok',      location:'workshop', assignedTo:null,brand:'',         model:'',           serial:'',                   notes:'Záloha — 1/2 plný.', purchaseDate:abs(2022,5,1),  lastUsed:d(-15) },
+  { id:32, name:'Kanystr směs 2T 5 l',        category:'fuel',     icon:'⛽', condition:'ok',      location:'van',      assignedTo:null,brand:'',         model:'',           serial:'',                   notes:'Pro křovinořez. Aktuálně PLNÝ.', purchaseDate:abs(2023,3,1),  lastUsed:d(-2) },
+  { id:33, name:'Olej 4T motorový 1 l',       category:'fuel',     icon:'🛢️', condition:'ok',      location:'workshop', assignedTo:null,brand:'Honda',   model:'10W-30',     serial:'',                   notes:'Pro sekačku. 2 litry zásoba.', purchaseDate:abs(2024,3,1),  lastUsed:d(-30) },
+  { id:34, name:'Olej řetězový 1 l',          category:'fuel',     icon:'🛢️', condition:'ok',      location:'van',      assignedTo:null,brand:'Stihl',   model:'BioPlus',    serial:'',                   notes:'Pro pily.', purchaseDate:abs(2024,2,1),  lastUsed:d(-5) },
+
+  // OCHRANNÉ POMŮCKY
+  { id:40, name:'Sluchátka tlumící (3 ks)',   category:'safety',   icon:'🎧', condition:'ok',      location:'van',      assignedTo:null,brand:'3M',       model:'Peltor',     serial:'',                   notes:'Pro každého pracovníka.', purchaseDate:abs(2023,3,1),  lastUsed:d(-1) },
+  { id:41, name:'Brýle ochranné (5 ks)',      category:'safety',   icon:'🥽', condition:'ok',      location:'van',      assignedTo:null,brand:'',         model:'',           serial:'',                   notes:'', purchaseDate:abs(2023,3,1),  lastUsed:d(-1) },
+  { id:42, name:'Rukavice pracovní (10 párů)',category:'safety',   icon:'🧤', condition:'ok',      location:'van',      assignedTo:null,brand:'',         model:'',           serial:'',                   notes:'Velikost L.', purchaseDate:abs(2024,2,1),  lastUsed:d(-1) },
+  { id:43, name:'Helma s sítí',                category:'safety',   icon:'⛑️', condition:'ok',      location:'van',      assignedTo:null,brand:'Stihl',   model:'',           serial:'',                   notes:'Pro práci s křovinořezem.', purchaseDate:abs(2022,4,1),  lastUsed:d(-3) },
+  { id:44, name:'Reflexní vesta (3 ks)',      category:'safety',   icon:'🦺', condition:'ok',      location:'van',      assignedTo:null,brand:'',         model:'',           serial:'',                   notes:'Při práci u silnice.', purchaseDate:abs(2023,3,1),  lastUsed:d(-15) },
+  { id:45, name:'Lékárnička',                 category:'safety',   icon:'⛑️', condition:'ok',      location:'van',      assignedTo:null,brand:'',         model:'',           serial:'',                   notes:'Kontrola: 2026. Vždy v dodávce!', purchaseDate:abs(2024,1,1),  lastUsed:d(-30) },
+
+  // ZAVLAŽOVÁNÍ
+  { id:50, name:'Hadice 25 m',                category:'irrigation',icon:'🚿', condition:'ok',      location:'van',      assignedTo:null,brand:'GARDENA', model:'Premium',    serial:'',                   notes:'', purchaseDate:abs(2023,4,1),  lastUsed:d(-5) },
+  { id:51, name:'Hadice 50 m',                category:'irrigation',icon:'🚿', condition:'ok',      location:'storage',  assignedTo:null,brand:'GARDENA', model:'',           serial:'',                   notes:'Pro velké zahrady.', purchaseDate:abs(2022,4,1),  lastUsed:d(-20) },
+  { id:52, name:'Postřikovač zahradní 5 l',   category:'irrigation',icon:'💧', condition:'ok',      location:'van',      assignedTo:null,brand:'GARDENA', model:'',           serial:'',                   notes:'Pro kapalná hnojiva.', purchaseDate:abs(2023,5,1),  lastUsed:d(-7) },
+  { id:53, name:'Konev velká 15 l',           category:'irrigation',icon:'🪣', condition:'ok',      location:'van',      assignedTo:null,brand:'',         model:'',           serial:'',                   notes:'', purchaseDate:abs(2022,5,1),  lastUsed:d(-3) },
+  { id:54, name:'Tryska zahradní s pistolí',  category:'irrigation',icon:'💧', condition:'ok',      location:'van',      assignedTo:null,brand:'GARDENA', model:'Premium',    serial:'',                   notes:'', purchaseDate:abs(2023,6,1),  lastUsed:d(-5) },
+
+  // PŘEPRAVNÍ
+  { id:60, name:'Kolečko stavební',           category:'transport',icon:'🛒', condition:'ok',      location:'van',      assignedTo:null,brand:'',         model:'',           serial:'',                   notes:'85 l koryto.', purchaseDate:abs(2021,3,1),  lastUsed:d(-2) },
+  { id:61, name:'Kolečko zahradní',           category:'transport',icon:'🛒', condition:'ok',      location:'workshop', assignedTo:null,brand:'',         model:'',           serial:'',                   notes:'Pro lehký materiál.', purchaseDate:abs(2022,3,1),  lastUsed:d(-15) },
+  { id:62, name:'Plachta krycí 4×5 m',        category:'transport',icon:'📐', condition:'ok',      location:'van',      assignedTo:null,brand:'',         model:'',           serial:'',                   notes:'Na shrabování.', purchaseDate:abs(2023,4,1),  lastUsed:d(-1) },
+  { id:63, name:'Pásy upínací sada',          category:'transport',icon:'🪢', condition:'ok',      location:'van',      assignedTo:null,brand:'',         model:'',           serial:'',                   notes:'Pro upevnění nákladu.', purchaseDate:abs(2022,1,1),  lastUsed:d(-10) },
+  { id:64, name:'Žebřík 3 m',                 category:'transport',icon:'🪜', condition:'ok',      location:'van',      assignedTo:null,brand:'',         model:'',           serial:'',                   notes:'Pro stříhání vyšších stromů.', purchaseDate:abs(2021,4,1),  lastUsed:d(-7) },
+
+  // SPOTŘEBNÍ
+  { id:70, name:'Provázek zahradní',          category:'consumable',icon:'🧵', condition:'ok',      location:'van',      assignedTo:null,brand:'',         model:'',           serial:'',                   notes:'2 role.', purchaseDate:abs(2024,3,1),  lastUsed:d(-3) },
+  { id:71, name:'Pytle na bioodpad (50 ks)',  category:'consumable',icon:'🗑️', condition:'ok',      location:'van',      assignedTo:null,brand:'',         model:'120 l',      serial:'',                   notes:'Aktuálně 38 ks zbývá.', purchaseDate:abs(2024,3,15), lastUsed:d(-1) },
+  { id:72, name:'Vázací pásky',               category:'consumable',icon:'🪢', condition:'ok',      location:'van',      assignedTo:null,brand:'',         model:'',           serial:'',                   notes:'Pro vazání na konstrukce.', purchaseDate:abs(2023,4,1),  lastUsed:d(-5) },
+  { id:73, name:'Lepicí páska + provázky',    category:'consumable',icon:'📦', condition:'ok',      location:'van',      assignedTo:null,brand:'',         model:'',           serial:'',                   notes:'Drobnosti.', purchaseDate:abs(2024,1,1),  lastUsed:d(-10) },
+]
+
+// ── Service-equipment mapping ──
+// What equipment is needed for each type of service
+export const serviceEquipmentMap = {
+  'sekani':       [1, 5, 10, 30, 33, 40, 41, 42, 71],  // Sekání: sekačka, foukač, hrábě, benzin, olej, sluchátka, brýle, rukavice, pytle
+  'mulcovani':    [11, 13, 60, 17, 42, 16],            // Mulčování: rýč, lopata, kolečko, kbelík, rukavice, konev
+  'plot':         [4, 6, 23, 32, 41, 42, 64],          // Plot: křovinořez, plotostřih, pila, směs, brýle, rukavice, žebřík
+  'plenie':       [15, 11, 17, 42, 71],                // Plení: plečka, rýč, kbelík, rukavice, pytle
+  'vertikutace':  [3, 14, 60, 50, 42],                 // Vertikutace: vertikutátor, vidle, kolečko, hadice, rukavice
+  'hnojeni':      [52, 53, 16, 42, 50],                // Hnojení: postřikovač, konev velká, konev malá, rukavice, hadice
+  'vysadba':      [11, 12, 13, 17, 60, 50, 53, 42, 70],// Výsadba: rýč, lopata, kbelík, kolečko, hadice, konev, rukavice, provázek
+  'strihani':     [20, 21, 22, 23, 64, 41, 42, 62],    // Stříhání: nůžky, pily, žebřík, brýle, rukavice, plachta
+  'urad':         [50, 52, 17, 42, 71],                // Údržba: hadice, postřikovač, kbelík, rukavice, pytle
+  'pokaceni':     [4, 8, 24, 23, 64, 41, 42, 43, 44],  // Pokácení: křovinořez, frézka, sekera, pila, žebřík, brýle, rukavice, helma, vesta
+  'standardni':   [10, 11, 13, 17, 42, 30],            // Default: hrábě, rýč, lopata, kbelík, rukavice, benzin
+}
+
+// Helper: detect service type from name to find equipment
+export function detectServiceType(serviceName) {
+  const s = (serviceName || '').toLowerCase()
+  if (s.includes('sek')) return 'sekani'
+  if (s.includes('mulč'))  return 'mulcovani'
+  if (s.includes('plot'))  return 'plot'
+  if (s.includes('plení') || s.includes('plet')) return 'plenie'
+  if (s.includes('vertikut')) return 'vertikutace'
+  if (s.includes('hnoj')) return 'hnojeni'
+  if (s.includes('výsadb') || s.includes('saze') || s.includes('výsad')) return 'vysadba'
+  if (s.includes('stříh') || s.includes('řez'))  return 'strihani'
+  if (s.includes('pokácení') || s.includes('kácení') || s.includes('strom')) return 'pokaceni'
+  if (s.includes('údržb')) return 'urad'
+  return 'standardni'
+}
+
+// Templates for pre-trip checklists
+export const equipmentTemplates = [
+  { id:1, name:'Sekací den',     icon:'🚜', equipmentIds:[1, 5, 10, 30, 32, 33, 40, 41, 42, 71, 50, 60] },
+  { id:2, name:'Sázecí den',     icon:'🌱', equipmentIds:[11, 12, 13, 17, 60, 50, 53, 42, 70, 16, 71] },
+  { id:3, name:'Plotový den',    icon:'✂️', equipmentIds:[4, 6, 22, 23, 32, 41, 42, 43, 64, 62, 71] },
+  { id:4, name:'Vertikutace',    icon:'⚙️', equipmentIds:[3, 14, 60, 50, 42, 30, 71] },
+  { id:5, name:'Velký úklid',    icon:'🍂', equipmentIds:[5, 10, 60, 62, 71, 42, 41] },
+]

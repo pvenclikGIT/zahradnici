@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useCallback, useMemo } from 'react'
-import { defaultClients, defaultOrders, defaultInvoices, defaultServices, defaultProducts, defaultSuppliers, defaultReceipts, defaultWorkers, defaultAbsences, defaultQuotes, defaultContracts, defaultComplaints, defaultVehicles, defaultTrips, defaultRefuels } from '../data'
+import { defaultClients, defaultOrders, defaultInvoices, defaultServices, defaultProducts, defaultSuppliers, defaultReceipts, defaultWorkers, defaultAbsences, defaultQuotes, defaultContracts, defaultComplaints, defaultVehicles, defaultTrips, defaultRefuels, defaultEquipment } from '../data'
 import { useAutoNotifications } from './useNotifications'
 import { useRecurring } from './useRecurring'
 
@@ -25,6 +25,7 @@ export function AppProvider({ children }) {
   const [vehicles,  setVehiclesRaw]  = useState(() => load('vehicles',  defaultVehicles))
   const [trips,     setTripsRaw]     = useState(() => load('trips',     defaultTrips))
   const [refuels,   setRefuelsRaw]   = useState(() => load('refuels',   defaultRefuels))
+  const [equipment, setEquipmentRaw] = useState(() => load('equipment', defaultEquipment))
   // Manual read state overlay
   const [readIds, setReadIds] = useState(() => load('readNotifIds', []))
 
@@ -44,6 +45,7 @@ export function AppProvider({ children }) {
   const setVehicles  = mk(setVehiclesRaw,  'vehicles')
   const setTrips     = mk(setTripsRaw,     'trips')
   const setRefuels   = mk(setRefuelsRaw,   'refuels')
+  const setEquipment = mk(setEquipmentRaw, 'equipment')
 
   // Live generated notifications
   const rawNotifications = useAutoNotifications(clients, orders, invoices)
@@ -92,6 +94,7 @@ export function AppProvider({ children }) {
     setAbsences(defaultAbsences)
     setQuotes(defaultQuotes); setContracts(defaultContracts); setComplaints(defaultComplaints)
     setVehicles(defaultVehicles); setTrips(defaultTrips); setRefuels(defaultRefuels)
+    setEquipment(defaultEquipment)
     setReadIds([]); save('readNotifIds',[])
   }, [])
 
@@ -188,6 +191,12 @@ export function AppProvider({ children }) {
   const addRefuel = useCallback(r => setRefuels([...refuels, { ...r, id: Date.now() }]), [refuels, setRefuels])
   const deleteRefuel = useCallback(id => setRefuels(refuels.filter(r => r.id !== id)), [refuels, setRefuels])
 
+
+  // ── Equipment CRUD ──
+  const addEquipment = useCallback(e => setEquipment([...equipment, { ...e, id: Date.now() }]), [equipment, setEquipment])
+  const updateEquipment = useCallback(e => setEquipment(equipment.map(x => x.id === e.id ? e : x)), [equipment, setEquipment])
+  const deleteEquipment = useCallback(id => setEquipment(equipment.filter(e => e.id !== id)), [equipment, setEquipment])
+
   return (
     <AppContext.Provider value={{
       clients, orders, invoices, services,
@@ -209,6 +218,7 @@ export function AppProvider({ children }) {
       vehicles, trips, refuels,
       addVehicle, updateVehicle, deleteVehicle,
       addTrip, deleteTrip, addRefuel, deleteRefuel,
+      equipment, addEquipment, updateEquipment, deleteEquipment,
       markNotifRead, markAllNotifsRead,
       nextInvoiceNum, resetDemo,
     }}>

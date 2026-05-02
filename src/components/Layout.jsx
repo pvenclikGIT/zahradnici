@@ -11,10 +11,10 @@ import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts'
 import {
   LayoutDashboard, CalendarDays, ClipboardList, CheckSquare,
   Receipt, BadgeDollarSign, Users, Bell, Settings,
-  Plus, Menu, X, Leaf, Search, LogOut, UserCircle, Package, Building2, Receipt as ReceiptIconLucide, Users2, FileEdit, FileSignature, AlertTriangle, Truck, ChevronDown, BookOpen
+  Plus, Menu, X, Leaf, Search, LogOut, UserCircle, Package, Building2, Receipt as ReceiptIconLucide, Users2, FileEdit, FileSignature, AlertTriangle, Truck, ChevronDown, BookOpen, Wrench
 } from 'lucide-react'
 
-const VERSION = 'v2.6.0'
+const VERSION = 'v2.7.0'
 
 const pageTitles = {
   '/':'Dashboard', '/calendar':'Kalendář', '/orders':'Zakázky',
@@ -62,6 +62,7 @@ export default function Layout({ children }) {
       { to:'/team',      icon:Users2,          label:'Tým',        perm:'calendar'   },
       { to:'/orders',    icon:ClipboardList,   label:'Zakázky',    perm:'orders'     },
       { to:'/checklist', icon:CheckSquare,     label:'Checklist',  perm:'checklist'  },
+      { to:'/equipment', icon:Wrench,          label:'Vybavení',   perm:'orders'     },
     ]},
     { group:'Obchod', defaultOpen: true, items:[
       { to:'/clients',       icon:Users,                  label:'Klienti',      perm:'clients'       },

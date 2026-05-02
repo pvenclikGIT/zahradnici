@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useApp } from '../hooks/useApp'
+import { Wrench, Sunrise, ArrowRight as ArrowRightIcon } from 'lucide-react'
 import { formatCurrency, formatDate, getInitials, monthlyRevenue } from '../data'
 import { StatCard, Card, CardHeader, CardTitle, CardContent, Button, StatusBadge, EmptyState, toast } from '../components/ui'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
@@ -389,6 +390,29 @@ export default function Dashboard() {
         </Card>
       )}
 
+
+
+      {/* Pre-trip reminder for today */}
+      {(() => {
+        const todayOrders = orders.filter(o => o.date === todayISO && o.status !== 'completed')
+        if (todayOrders.length === 0) return null
+        return (
+          <Link to="/equipment" className="block">
+            <Card className="bg-gradient-to-br from-amber-50 to-orange-50 border-amber-300 hover:shadow-lg hover:-translate-y-px transition-all">
+              <CardContent className="p-4 sm:p-5 flex items-center gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-amber-500 flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-200">
+                  <Sunrise size={22} className="text-white"/>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-bold tracking-tight text-base">Připravit vybavení na dnešek</p>
+                  <p className="text-sm text-muted-foreground">{todayOrders.length} {todayOrders.length === 1 ? 'zakázka' : todayOrders.length < 5 ? 'zakázky' : 'zakázek'} — projděte si pre-trip checklist</p>
+                </div>
+                <Wrench size={18} className="text-amber-600 flex-shrink-0"/>
+              </CardContent>
+            </Card>
+          </Link>
+        )
+      })()}
 
       {/* Team status today */}
       <Card>

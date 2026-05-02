@@ -20,6 +20,7 @@ import { Contracts } from './pages/Contracts'
 import { Complaints } from './pages/Complaints'
 import { Vehicles } from './pages/Vehicles'
 import { Help } from './pages/Help'
+import { Equipment } from './pages/Equipment'
 import { Login } from './pages/Login'
 import { Profiles } from './pages/Profiles'
 import { Portal } from './pages/Portal'
@@ -68,6 +69,7 @@ function AppRoutes() {
             <Route path="/complaints"    element={<ProtectedRoute permission="clients"><Complaints/></ProtectedRoute>}/>
             <Route path="/vehicles"      element={<ProtectedRoute permission="orders"><Vehicles/></ProtectedRoute>}/>
             <Route path="/help"          element={<Help/>}/>
+            <Route path="/equipment"     element={<ProtectedRoute permission="orders"><Equipment/></ProtectedRoute>}/>
             <Route path="/orders"        element={<ProtectedRoute permission="orders"><Orders/></ProtectedRoute>}/>
             <Route path="/checklist"     element={<ProtectedRoute permission="checklist"><Checklist/></ProtectedRoute>}/>
             <Route path="/invoices"      element={<ProtectedRoute permission="invoices"><Invoices/></ProtectedRoute>}/>

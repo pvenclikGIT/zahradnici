@@ -6,7 +6,7 @@ import {
   Search, CheckCircle, Sparkles, Star, Zap, Clock, Users, ClipboardList,
   Calendar as CalIcon, Receipt, FileEdit, FileSignature, AlertTriangle,
   Truck, Package, Building2, BadgeDollarSign, CheckSquare, Bell,
-  Mail, Globe, Heart, Camera
+  Mail, Globe, Heart, Camera, Wrench
 } from 'lucide-react'
 import { cn } from '../lib/utils'
 
@@ -269,6 +269,31 @@ const sections = [
       { type:'tip', text:'V detailu vidíte všechny produkty od daného dodavatele a jejich ceny' },
     ]
   },
+  {
+    id: 'equipment', icon: Wrench, title: 'Vybavení a pre-trip',
+    short: 'Inventář nářadí + ranní příprava',
+    content: [
+      { type:'p', text:'Sekce má dvě záložky: Pre-trip checklist (ranní příprava před výjezdem) a Inventář (kompletní seznam všeho vybavení).' },
+      { type:'h', text:'Pre-trip checklist — ráno v autě' },
+      { type:'list', items:[
+        'Aplikace si automaticky najde dnešní zakázky a podle typu prací (sekání, mulčování, plot...) navrhne potřebné vybavení',
+        'U každé položky velká tlačítka MÁM ✓ (zelené) / NEMÁM ✗ (červené)',
+        'Progress bar nahoře ukazuje kolik % je hotové',
+        'Můžete použít předpřipravené šablony — Sekací den, Sázecí den, Plotový den, Vertikutace, Velký úklid',
+        'Přidávejte vlastní položky ad-hoc ("nesmím zapomenout vodu")',
+        'Velké sticky tlačítko dole "🚀 Hotovo, jedu" se aktivuje až když vše máte',
+      ]},
+      { type:'h', text:'Inventář vybavení' },
+      { type:'list', items:[
+        '63 demo položek v 8 kategoriích (stroje, nářadí, stříhací, palivo, ochrana, zavlažování, přeprava, spotřební)',
+        'Filtry podle umístění (V dodávce / Dílna / Sklad)',
+        'Stav: V pořádku / V servisu / Rozbité',
+        'Přiřazení k pracovníkovi (FELCO 6 → Jan, FELCO 2 → Tomáš)',
+        'CRUD — přidat, upravit, smazat',
+      ]},
+      { type:'tip', text:'Ráno v autě: Dashboard → klikněte na žlutou kartu "Připravit vybavení na dnešek" → projděte seznam → tlačítko Hotovo' },
+    ]
+  },
 ]
 
 // ── Quick start steps ──
@@ -276,40 +301,62 @@ const quickStartSteps = [
   { num: 1, title: 'Přihlaste se',
     text: 'Otevřete aplikaci → vyberte profil (Jan/Tomáš/Eva) → zadejte PIN. Jan má PIN 1234.' },
   { num: 2, title: 'Projděte Dashboard',
-    text: 'Hlavní obrazovka s přehledem dne. Najdete tu vše co potřebujete vědět ráno.' },
-  { num: 3, title: 'Vytvořte první zakázku',
-    text: 'Klikněte FAB tlačítko (+) → Nová zakázka → vyberte klienta a služby. Cena se napočítá sama.' },
-  { num: 4, title: 'V terénu otevřete Checklist',
-    text: 'V den zakázky → Checklist → otevřete dnešní zakázku → spusťte časomíru → odškrtávejte úkoly.' },
-  { num: 5, title: 'Po dokončení vytvořte fakturu',
+    text: 'Hlavní obrazovka s přehledem dne — tržby, výdaje, zisk, stav týmu, dnešní zakázky.' },
+  { num: 3, title: 'Pošlete nabídku klientovi',
+    text: 'Nabídky → Nová nabídka → vyberte klienta → přidejte položky z ceníku → odešlete. Když klient přijme, jedním klikem konvertujete na fakturu.' },
+  { num: 4, title: 'Vytvořte zakázku',
+    text: 'FAB tlačítko (+) → Nová zakázka → vyberte klienta a služby. Cena se napočítá. Aplikace upozorní pokud má pracovník absenci.' },
+  { num: 5, title: 'Ráno v autě — pre-trip',
+    text: 'Vybavení → záložka Pre-trip → projděte automaticky navržené nářadí → MÁM ✓ / NEMÁM ✗ → "Hotovo, jedu!"' },
+  { num: 6, title: 'V terénu — Checklist',
+    text: 'Checklist → otevřete dnešní zakázku → spusťte časomíru → odškrtávejte úkoly. Foťte před/po.' },
+  { num: 7, title: 'Po dokončení — faktura',
     text: 'Po dokončení zakázky aplikace nabídne vystavit fakturu. Klikněte ano. Hotovo.' },
+  { num: 8, title: 'Nákup materiálu — naskenujte účtenku',
+    text: 'Účtenky → Naskenovat účtenku → vyfoťte → propojte s klientem a zakázkou → označte k refakturaci.' },
 ]
 
 // ── Tips ──
 const tips = [
+  { icon: '🌅', title: 'Pre-trip ráno v autě', text: 'Dashboard má žlutou kartu "Připravit vybavení". Klik → projdete seznam nářadí pro dnešní zakázky. Velká tlačítka MÁM/NEMÁM. Ideální v autě.' },
   { icon: '⌘K', title: 'Globální vyhledávání', text: 'Klávesa Cmd+K (nebo K) otevře vyhledávač přes celou aplikaci — najde klienty, zakázky, faktury.' },
   { icon: '+', title: 'FAB tlačítko na mobilu', text: 'Velké zelené tlačítko + vpravo dole. 5 rychlých akcí: Nová zakázka, klient, faktura, produkt, naskenovat účtenku.' },
+  { icon: '📑', title: 'Nabídka → Faktura', text: 'Když klient přijme nabídku, klikněte "Vytvořit fakturu" v detailu nabídky. Položky se zkopírují automaticky.' },
+  { icon: '📜', title: 'MRR — měsíční obrat', text: 'Smlouvy nahoře ukazují součet měsíčních paušálů aktivních smluv. Klíčový ukazatel stability příjmů.' },
   { icon: '👈', title: 'Swipe gesta', text: 'Na mobilu: swipe doleva na kartě = smazat / dokončit. Swipe doprava = duplikovat / označit.' },
   { icon: '📷', title: 'OCR účtenek', text: 'V Účtenkách → Naskenovat → vyfotíte účtenku → aplikace rozpozná částku a dodavatele automaticky.' },
-  { icon: '🌙', title: 'Tmavý režim', text: 'V Nastavení → vlevo dole najdete přepínač tmavého režimu. Šetří baterku a oči.' },
+  { icon: '💰', title: 'Refakturace s marží', text: 'Účtenku zaškrtnete "Refakturovat klientovi" + marže (např. 15%). Aplikace navrhne připojit k další faktuře.' },
+  { icon: '🚗', title: 'Kniha jízd', text: 'Vozidla → záložka Jízdy. Zaznamenávejte stav km, účel, klienta. Daňové výhody.' },
+  { icon: '⚠️', title: 'Reklamace', text: 'Pokud klient něco reklamuje, vytvořte záznam s prioritou. Track od otevření až po vyřešení.' },
+  { icon: '📌', title: 'Šablony pre-tripu', text: 'Pre-trip → Šablony. 5 hotových: Sekací den, Sázecí den, Plotový den, Vertikutace, Velký úklid.' },
+  { icon: '🌙', title: 'Tmavý režim', text: 'V Nastavení najdete přepínač tmavého režimu. Šetří baterku a oči.' },
   { icon: '🔄', title: 'Pull to refresh', text: 'Na mobilu na hlavních stránkách stáhněte prstem dolů od horního okraje pro refresh dat.' },
   { icon: '🎯', title: 'Klávesové zkratky', text: 'Stiskněte ? pro zobrazení všech klávesových zkratek (N=nová zakázka, C=nový klient, F=faktura...).' },
-  { icon: '📌', title: 'Sbalený sidebar', text: 'Klikněte na nadpis skupiny v menu (např. KATALOG) pro sbalení/rozbalení. Stav se uloží.' },
+  { icon: '📁', title: 'Sbalený sidebar', text: 'Klikněte na nadpis skupiny v menu (např. KATALOG) pro sbalení/rozbalení. Stav se uloží.' },
   { icon: '👤', title: 'Klientský portál', text: 'Sdílejte odkaz /portal/[id] s PIN 4455 — klient vidí své zakázky, faktury a může komunikovat.' },
-  { icon: '💰', title: 'Refakturace', text: 'V účtenkách zaškrtněte "Refakturovat klientovi" + marži. Aplikace navrhne připojit k další faktuře.' },
+  { icon: '👥', title: 'Tým a absence', text: 'Tomáš požádá o volno → notifikace majiteli → schválení. Při tvorbě zakázky aplikace automaticky upozorní na konflikty.' },
+  { icon: '🏢', title: 'Oblíbení dodavatelé', text: 'Klikněte ❤ u dodavatele. Filtr "Oblíbení" zobrazí TOP partnery. Oblíbení se řadí navrch.' },
 ]
 
 // ── FAQ ──
 const faq = [
+  { q: 'Jak začít používat aplikaci ráno?', a: 'Otevřete Dashboard → uvidíte žlutou kartu "Připravit vybavení na dnešek". Klik → projedete pre-trip checklist v autě → "Hotovo, jedu". V terénu otevřete Checklist a pracujte.' },
+  { q: 'Jak funguje pre-trip checklist?', a: 'Aplikace si přečte dnešní zakázky, detekuje typ prací (sekání, mulčování, plot...) a navrhne přesně to nářadí které potřebujete. Velká tlačítka MÁM/NEMÁM pro tap v autě.' },
+  { q: 'Jaký je rozdíl mezi nabídkou a fakturou?', a: 'Nabídka je dokument PŘED zakázkou — klient ji může přijmout/odmítnout. Faktura je doklad PO dokončené zakázce — klient ji musí zaplatit. Z přijaté nabídky lze fakturu vytvořit jedním klikem.' },
+  { q: 'Co je smlouva a kdy ji použít?', a: 'Smlouva = dlouhodobá dohoda s paušální cenou (např. celoroční údržba za 8500 Kč/měsíc). Pro stálé klienty kde se práce opakuje. MRR (měsíční obrat) je klíčový ukazatel.' },
   { q: 'Kde se ukládají moje data?', a: 'Lokálně ve vašem prohlížeči (localStorage). Když smažete data prohlížeče, data zmizí. Pro zálohu použijte Nastavení → Export.' },
   { q: 'Jak přidám nového pracovníka?', a: 'Sekce Profily → Nový profil. Zadejte jméno, roli (zahradník/účetní/majitel), barvu a PIN.' },
-  { q: 'Funguje aplikace offline?', a: 'Ano. Po prvním načtení můžete pracovat bez internetu. Změny se uloží lokálně.' },
+  { q: 'Tomáš si chce vzít volno — jak na to?', a: 'Tomáš jde do Tým → Požádat o volno → vybere typ a datum. Žádost přijde Janovi, který schvaluje/zamítá v sekci Tým.' },
+  { q: 'Funguje aplikace offline?', a: 'Ano. Po prvním načtení můžete pracovat bez internetu. Změny se uloží lokálně a synchronizují při příštím připojení.' },
   { q: 'Jak vyexportuji data do Excelu?', a: 'Nastavení → Export. Můžete stáhnout CSV se všemi klienty nebo fakturami pro Excel.' },
-  { q: 'Mohu zakázku upravit po vytvoření?', a: 'Ano. V seznamu zakázek klikněte na zakázku → tlačítko Upravit. Cena se přepočte.' },
-  { q: 'Co znamená MRR ve smlouvách?', a: 'Monthly Recurring Revenue — měsíční obrat z paušálů. Klíčový ukazatel stability příjmů.' },
-  { q: 'Jak mám naskenovat účtenku?', a: 'Účtenky → tlačítko "Naskenovat účtenku" → klikněte "Vyfotit" → aplikace rozpozná údaje → potvrdíte.' },
+  { q: 'Co znamená MRR ve smlouvách?', a: 'Monthly Recurring Revenue — měsíční obrat z paušálů. Součet měsíčních cen aktivních smluv. Klíčový ukazatel stability příjmů.' },
+  { q: 'Jak mám naskenovat účtenku?', a: 'Účtenky → tlačítko "Naskenovat účtenku" → klikněte "Vyfotit" → aplikace rozpozná údaje → potvrdíte → propojíte s klientem.' },
+  { q: 'Co je refakturace nákladů?', a: 'V účtence zaškrtnete "Refakturovat klientovi" + marže (např. 15%). Aplikace navrhne připojit k jeho další faktuře. Náklad pro firmu se zhodnotí.' },
+  { q: 'Klient něco reklamuje. Co s tím?', a: 'Reklamace → Nová → vyberte klienta + zakázku → popište problém → priorita. Track od Otevřená → Řeší se → Vyřešená. Aplikace měří průměrnou dobu řešení.' },
+  { q: 'Jak vést knihu jízd?', a: 'Vozidla → záložka Jízdy → zaznamenávejte stav km před a po, účel jízdy a klienta. Pro daňové účely.' },
   { q: 'Co dělat když zapomenu PIN?', a: 'V Nastavení → Resetovat aplikaci. POZOR: smaže všechna data. Lepší si PIN někam zaznamenat.' },
-  { q: 'Jak změnit logo na faktuře?', a: 'V současné verzi je logo pevné. V budoucí verzi přidáme nahrání vlastního loga.' },
+  { q: 'Jak nastavit ikonu aplikace na ploše telefonu?', a: 'Otevřete v Safari/Chrome → Sdílet → Přidat na plochu. Aplikace se nainstaluje jako PWA — chová se jako nativní aplikace.' },
+  { q: 'Aplikace mě ráno upozorní na zakázky?', a: 'Dashboard automaticky ukazuje žlutou kartu "Připravit vybavení" pokud máte dnes zakázky. Plus notifikace v menu.' },
   { q: 'Mohu poslat fakturu emailem?', a: 'Tlačítko "Odeslat" v náhledu faktury simuluje odeslání. Pro reálné odeslání zatím použijte stažený PDF a vlastní email.' },
 ]
 
@@ -565,7 +612,7 @@ export function Help() {
           </Card>
 
           <div className="pt-2 text-center">
-            <p className="text-xs text-muted-foreground">ZahradaPro · verze 2.5</p>
+            <p className="text-xs text-muted-foreground">ZahradaPro · verze 2.7</p>
             <p className="text-[11px] text-muted-foreground/60 mt-0.5">Vyrobeno s láskou pro zahradnické firmy v ČR 🌱</p>
           </div>
         </div>
